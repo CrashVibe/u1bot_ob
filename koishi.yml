@@ -59,11 +59,6 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
-  '@u1bot/fortune:n685sd': {}
-  whitelist:74unvj:
-    $if: env.NODE_ENV !== 'development'
-    alertInfo: 姚奕不对外开放哦～
-    manager:
-      - ${{ env.WHITELIST_MANAGER }}
+  "@u1bot/fortune:n685sd": {}
 nickname:
   - 姚奕
