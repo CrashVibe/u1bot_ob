@@ -51,7 +51,7 @@ plugins:
       path: data/koishi.db
     assets-local:zbu459: {}
   group:adapter:
-    $if: env.NODE_ENV === 'production'
+    $if: env.NODE_ENV !== 'development'
     adapter-onebot:zjekt1:
       selfId: ${{ env.ONEBOT_SELF_ID }}
       path: /onebot/koishi
@@ -61,7 +61,7 @@ plugins:
       root: .
   '@u1bot/fortune:n685sd': {}
   whitelist:74unvj:
-    $if: env.NODE_ENV === 'production'
+    $if: env.NODE_ENV !== 'development'
     alertInfo: 姚奕不对外开放哦～
     manager:
       - ${{ env.WHITELIST_MANAGER }}
