@@ -41,15 +41,29 @@ plugins:
     status:t02hrz: {}
     theme-vanilla:suxbn7: {}
   group:storage:
-    ~database-mysql:uaaort:
-      database: koishi
+    database-mysql:uaaort:
+      $if: env.DATABASE_TYPE === 'mysql'
+      database: ${{ env.MYSQL_DATABASE }}
+      user: ${{ env.MYSQL_USER }}
+      password: ${{ env.MYSQL_PASSWORD }}
     database-sqlite:7gog12:
+      $if: env.DATABASE_TYPE === 'sqlite'
       path: data/koishi.db
     assets-local:zbu459: {}
   group:adapter:
-    ~adapter-onebot:zjekt1: {}
+    $if: env.NODE_ENV === 'production'
+    adapter-onebot:zjekt1:
+      selfId: ${{ env.ONEBOT_SELF_ID }}
+      path: /onebot/koishi
   group:develop:
     $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
   '@u1bot/fortune:n685sd': {}
+  whitelist:74unvj:
+    $if: env.NODE_ENV === 'production'
+    alertInfo: 姚奕不对外开放哦～
+    manager:
+      - ${{ env.WHITELIST_MANAGER }}
+nickname:
+  - 姚奕

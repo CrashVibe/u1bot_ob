@@ -5011,6 +5011,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"koishi-plugin-whitelist@npm:1.1.0":
+  version: 1.1.0
+  resolution: "koishi-plugin-whitelist@npm:1.1.0"
+  peerDependencies:
+    koishi: ^4.12.5
+  checksum: 10c0/0241b9bd70f1dd453178cf33cb38291eb5d64cda7040aeb7ae4903944e56dd9c7c524f45d6f3b2b4e322a056e0cedafe5a5feca6426dac56e3e61950c5ee4bec
+  languageName: node
+  linkType: hard
+
 "koishi@npm:^4.18.7":
   version: 4.18.8
   resolution: "koishi@npm:4.18.8"
@@ -6735,6 +6744,7 @@ __metadata:
     koishi-plugin-rate-limit: "npm:^2.0.4"
     koishi-plugin-telemetry: "npm:^0.2.3"
     koishi-plugin-theme-vanilla: "npm:^1.1.0"
+    koishi-plugin-whitelist: "npm:1.1.0"
     tsx: "npm:^4.16.2"
     typescript: "npm:^5.6.2"
     yakumo: "npm:^1.0.0-beta.21"
