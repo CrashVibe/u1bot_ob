@@ -7,7 +7,7 @@ plugins:
     ~server-satori:y4ghj6: {}
     ~server-temp:l29fno: {}
   group:basic:
-    ~admin:j1m9d2: {}
+    admin:j1m9d2: {}
     ~bind:l1lyq4: {}
     commands:ljqmfh: {}
     help:q5x8dm: {}
@@ -51,7 +51,6 @@ plugins:
       path: data/koishi.db
     assets-local:zbu459: {}
   group:adapter:
-    $if: env.NODE_ENV !== 'development'
     adapter-onebot:zjekt1:
       selfId: ${{ env.ONEBOT_SELF_ID }}
       path: /onebot/koishi
@@ -59,6 +58,9 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
-  "@u1bot/fortune:n685sd": {}
+  '@u1bot/fortune:n685sd': {}
+  '@u1bot/coin:h9nufv': {}
+  '@u1bot/cave:nx8xbx':
+    managers: ${{ env.MANAGER.split(',') }}
 nickname:
   - 姚奕

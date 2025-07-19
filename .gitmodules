@@ -1,3 +1,11 @@
 [submodule "external/fortune"]
 	path = external/fortune
     url = https://github.com/CrashVibe/fortune
+
+[submodule "external/coin"]
+	path = external/coin
+    url = https://github.com/CrashVibe/coin
+
+[submodule "external/cave"]
+	path = external/cave
+    url = https://github.com/CrashVibe/cave
