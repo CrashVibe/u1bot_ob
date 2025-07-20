@@ -31,3 +31,4 @@ tsconfig.tsbuildinfo
 .yarn
 .vscode
 .env
+mir.py

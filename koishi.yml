@@ -62,5 +62,10 @@ plugins:
   '@u1bot/coin:h9nufv': {}
   '@u1bot/cave:nx8xbx':
     managers: ${{ env.MANAGER.split(',') }}
+  '@u1bot/ddcheck:l4y6md': {}
+  bilibili-login:0t8j0u:
+    refresh: true
+  cron:y34tyf: {}
+  html-renderer:fuzlgc: {}
 nickname:
   - 姚奕
