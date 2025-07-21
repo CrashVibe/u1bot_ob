@@ -13,3 +13,6 @@
 [submodule "external/html-render"]
 	path = external/html-render
 	url = https://github.com/wling-art/html-render.git
+[submodule "external/sleep"]
+	path = external/sleep
+	url = https://github.com/CrashVibe/sleep

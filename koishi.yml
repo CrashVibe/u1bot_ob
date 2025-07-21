@@ -58,6 +58,7 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
+  '@u1bot/sleep:60zsog': {}
   '@u1bot/fortune:n685sd': {}
   '@u1bot/coin:h9nufv': {}
   '@u1bot/cave:nx8xbx':

@@ -2301,6 +2301,8 @@ __metadata:
 "@u1bot/koishi-plugin-sleep@workspace:external/sleep":
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-sleep@workspace:external/sleep"
+  dependencies:
+    moment-timezone: "npm:^0.6.0"
   peerDependencies:
     koishi: ^4.18.7
   languageName: unknown
