@@ -1,71 +1,71 @@
 plugins:
-    group:server:
-        server:1juxad:
-            port: 5140
-            maxPort: 5149
-            host: 0.0.0.0
-        ~server-satori:y4ghj6: {}
-        ~server-temp:l29fno: {}
-    group:basic:
-        admin:j1m9d2: {}
-        ~bind:l1lyq4: {}
-        commands:ljqmfh: {}
-        help:q5x8dm: {}
-        http:xuxj41: {}
-        ~inspect:mwafva: {}
-        locales:ltap1q: {}
-        ~proxy-agent:cqq70g: {}
-        rate-limit:f1n4gu: {}
-        telemetry:lfx82m: {}
-    group:console:
-        actions:ek958e: {}
-        analytics:i8fv8i: {}
-        android:um5upm:
-            $if: env.KOISHI_AGENT?.includes('Android')
-        ~auth:as3r4a: {}
-        config:a15noe: {}
-        console:xd65d5:
-            open: true
-        dataview:xc227o: {}
-        desktop:37i3g8:
-            $if: env.KOISHI_AGENT?.includes('Desktop')
-        explorer:p353el: {}
-        logger:36kg7f: {}
-        insight:74empp: {}
-        market:qkydiz:
-            search:
-                endpoint: https://registry.koishi.chat/index.json
-        notifier:p0qnop: {}
-        oobe:y6zrs0: {}
-        sandbox:30dyau: {}
-        status:t02hrz: {}
-        theme-vanilla:suxbn7: {}
-    group:storage:
-        database-mysql:uaaort:
-            $if: env.DATABASE_TYPE === 'mysql'
-            database: ${{ env.MYSQL_DATABASE }}
-            user: ${{ env.MYSQL_USER }}
-            password: ${{ env.MYSQL_PASSWORD }}
-        database-sqlite:7gog12:
-            $if: env.DATABASE_TYPE === 'sqlite'
-            path: data/koishi.db
-        assets-local:zbu459: {}
-    group:adapter:
-        adapter-onebot:zjekt1:
-            selfId: ${{ env.ONEBOT_SELF_ID }}
-            path: /onebot/koishi
-    group:develop:
-        $if: env.NODE_ENV === 'development'
-        hmr:2k9f09:
-            root: .
-    "@u1bot/fortune:n685sd": {}
-    "@u1bot/coin:h9nufv": {}
-    "@u1bot/cave:nx8xbx":
-        managers: ${{ env.MANAGER.split(',') }}
-    "@u1bot/ddcheck:l4y6md": {}
-    bilibili-login:0t8j0u:
-        refresh: true
-    cron:y34tyf: {}
-    html-renderer:fuzlgc: {}
+  group:server:
+    server:1juxad:
+      port: 5140
+      maxPort: 5149
+      host: 0.0.0.0
+    ~server-satori:y4ghj6: {}
+    ~server-temp:l29fno: {}
+  group:basic:
+    admin:j1m9d2: {}
+    ~bind:l1lyq4: {}
+    commands:ljqmfh: {}
+    help:q5x8dm: {}
+    http:xuxj41: {}
+    ~inspect:mwafva: {}
+    locales:ltap1q: {}
+    ~proxy-agent:cqq70g: {}
+    rate-limit:f1n4gu: {}
+    telemetry:lfx82m: {}
+  group:console:
+    actions:ek958e: {}
+    analytics:i8fv8i: {}
+    android:um5upm:
+      $if: env.KOISHI_AGENT?.includes('Android')
+    ~auth:as3r4a: {}
+    config:a15noe: {}
+    console:xd65d5:
+      open: true
+    dataview:xc227o: {}
+    desktop:37i3g8:
+      $if: env.KOISHI_AGENT?.includes('Desktop')
+    explorer:p353el: {}
+    logger:36kg7f: {}
+    insight:74empp: {}
+    market:qkydiz:
+      search:
+        endpoint: https://registry.koishi.chat/index.json
+    notifier:p0qnop: {}
+    oobe:y6zrs0: {}
+    sandbox:30dyau: {}
+    status:t02hrz: {}
+    theme-vanilla:suxbn7: {}
+  group:storage:
+    database-mysql:uaaort:
+      $if: env.DATABASE_TYPE === 'mysql'
+      database: ${{ env.MYSQL_DATABASE }}
+      user: ${{ env.MYSQL_USER }}
+      password: ${{ env.MYSQL_PASSWORD }}
+    database-sqlite:7gog12:
+      $if: env.DATABASE_TYPE === 'sqlite'
+      path: data/koishi.db
+    assets-local:zbu459: {}
+  group:adapter:
+    adapter-onebot:zjekt1:
+      selfId: ${{ env.ONEBOT_SELF_ID }}
+      path: /onebot/koishi
+  group:develop:
+    $if: env.NODE_ENV === 'development'
+    hmr:2k9f09:
+      root: .
+  '@u1bot/fortune:n685sd': {}
+  '@u1bot/coin:h9nufv': {}
+  '@u1bot/cave:nx8xbx':
+    managers: ${{ env.MANAGER.split(',') }}
+  '@u1bot/ddcheck:l4y6md': {}
+  bilibili-login:0t8j0u:
+    refresh: true
+  cron:y34tyf: {}
+  html-renderer:fuzlgc: {}
 nickname:
-    - 姚奕
+  - 姚奕
