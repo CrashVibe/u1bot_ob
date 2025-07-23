@@ -16,3 +16,6 @@
 [submodule "external/sleep"]
 	path = external/sleep
 	url = https://github.com/CrashVibe/sleep
+[submodule "external/heweather"]
+	path = external/heweather
+	url = https://github.com/CrashVibe/heweather

@@ -68,5 +68,11 @@ plugins:
     refresh: true
   cron:y34tyf: {}
   html-renderer:fuzlgc: {}
+  '@u1bot/heweather:9ynxlz':
+    qweather_apikey: ${{ env.QWEATHER_APIKEY }}
+    qweather_jwt_sub: ${{ env.QWEATHER_JWT_SUB }}
+    qweather_jwt_kid: ${{ env.QWEATHER_JWT_KID }}
+    qweather_jwt_private_key: ${{ env.QWEATHER_JWT_PRIVATE_KEY }}
+    qweather_apitype: 1
 nickname:
   - 姚奕

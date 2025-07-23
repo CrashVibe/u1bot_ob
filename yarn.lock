@@ -2298,6 +2298,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@u1bot/koishi-plugin-heweather@workspace:external/heweather":
+  version: 0.0.0-use.local
+  resolution: "@u1bot/koishi-plugin-heweather@workspace:external/heweather"
+  dependencies:
+    axios: "npm:^1.10.0"
+    jose: "npm:^6.0.12"
+    koishi-plugin-bilibili-login: "npm:^0.1.50"
+    koishi-plugin-html-renderer: "workspace:^"
+    moment-timezone: "npm:^0.6.0"
+  peerDependencies:
+    koishi: ^4.18.7
+  languageName: unknown
+  linkType: soft
+
 "@u1bot/koishi-plugin-sleep@workspace:external/sleep":
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-sleep@workspace:external/sleep"
@@ -4934,6 +4948,13 @@ __metadata:
   bin:
     jiti: lib/jiti-cli.mjs
   checksum: 10c0/4ceac133a08c8faff7eac84aabb917e85e8257f5ad659e843004ce76e981c457c390a220881748ac67ba1b940b9b729b30fb85cbaf6e7989f04b6002c94da331
+  languageName: node
+  linkType: hard
+
+"jose@npm:^6.0.12":
+  version: 6.0.12
+  resolution: "jose@npm:6.0.12"
+  checksum: 10c0/e5ca51b078b2443f6ca671e14d72e0ffd21b760dac0d77cabd7af649a127376ec90665c8b25f34dd88bb31094915ee662daf76e0b33a025d28dbc2bc17413dec
   languageName: node
   linkType: hard
 
