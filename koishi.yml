@@ -52,7 +52,16 @@ plugins:
     assets-local:zbu459: {}
   group:adapter:
     adapter-onebot:zjekt1:
-      selfId: ${{ env.ONEBOT_SELF_ID }}
+      $if: env.ONEBOT_SELF_ID1 !== undefined
+      selfId: ${{ env.ONEBOT_SELF_ID1 }}
+      path: /onebot/koishi
+    adapter-onebot:fu2toc:
+      $if: env.ONEBOT_SELF_ID2 !== undefined
+      selfId: ${{ env.ONEBOT_SELF_ID2 }}
+      path: /onebot/koishi
+    adapter-onebot:1z278h:
+      $if: env.ONEBOT_SELF_ID3 !== undefined
+      selfId: ${{ env.ONEBOT_SELF_ID3 }}
       path: /onebot/koishi
   group:develop:
     $if: env.NODE_ENV === 'development'
