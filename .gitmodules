@@ -19,3 +19,6 @@
 [submodule "external/heweather"]
 	path = external/heweather
 	url = https://github.com/CrashVibe/heweather
+[submodule "external/tarot"]
+	path = external/tarot
+	url = https://github.com/CrashVibe/tarot
