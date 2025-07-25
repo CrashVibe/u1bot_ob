@@ -84,5 +84,6 @@ plugins:
     qweather_jwt_private_key: ${{ env.QWEATHER_JWT_PRIVATE_KEY }}
     qweather_apitype: 1
   '@u1bot/tarot:bj0ksh': {}
+  '@u1bot/today-history:ncnthx': {}
 nickname:
   - 姚奕

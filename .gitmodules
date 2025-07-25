@@ -22,3 +22,6 @@
 [submodule "external/tarot"]
 	path = external/tarot
 	url = https://github.com/CrashVibe/tarot
+[submodule "external/today-history"]
+	path = external/today-history
+	url = https://github.com/CrashVibe/today-history
