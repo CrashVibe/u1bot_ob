@@ -85,5 +85,6 @@ plugins:
     qweather_apitype: 1
   '@u1bot/tarot:bj0ksh': {}
   '@u1bot/today-history:ncnthx': {}
+  '@u1bot/ncm-saying:y978y8': {}
 nickname:
   - 姚奕

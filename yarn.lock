@@ -2312,6 +2312,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@u1bot/koishi-plugin-ncm-saying@workspace:external/ncm-saying":
+  version: 0.0.0-use.local
+  resolution: "@u1bot/koishi-plugin-ncm-saying@workspace:external/ncm-saying"
+  peerDependencies:
+    koishi: ^4.18.7
+  languageName: unknown
+  linkType: soft
+
 "@u1bot/koishi-plugin-sleep@workspace:external/sleep":
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-sleep@workspace:external/sleep"

@@ -25,3 +25,6 @@
 [submodule "external/today-history"]
 	path = external/today-history
 	url = https://github.com/CrashVibe/today-history
+[submodule "external/ncm-saying"]
+	path = external/ncm-saying
+	url = https://github.com/CrashVibe/ncm-saying
