@@ -2293,6 +2293,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-fishing@workspace:external/fishing"
   dependencies:
+    "@u1bot/koishi-plugin-coin": "workspace:^"
     "@u1bot/koishi-plugin-fortune": "workspace:^"
     koishi-plugin-rate-limit: "npm:^2.0.4"
   peerDependencies:
