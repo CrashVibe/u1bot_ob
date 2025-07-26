@@ -67,8 +67,8 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
-  '@u1bot/sleep:60zsog': {}
   '@u1bot/fortune:n685sd': {}
+  '@u1bot/sleep:60zsog': {}
   '@u1bot/coin:h9nufv': {}
   '@u1bot/cave:nx8xbx':
     managers: ${{ env.MANAGER.split(',') }}
@@ -86,5 +86,6 @@ plugins:
   '@u1bot/tarot:bj0ksh': {}
   '@u1bot/today-history:ncnthx': {}
   '@u1bot/ncm-saying:y978y8': {}
+  '@u1bot/fishing:hjb9hw': {}
 nickname:
   - 姚奕

@@ -2261,6 +2261,7 @@ __metadata:
   resolution: "@u1bot/koishi-plugin-cave@workspace:external/cave"
   dependencies:
     "@u1bot/koishi-plugin-coin": "workspace:^"
+    koishi-plugin-adapter-onebot: "npm:^6.8.0"
     moment-timezone: "npm:^0.6.0"
   peerDependencies:
     koishi: ^4.18.7
@@ -2288,7 +2289,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@u1bot/koishi-plugin-fortune@workspace:external/fortune":
+"@u1bot/koishi-plugin-fishing@workspace:external/fishing":
+  version: 0.0.0-use.local
+  resolution: "@u1bot/koishi-plugin-fishing@workspace:external/fishing"
+  dependencies:
+    "@u1bot/koishi-plugin-fortune": "workspace:^"
+    koishi-plugin-rate-limit: "npm:^2.0.4"
+  peerDependencies:
+    koishi: ^4.18.7
+  languageName: unknown
+  linkType: soft
+
+"@u1bot/koishi-plugin-fortune@workspace:^, @u1bot/koishi-plugin-fortune@workspace:external/fortune":
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-fortune@workspace:external/fortune"
   dependencies:
@@ -5152,7 +5164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-adapter-onebot@npm:6.8.0":
+"koishi-plugin-adapter-onebot@npm:6.8.0, koishi-plugin-adapter-onebot@npm:^6.8.0":
   version: 6.8.0
   resolution: "koishi-plugin-adapter-onebot@npm:6.8.0"
   dependencies:
