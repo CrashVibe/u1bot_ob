@@ -31,3 +31,6 @@
 [submodule "external/fishing"]
 	path = external/fishing
 	url = https://github.com/CrashVibe/fishing
+[submodule "external/music"]
+	path = external/music
+	url = https://github.com/CrashVibe/music.git
