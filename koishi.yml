@@ -34,7 +34,7 @@ plugins:
     insight:74empp: {}
     market:qkydiz:
       search:
-        endpoint: https://registry.koishi.chat/index.json
+        endpoint: https://koishi-registry.yumetsuki.moe/index.json
     notifier:p0qnop: {}
     oobe:y6zrs0: {}
     sandbox:30dyau: {}
