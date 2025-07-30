@@ -64,7 +64,6 @@ plugins:
       selfId: ${{ env.ONEBOT_SELF_ID3 }}
       path: /onebot/koishi
   group:develop:
-    $if: env.NODE_ENV === 'development'
     hmr:2k9f09:
       root: .
   '@u1bot/fortune:n685sd': {}
