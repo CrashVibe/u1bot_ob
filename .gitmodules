@@ -37,3 +37,6 @@
 [submodule "external/crazy-thursday"]
 	path = external/crazy-thursday
 	url = https://github.com/CrashVibe/koishi-plugin-crazy-thursday
+[submodule "external/answersbook"]
+	path = external/answersbook
+	url = https://github.com/CrashVibe/answersbook

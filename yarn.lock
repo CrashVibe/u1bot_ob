@@ -2116,6 +2116,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@u1bot/koishi-plugin-answersbook@workspace:external/answersbook":
+  version: 0.0.0-use.local
+  resolution: "@u1bot/koishi-plugin-answersbook@workspace:external/answersbook"
+  peerDependencies:
+    koishi: ^4.18.8
+  languageName: unknown
+  linkType: soft
+
 "@u1bot/koishi-plugin-cave@workspace:external/cave":
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-cave@workspace:external/cave"
