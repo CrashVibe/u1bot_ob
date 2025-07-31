@@ -9,7 +9,11 @@ plugins:
   group:basic:
     admin:j1m9d2: {}
     ~bind:l1lyq4: {}
-    commands:ljqmfh: {}
+    commands:ljqmfh:
+      help:
+        aliases:
+          help:
+            filter: false
     help:q5x8dm: {}
     http:xuxj41: {}
     ~inspect:mwafva: {}
@@ -93,5 +97,6 @@ plugins:
   '@u1bot/answersbook:v2ccxs': {}
   whateat-pic:dsrcxq:
     botname: 姚奕
+  '@u1bot/menu:1vx29l': {}
 nickname:
   - 姚奕
