@@ -40,3 +40,6 @@
 [submodule "external/answersbook"]
 	path = external/answersbook
 	url = https://github.com/CrashVibe/answersbook
+[submodule "external/menu"]
+	path = external/menu
+	url = https://github.com/CrashVibe/menu
