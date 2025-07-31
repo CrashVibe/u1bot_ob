@@ -5186,6 +5186,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"koishi-plugin-verifier@npm:1.1.1":
+  version: 1.1.1
+  resolution: "koishi-plugin-verifier@npm:1.1.1"
+  peerDependencies:
+    koishi: ^4.10.0
+  checksum: 10c0/f95f1e92cbbfc19e58d0e845b199e60e82dae5a635ed622b1831f4b879e5cb2e7d60bb6e8b3946516b88038f68eba25bef8db299f823175975970b2f10fd842f
+  languageName: node
+  linkType: hard
+
 "koishi-plugin-whateat-pic@npm:1.1.4":
   version: 1.1.4
   resolution: "koishi-plugin-whateat-pic@npm:1.1.4"
@@ -6916,6 +6925,7 @@ __metadata:
     koishi-plugin-rate-limit: "npm:^2.0.4"
     koishi-plugin-telemetry: "npm:^0.2.3"
     koishi-plugin-theme-vanilla: "npm:^1.1.0"
+    koishi-plugin-verifier: "npm:1.1.1"
     koishi-plugin-whateat-pic: "npm:1.1.4"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.8.3"

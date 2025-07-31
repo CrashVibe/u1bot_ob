@@ -70,6 +70,14 @@ plugins:
   group:develop:
     hmr:2k9f09:
       root: .
+  verifier:6ntgzg:
+    onFriendRequest: true
+    onGuildRequest: true
+  crazy-thursday:r7n0od: {}
+  cron:y34tyf: {}
+  whateat-pic:dsrcxq:
+    botname: 姚奕
+  html-renderer:fuzlgc: {}
   '@u1bot/fortune:n685sd': {}
   '@u1bot/sleep:60zsog': {}
   '@u1bot/coin:h9nufv': {}
@@ -80,8 +88,6 @@ plugins:
   bilibili-login:0t8j0u:
     $if: env.NODE_ENV !== 'development'
     refresh: true
-  cron:y34tyf: {}
-  html-renderer:fuzlgc: {}
   '@u1bot/heweather:9ynxlz':
     qweather_apikey: ${{ env.QWEATHER_APIKEY }}
     qweather_jwt_sub: ${{ env.QWEATHER_JWT_SUB }}
@@ -93,10 +99,7 @@ plugins:
   '@u1bot/ncm-saying:y978y8': {}
   '@u1bot/fishing:hjb9hw': {}
   '@u1bot/music:k7mnp3': {}
-  crazy-thursday:r7n0od: {}
   '@u1bot/answersbook:v2ccxs': {}
-  whateat-pic:dsrcxq:
-    botname: 姚奕
   '@u1bot/menu:1vx29l': {}
 nickname:
   - 姚奕
