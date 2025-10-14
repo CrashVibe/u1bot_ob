@@ -4,7 +4,7 @@ const source = JSON.parse(readFileSync("package.json", "utf8"));
 Object.assign(source.dependencies, source.optionalDependencies);
 
 source.scripts = {
-    start: source.scripts.start
+  start: source.scripts.start,
 };
 
 delete source.yakumo;
