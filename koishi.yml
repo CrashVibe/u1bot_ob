@@ -8,7 +8,7 @@ plugins:
     ~server-temp:l29fno: {}
   group:basic:
     admin:j1m9d2: {}
-    ~bind:l1lyq4: {}
+    bind:l1lyq4: {}
     commands:ljqmfh:
       help:
         aliases:
@@ -67,6 +67,24 @@ plugins:
       $if: env.ONEBOT_SELF_ID3 !== undefined
       selfId: ${{ env.ONEBOT_SELF_ID3 }}
       path: /onebot/koishi
+    adapter-qq:ni7i8a:
+      $if: env.QQ_BOT_ID !== undefined
+      id: ${{ env.QQ_BOT_ID }}
+      token: ${{ env.QQ_BOT_TOKEN }}
+      secret: ${{ env.QQ_BOT_SECRET }}
+      type: public
+      intents:
+        - GUILDS
+        - GUILD_MEMBERS
+        - GUILD_MESSAGE_REACTIONS
+        - DIRECT_MESSAGES
+        - OPEN_FORUMS_EVENT
+        - AUDIO_OR_LIVE_CHANNEL_MEMBER
+        - USER_MESSAGE
+        - INTERACTIONS
+        - MESSAGE_AUDIT
+        - AUDIO_ACTION
+        - PUBLIC_GUILD_MESSAGES
   group:develop:
     hmr:2k9f09:
       root: .
@@ -103,3 +121,6 @@ plugins:
   '@u1bot/menu:1vx29l': {}
 nickname:
   - 姚奕
+prefix:
+  - ''
+  - /

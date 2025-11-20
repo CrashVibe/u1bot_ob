@@ -854,6 +854,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@koishijs/plugin-adapter-qq@npm:4.10.1, @koishijs/plugin-adapter-qq@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "@koishijs/plugin-adapter-qq@npm:4.10.1"
+  dependencies:
+    "@satorijs/adapter-qq": "npm:^4.10.1"
+  peerDependencies:
+    koishi: ^4.18.8
+  checksum: 10c0/8c0c0a33391a8e27f5dfb75f341c17d7460de63e388fefb804b60145db8338944b6fc36fdb44696aae8931284ea00250d45caaad8563812306050b3ced594ffb
+  languageName: node
+  linkType: hard
+
 "@koishijs/plugin-admin@npm:^1.4.0":
   version: 1.4.0
   resolution: "@koishijs/plugin-admin@npm:1.4.0"
@@ -1665,6 +1676,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@satorijs/adapter-qq@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "@satorijs/adapter-qq@npm:4.10.1"
+  peerDependencies:
+    "@satorijs/core": ^4.5.2
+  checksum: 10c0/1729efb44b9dc1a077c2a7d0cfc495668644c0c9e1af7ec96d2d1085bb4118d19184f648b4f2eeb717fbb10c015cac3512e38c3a8bfa10c6b353142fef8cfa5e
+  languageName: node
+  linkType: hard
+
 "@satorijs/core@npm:^4.5.2":
   version: 4.5.2
   resolution: "@satorijs/core@npm:4.5.2"
@@ -1992,8 +2012,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-cave@workspace:external/cave"
   dependencies:
+    "@koishijs/plugin-adapter-qq": "npm:^4.10.1"
     "@u1bot/koishi-plugin-coin": "workspace:^"
-    koishi-plugin-adapter-onebot: "npm:^6.8.0"
+    koishi-plugin-adapter-onebot: "npm:6.8.0"
     moment-timezone: "npm:^0.6.0"
   peerDependencies:
     koishi: ^4.18.9
@@ -2025,8 +2046,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@u1bot/koishi-plugin-fishing@workspace:external/fishing"
   dependencies:
+    "@koishijs/plugin-adapter-qq": "npm:^4.10.1"
     "@u1bot/koishi-plugin-coin": "workspace:^"
     "@u1bot/koishi-plugin-fortune": "workspace:^"
+    koishi-plugin-adapter-onebot: "npm:6.8.0"
     koishi-plugin-rate-limit: "npm:^2.0.4"
   peerDependencies:
     koishi: ^4.18.9
@@ -6643,6 +6666,7 @@ __metadata:
     "@koishijs/core": "npm:^4.18.9"
     "@koishijs/loader": "npm:^4.6.9"
     "@koishijs/plugin-actions": "npm:^0.0.2"
+    "@koishijs/plugin-adapter-qq": "npm:4.10.1"
     "@koishijs/plugin-admin": "npm:^1.4.0"
     "@koishijs/plugin-analytics": "npm:^2.0.6"
     "@koishijs/plugin-auth": "npm:^4.1.7"
