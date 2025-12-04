@@ -96,7 +96,10 @@ plugins:
   whateat-pic:dsrcxq:
     botname: 姚奕
   html-renderer:fuzlgc: {}
-  '@u1bot/fortune:n685sd': {}
+  '@u1bot/fortune:n685sd':
+    specialUserHash: 1b2fdc757729b7007213476caa346776470b412acd69e18ece89591a1a481df4
+    specialMonth: 12
+    specialDay: 5
   '@u1bot/sleep:60zsog': {}
   '@u1bot/coin:h9nufv': {}
   '@u1bot/cave:nx8xbx':
