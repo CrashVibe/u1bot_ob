@@ -26,7 +26,11 @@ plugins:
     analytics:i8fv8i: {}
     android:um5upm:
       $if: env.KOISHI_AGENT?.includes('Android')
-    ~auth:as3r4a: {}
+    auth:as3r4a:
+      $if: env.NODE_ENV !== 'development'
+      admin:
+        username: ${{ env.ADMIN_USERNAME }}
+        password: ${{ env.ADMIN_PASSWORD }}
     config:a15noe: {}
     console:xd65d5:
       open: true
