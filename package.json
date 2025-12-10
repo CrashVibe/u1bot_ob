@@ -56,7 +56,7 @@
     "@koishijs/loader": "^4.6.9",
     "@koishijs/plugin-actions": "^0.0.2",
     "@koishijs/plugin-adapter-qq": "^4.10.1",
-    "@koishijs/plugin-admin": "^1.4.0",
+    "@koishijs/plugin-admin": "2.0.0-beta.4",
     "@koishijs/plugin-analytics": "^2.0.6",
     "@koishijs/plugin-auth": "^4.1.7",
     "@koishijs/plugin-bind": "^1.5.1",

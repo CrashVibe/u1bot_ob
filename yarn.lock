@@ -1047,12 +1047,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/plugin-admin@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@koishijs/plugin-admin@npm:1.4.0"
+"@koishijs/plugin-admin@npm:2.0.0-beta.4":
+  version: 2.0.0-beta.4
+  resolution: "@koishijs/plugin-admin@npm:2.0.0-beta.4"
+  dependencies:
+    throttle-debounce: "npm:^3.0.1"
   peerDependencies:
-    koishi: ^4.14.0
-  checksum: 10c0/ee8ea546ec1727074b582f38a97d4e90f30c425a045593ba4ad76f7ff9652dc217a6566d0046931cc55cc86545005d8a6c13c0506dce0fbed5e271f0ce2a04c2
+    "@koishijs/plugin-console": ^5.25.6
+    koishi: ^4.16.4
+  peerDependenciesMeta:
+    "@koishijs/plugin-console":
+      optional: true
+  checksum: 10c0/0853c610d6d586bb6fe6edcc72dffeaa54026619755fe3b38c208a45b501b13c57ee32227ac83fdf13147379d86dbe3859bd58157fbabfcb4119abe6e70b35a8
   languageName: node
   linkType: hard
 
@@ -6954,7 +6960,7 @@ __metadata:
     "@koishijs/loader": "npm:^4.6.9"
     "@koishijs/plugin-actions": "npm:^0.0.2"
     "@koishijs/plugin-adapter-qq": "npm:^4.10.1"
-    "@koishijs/plugin-admin": "npm:^1.4.0"
+    "@koishijs/plugin-admin": "npm:2.0.0-beta.4"
     "@koishijs/plugin-analytics": "npm:^2.0.6"
     "@koishijs/plugin-auth": "npm:^4.1.7"
     "@koishijs/plugin-bind": "npm:^1.5.1"
