@@ -95,7 +95,6 @@ plugins:
   verifier:6ntgzg:
     onFriendRequest: true
     onGuildRequest: true
-  crazy-thursday:r7n0od: {}
   cron:y34tyf: {}
   whateat-pic:dsrcxq:
     botname: 姚奕
