@@ -5,6 +5,7 @@ dist
 /temp
 
 .env.local
+tsconfig.temp.json
 
 .pnp.*
 .yarn/*

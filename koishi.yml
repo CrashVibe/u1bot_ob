@@ -59,15 +59,15 @@ plugins:
       path: data/koishi.db
     assets-local:zbu459: {}
   group:adapter:
-    adapter-onebot:zjekt1:
+    '@mrlingxd/adapter-onebot:zjekt1':
       $if: env.ONEBOT_SELF_ID1 !== undefined
       selfId: ${{ env.ONEBOT_SELF_ID1 }}
       path: /onebot/koishi
-    adapter-onebot:fu2toc:
+    '@mrlingxd/adapter-onebot:fu2toc':
       $if: env.ONEBOT_SELF_ID2 !== undefined
       selfId: ${{ env.ONEBOT_SELF_ID2 }}
       path: /onebot/koishi
-    adapter-onebot:1z278h:
+    '@mrlingxd/adapter-onebot:1z278h':
       $if: env.ONEBOT_SELF_ID3 !== undefined
       selfId: ${{ env.ONEBOT_SELF_ID3 }}
       path: /onebot/koishi
