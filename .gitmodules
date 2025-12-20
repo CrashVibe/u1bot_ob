@@ -15,31 +15,31 @@
 	url = https://github.com/wling-art/html-render.git
 [submodule "external/sleep"]
 	path = external/sleep
-	url = https://github.com/CrashVibe/sleep
+	url = https://github.com/CrashVibe/sleep.git
 [submodule "external/heweather"]
 	path = external/heweather
-	url = https://github.com/CrashVibe/heweather
+	url = https://github.com/CrashVibe/heweather.git
 [submodule "external/tarot"]
 	path = external/tarot
-	url = https://github.com/CrashVibe/tarot
+	url = https://github.com/CrashVibe/tarot.git
 [submodule "external/today-history"]
 	path = external/today-history
-	url = https://github.com/CrashVibe/today-history
+	url = https://github.com/CrashVibe/today-history.git
 [submodule "external/ncm-saying"]
 	path = external/ncm-saying
-	url = https://github.com/CrashVibe/ncm-saying
+	url = https://github.com/CrashVibe/ncm-saying.git
 [submodule "external/fishing"]
 	path = external/fishing
-	url = https://github.com/CrashVibe/fishing
+	url = https://github.com/CrashVibe/fishing.git
 [submodule "external/music"]
 	path = external/music
 	url = https://github.com/CrashVibe/music.git
 [submodule "external/answersbook"]
 	path = external/answersbook
-	url = https://github.com/CrashVibe/answersbook
+	url = https://github.com/CrashVibe/answersbook.git
 [submodule "external/menu"]
 	path = external/menu
-	url = https://github.com/CrashVibe/menu
+	url = https://github.com/CrashVibe/menu.git
 [submodule "external/adapter-onebot"]
 	path = external/adapter-onebot
-	url = https://github.com/wling-art/koishi-plugin-adapter-onebot
+	url = https://github.com/wling-art/koishi-plugin-adapter-onebot.git

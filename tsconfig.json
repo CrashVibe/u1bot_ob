@@ -12,6 +12,7 @@
       "koishi-plugin-cache-*": ["external/cache/packages/*/src"],
       "koishi-plugin-dialogue-*": ["external/dialogue/packages/*/src"],
       "@u1bot/koishi-plugin-*": ["external/*/src"],
+      "@mrlingxd/koishi-plugin-*": ["external/*/src"],
 
       // The `external` directory is used to store created plugins.
       // Try `npm run setup` or `yarn setup` to create a new plugin.
