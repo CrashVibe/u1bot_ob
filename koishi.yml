@@ -125,6 +125,7 @@ plugins:
   '@u1bot/music:k7mnp3': {}
   '@u1bot/answersbook:v2ccxs': {}
   '@u1bot/menu:1vx29l': {}
+  '@yyyhf/onebot-assign:bb9v9l': {}
 nickname:
   - 姚奕
 prefix:

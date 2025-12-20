@@ -3027,6 +3027,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yyyhf/koishi-plugin-onebot-assign@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@yyyhf/koishi-plugin-onebot-assign@npm:0.0.3"
+  peerDependencies:
+    koishi: ^4.17.3
+  checksum: 10c0/9655bdb53498aee695b615ca0596820d1d806f6e8f62110ac7c2d708e04b085ef286c4aaf61217ec5ed0a86bc86c10018f76dd3109719ebc921453fb20cf4a84
+  languageName: node
+  linkType: hard
+
 "abab@npm:^2.0.6":
   version: 2.0.6
   resolution: "abab@npm:2.0.6"
@@ -8598,6 +8607,7 @@ __metadata:
     "@koishijs/scripts": "npm:^4.6.1"
     "@types/node": "npm:^25.0.3"
     "@types/react": "npm:^19.2.7"
+    "@yyyhf/koishi-plugin-onebot-assign": "npm:0.0.3"
     cross-env: "npm:^10.1.0"
     esbuild: "npm:^0.27.2"
     esbuild-register: "npm:^3.6.0"
