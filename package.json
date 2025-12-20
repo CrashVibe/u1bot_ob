@@ -80,6 +80,7 @@
     "@koishijs/plugin-sandbox": "^3.4.2",
     "@koishijs/plugin-server": "^3.2.7",
     "@koishijs/plugin-status": "^7.4.10",
+    "@yyyhf/koishi-plugin-onebot-assign": "0.0.3",
     "koishi": "^4.18.9",
     "koishi-plugin-android": "^0.0.1",
     "koishi-plugin-assets-local": "^3.3.2",
