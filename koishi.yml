@@ -54,6 +54,8 @@ plugins:
       database: ${{ env.MYSQL_DATABASE }}
       user: ${{ env.MYSQL_USER }}
       password: ${{ env.MYSQL_PASSWORD }}
+    cache-redis:x572p9:
+      endpoint: ${{ env.REDIS_ENDPOINT }}
     database-sqlite:7gog12:
       $if: env.DATABASE_TYPE === 'sqlite'
       path: data/koishi.db
@@ -92,9 +94,12 @@ plugins:
   group:develop:
     hmr:2k9f09:
       root: .
-  verifier:6ntgzg:
+  '@u1bot/verifier:6ntgzg':
     onFriendRequest: true
     onGuildRequest: true
+    cacheTypes:
+      - friend
+      - guild
   cron:y34tyf: {}
   whateat-pic:dsrcxq:
     botname: 姚奕
