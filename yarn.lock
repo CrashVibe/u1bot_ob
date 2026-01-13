@@ -6442,15 +6442,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-android@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "koishi-plugin-android@npm:0.0.1"
-  peerDependencies:
-    koishi: ^4.15.7
-  checksum: 10c0/d053f4a6fa4252495d7936128d52c920f1918055d5c6e70411ed1666c82142d3715b0d97e6f07e0d4f7b685e5705419ef4d567522e584af6dcba89119412a511
-  languageName: node
-  linkType: hard
-
 "koishi-plugin-assets-local@npm:^3.3.2":
   version: 3.3.2
   resolution: "koishi-plugin-assets-local@npm:3.3.2"
@@ -6491,6 +6482,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"koishi-plugin-chat@npm:4.0.3":
+  version: 4.0.3
+  resolution: "koishi-plugin-chat@npm:4.0.3"
+  peerDependencies:
+    "@koishijs/plugin-console": ^5.15.0
+    koishi: ^4.15.0
+    koishi-plugin-messages: ^0.2.3
+  checksum: 10c0/7f2ccb9d91f2b8aacd8e3d26f0af8c0909a7f20315bc85f81a39089c91a0a962b5d0ffb3b21d8b5ff6376d1727d400623d0220d9135370fb82abd01cb650f9e1
+  languageName: node
+  linkType: hard
+
 "koishi-plugin-cron@npm:^3.1.0":
   version: 3.1.0
   resolution: "koishi-plugin-cron@npm:3.1.0"
@@ -6514,16 +6516,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-desktop@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "koishi-plugin-desktop@npm:1.0.0"
-  peerDependencies:
-    "@koishijs/plugin-console": ^5.18.2
-    koishi: ^4.16.7
-  checksum: 10c0/a8b19ff404591456d1b9b4792fdb6fea73591161364b01b95faafd4c97ed3e8275aa90b4ba668eb81a08ec19b34e473c4b264222056849ecc043928d96789ab0
-  languageName: node
-  linkType: hard
-
 "koishi-plugin-html-renderer@workspace:^, koishi-plugin-html-renderer@workspace:external/html-render":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-html-renderer@workspace:external/html-render"
@@ -6535,6 +6527,15 @@ __metadata:
     koishi: ^4.18.9
   languageName: unknown
   linkType: soft
+
+"koishi-plugin-messages@npm:0.2.3":
+  version: 0.2.3
+  resolution: "koishi-plugin-messages@npm:0.2.3"
+  peerDependencies:
+    koishi: ^4.15.0
+  checksum: 10c0/11d7434037ff9e6c9291e2d5b730cf165932c6b344d369f5de02a3371b70f03e58ab53721db0e1d905b510416c20dcd517c9ecf149bf6f351c8dcfcd2ba9ffa4
+  languageName: node
+  linkType: hard
 
 "koishi-plugin-rate-limit@npm:^2.0.4":
   version: 2.0.4
@@ -8729,13 +8730,13 @@ __metadata:
     esbuild: "npm:^0.27.2"
     esbuild-register: "npm:^3.6.0"
     koishi: "npm:^4.18.9"
-    koishi-plugin-android: "npm:^0.0.1"
     koishi-plugin-assets-local: "npm:^3.3.2"
     koishi-plugin-bilibili-login: "npm:^0.1.50"
     koishi-plugin-cache-redis: "npm:2.1.3"
+    koishi-plugin-chat: "npm:4.0.3"
     koishi-plugin-cron: "npm:^3.1.0"
     koishi-plugin-dataview: "npm:^2.7.8"
-    koishi-plugin-desktop: "npm:^1.0.0"
+    koishi-plugin-messages: "npm:0.2.3"
     koishi-plugin-rate-limit: "npm:^2.0.4"
     koishi-plugin-telemetry: "npm:^0.2.3"
     koishi-plugin-theme-vanilla: "npm:^1.1.0"
