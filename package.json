@@ -88,7 +88,6 @@
     "koishi-plugin-chat": "4.0.3",
     "koishi-plugin-cron": "^3.1.0",
     "koishi-plugin-dataview": "^2.7.8",
-    "koishi-plugin-messages": "0.2.3",
     "koishi-plugin-rate-limit": "^2.0.4",
     "koishi-plugin-telemetry": "^0.2.3",
     "koishi-plugin-theme-vanilla": "^1.1.0",
