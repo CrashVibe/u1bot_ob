@@ -6,7 +6,7 @@
     url = https://github.com/CrashVibe/coin.git
 [submodule "external/cave"]
 	path = external/cave
-    url = https://github.com/CrashVibe/cave.git
+	url = https://github.com/CrashVibe/cave.git
 [submodule "external/ddcheck"]
 	path = external/ddcheck
 	url = https://github.com/CrashVibe/ddcheck.git
@@ -46,3 +46,6 @@
 [submodule "external/verifier"]
 	path = external/verifier
 	url = https://github.com/CrashVibe/verifier.git
+[submodule "external/waifu"]
+	path = external/waifu
+	url = https://github.com/CrashVibe/waifu.git
