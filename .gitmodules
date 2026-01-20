@@ -42,7 +42,7 @@
 	url = https://github.com/CrashVibe/menu.git
 [submodule "external/adapter-onebot"]
 	path = external/adapter-onebot
-	url = https://github.com/wling-art/koishi-plugin-adapter-onebot.git
+	url = https://github.com/CrashVibe/koishi-plugin-adapter-onebot.git
 [submodule "external/verifier"]
 	path = external/verifier
 	url = https://github.com/CrashVibe/verifier.git
