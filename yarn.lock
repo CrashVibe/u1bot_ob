@@ -2054,15 +2054,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@saltify/milky-types@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@saltify/milky-types@npm:1.1.0"
-  dependencies:
-    zod: "npm:^4.3.5"
-  checksum: 10c0/81c6de51c5ddd2dd00046caf73cd1936132e6d0a3a2ad8d75153da5c578f602fc380ba4974207dd825993e6d023e502c4d05ef9891461b6f574c0ffbc684a1fb
-  languageName: node
-  linkType: hard
-
 "@satorijs/adapter-qq@npm:^4.10.1":
   version: 4.10.1
   resolution: "@satorijs/adapter-qq@npm:4.10.1"
@@ -6460,16 +6451,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-adapter-milky@workspace:external/adapter-milky":
-  version: 0.0.0-use.local
-  resolution: "koishi-plugin-adapter-milky@workspace:external/adapter-milky"
-  dependencies:
-    "@saltify/milky-types": "npm:^1.1.0"
-  peerDependencies:
-    koishi: ^4.17.7
-  languageName: unknown
-  linkType: soft
-
 "koishi-plugin-assets-local@npm:^3.3.2":
   version: 3.3.2
   resolution: "koishi-plugin-assets-local@npm:3.3.2"
@@ -8742,7 +8723,6 @@ __metadata:
     "@koishijs/plugin-server": "npm:^3.2.7"
     "@koishijs/plugin-status": "npm:^7.4.10"
     "@koishijs/scripts": "npm:^4.6.2"
-    "@mrlingxd/koishi-plugin-adapter-onebot": "npm:^0.2.2"
     "@types/node": "npm:^25.0.9"
     "@types/react": "npm:^19.2.8"
     "@yyyhf/koishi-plugin-onebot-assign": "npm:^0.0.3"
@@ -9372,12 +9352,5 @@ __metadata:
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
-  languageName: node
-  linkType: hard
-
-"zod@npm:^4.3.5":
-  version: 4.3.5
-  resolution: "zod@npm:4.3.5"
-  checksum: 10c0/5a2db7e59177a3d7e202543f5136cb87b97b047b77c8a3d824098d3fa8b80d3aa40a0a5f296965c3b82dfdccdd05dbbfacce91347f16a39c675680fd7b1ab109
   languageName: node
   linkType: hard
