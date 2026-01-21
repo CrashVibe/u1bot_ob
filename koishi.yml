@@ -103,7 +103,6 @@ plugins:
   cron:y34tyf: {}
   whateat-pic:dsrcxq:
     botname: 姚奕
-  html-renderer:fuzlgc: {}
   '@u1bot/fortune:n685sd':
     specialUserHash: 1b2fdc757729b7007213476caa346776470b412acd69e18ece89591a1a481df4
     specialMonth: 12
@@ -132,8 +131,12 @@ plugins:
   '@u1bot/menu:1vx29l': {}
   '@yyyhf/onebot-assign:bb9v9l': {}
   '@u1bot/waifu:3wnasr': {}
+  '@mrlingxd/renderer:1r38fq': {}
 nickname:
   - 姚奕
 prefix:
   - ''
   - /
+logger:
+  level:
+    heweather: 3

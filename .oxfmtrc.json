@@ -17,11 +17,5 @@
     "endOfLine": "lf",
     "embeddedLanguageFormatting": "auto",
     "singleAttributePerLine": false,
-    "ignorePatterns": [
-        "**/package.json",
-        "yarn.lock",
-        "koishi.yml",
-        "yakumo.yml",
-        "tsconfig*"
-    ]
+    "ignorePatterns": ["**/package.json", "yarn.lock", "koishi.yml", "yakumo.yml", "tsconfig*"]
 }
