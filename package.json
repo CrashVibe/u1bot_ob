@@ -1,12 +1,7 @@
 {
     "name": "u1bot_ts",
     "version": "0.0.0",
-    "packageManager": "yarn@4.1.0",
     "private": true,
-    "files": [
-        ".env",
-        "koishi.yml"
-    ],
     "license": "AGPL-3.0",
     "workspaces": [
         "external/*",
@@ -23,6 +18,10 @@
         "plugins/*",
         "plugins/@*/*"
     ],
+    "files": [
+        ".env",
+        "koishi.yml"
+    ],
     "scripts": {
         "new": "koishi-scripts new",
         "setup": "koishi-scripts setup",
@@ -34,22 +33,6 @@
         "pub": "yakumo publish",
         "dev": "cross-env NODE_ENV=development koishi start -r esbuild-register -r yml-register",
         "start": "koishi start -r esbuild-register -r yml-register"
-    },
-    "devDependencies": {
-        "@koishijs/client": "^5.30.11",
-        "@koishijs/plugin-hmr": "^1.2.9",
-        "@koishijs/scripts": "^4.6.2",
-        "@types/node": "^25.0.9",
-        "@types/react": "^19.2.8",
-        "cross-env": "^10.1.0",
-        "esbuild": "^0.27.2",
-        "esbuild-register": "^3.6.0",
-        "tsx": "^4.21.0",
-        "typescript": "^5.9.3",
-        "yakumo": "^1.0.0",
-        "yakumo-esbuild": "^1.0.0",
-        "yakumo-tsc": "^1.0.0",
-        "yml-register": "^1.2.5"
     },
     "dependencies": {
         "@koishijs/core": "^4.18.10",
@@ -93,5 +76,25 @@
         "koishi-plugin-theme-vanilla": "^1.1.0",
         "koishi-plugin-verifier": "^1.1.1",
         "koishi-plugin-whateat-pic": "^1.1.4"
-    }
+    },
+    "devDependencies": {
+        "@koishijs/client": "^5.30.11",
+        "@koishijs/plugin-hmr": "^1.2.9",
+        "@koishijs/scripts": "^4.6.2",
+        "@types/node": "^25.0.9",
+        "@types/react": "^19.2.8",
+        "cross-env": "^10.1.0",
+        "esbuild": "^0.27.2",
+        "esbuild-register": "^3.6.0",
+        "oxfmt": "^0.26.0",
+        "oxlint": "^1.41.0",
+        "oxlint-tsgolint": "^0.11.1",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3",
+        "yakumo": "^1.0.0",
+        "yakumo-esbuild": "^1.0.0",
+        "yakumo-tsc": "^1.0.0",
+        "yml-register": "^1.2.5"
+    },
+    "packageManager": "yarn@4.1.0"
 }

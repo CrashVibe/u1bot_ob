@@ -10,9 +10,9 @@
 [submodule "external/ddcheck"]
 	path = external/ddcheck
 	url = https://github.com/CrashVibe/ddcheck.git
-[submodule "external/html-render"]
-	path = external/html-render
-	url = https://github.com/wling-art/html-render.git
+[submodule "external/renderer"]
+	path = external/renderer
+	url = https://github.com/CrashVibe/renderer.git
 [submodule "external/sleep"]
 	path = external/sleep
 	url = https://github.com/CrashVibe/sleep.git

@@ -1,13 +1,13 @@
 - id: fu8lom
   name: yakumo
   config:
-    pipeline:
-      build:
-        - tsc
-        - esbuild
-        - client
-      clean:
-        - tsc --clean
+      pipeline:
+          build:
+              - tsc
+              - esbuild
+              - client
+          clean:
+              - tsc --clean
 - id: c7udoj
   name: yakumo-esbuild
 - id: fs05xo
