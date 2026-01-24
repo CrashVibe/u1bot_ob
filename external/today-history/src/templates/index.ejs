@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日历史</title>
+    <style>
+        <% const themes= {
+            light: {
+                bodyBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    bodyColor: '#333',
+                    containerBg: 'rgba(255, 255, 255, 0.95)',
+                    containerShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+                    headerBg: 'linear-gradient(45deg, #ff6b6b, #feca57)',
+                    headerOpacity: '0.1',
+                    headerShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                    dateColor: 'rgba(255, 255, 255, 0.9)',
+                    cardBg: 'white',
+                    cardShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+                    birthColor: '#4ecdc4',
+                    deathColor: '#ff7675',
+                    eventColor: '#fdcb6e',
+                    yearBg: 'linear-gradient(45deg, #667eea, #764ba2)',
+                    yearShadow: '0 4px 15px rgba(102, 126, 234, 0.3)',
+                    birthTypeBg: 'rgba(78, 205, 196, 0.2)',
+                    birthTypeColor: '#00b894',
+                    deathTypeBg: 'rgba(255, 118, 117, 0.2)',
+                    deathTypeColor: '#e17055',
+                    eventTypeBg: 'rgba(253, 203, 110, 0.2)',
+                    eventTypeColor: '#e17055',
+                    titleColor: '#2d3436',
+                    titleLinkColor: '#667eea',
+                    titleLinkBg: 'rgba(102, 126, 234, 0.1)',
+                    titleLinkBorder: 'rgba(102, 126, 234, 0.3)',
+                    descColor: '#636e72',
+                    descLinkColor: '#667eea',
+                    descLinkBg: 'rgba(102, 126, 234, 0.08)',
+                    footerBg: 'linear-gradient(45deg, #f8f9fa, #e9ecef)',
+                    footerColor: '#6c757d',
+                    footerBorder: 'rgba(0, 0, 0, 0.05)',
+                    noEventsColor: '#6c757d'
+            }
+
+            ,
+            dark: {
+                bodyBg: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+                    bodyColor: '#e2e8f0',
+                    containerBg: 'rgba(30, 41, 59, 0.95)',
+                    containerShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+                    headerBg: 'linear-gradient(45deg, #4c1d95, #7c2d12)',
+                    headerOpacity: '0.05',
+                    headerShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                    dateColor: 'rgba(255, 255, 255, 0.8)',
+                    cardBg: '#334155',
+                    cardShadow: '0 8px 25px rgba(0, 0, 0, 0.3)',
+                    birthColor: '#06b6d4',
+                    deathColor: '#ef4444',
+                    eventColor: '#f59e0b',
+                    yearBg: 'linear-gradient(45deg, #4c1d95, #7c2d12)',
+                    yearShadow: '0 4px 15px rgba(76, 29, 149, 0.4)',
+                    birthTypeBg: 'rgba(6, 182, 212, 0.2)',
+                    birthTypeColor: '#67e8f9',
+                    deathTypeBg: 'rgba(239, 68, 68, 0.2)',
+                    deathTypeColor: '#fca5a5',
+                    eventTypeBg: 'rgba(245, 158, 11, 0.2)',
+                    eventTypeColor: '#fcd34d',
+                    titleColor: '#f1f5f9',
+                    titleLinkColor: '#a855f7',
+                    titleLinkBg: 'rgba(168, 85, 247, 0.1)',
+                    titleLinkBorder: 'rgba(168, 85, 247, 0.3)',
+                    descColor: '#cbd5e1',
+                    descLinkColor: '#a855f7',
+                    descLinkBg: 'rgba(168, 85, 247, 0.08)',
+                    footerBg: 'linear-gradient(45deg, #1e293b, #374151)',
+                    footerColor: '#94a3b8',
+                    footerBorder: 'rgba(255, 255, 255, 0.05)',
+                    noEventsColor: '#94a3b8'
+            }
+        }
+
+        ;
+        const t=themes[theme] || themes.light;
+
+        %>* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            background: <%=t.bodyBg %>;
+            min-height: 100vh;
+            padding: 20px;
+            color: <%=t.bodyColor %>;
+        }
+
+        .container {
+            margin: 0 auto;
+            background: <%=t.containerBg %>;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: <%=t.containerShadow %>;
+            overflow: hidden;
+        }
+
+        .header {
+            background: <%=t.headerBg %>;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='<%= t.headerOpacity %>'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: <%=t.headerShadow %>;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .date {
+            font-size: 1.5rem;
+            color: <%=t.dateColor %>;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .events-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .event-card {
+            background: <%=t.cardBg %>;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: <%=t.cardShadow %>;
+            border-left: 5px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: inherit;
+        }
+
+        .event-card.birth {
+            border-left-color: <%=t.birthColor %>;
+        }
+
+        .event-card.death {
+            border-left-color: <%=t.deathColor %>;
+        }
+
+        .event-card.event {
+            border-left-color: <%=t.eventColor %>;
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .event-year {
+            background: <%=t.yearBg %>;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: <%=t.yearShadow %>;
+        }
+
+        .event-type {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .event-type.birth {
+            background: <%=t.birthTypeBg %>;
+            color: <%=t.birthTypeColor %>;
+        }
+
+        .event-type.death {
+            background: <%=t.deathTypeBg %>;
+            color: <%=t.deathTypeColor %>;
+        }
+
+        .event-type.event {
+            background: <%=t.eventTypeBg %>;
+            color: <%=t.eventTypeColor %>;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: <%=t.titleColor %>;
+        }
+
+        .event-title a {
+            color: <%=t.titleLinkColor %>;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: <%=t.titleLinkBg %>;
+            border-bottom: 2px solid <%=t.titleLinkBorder %>;
+        }
+
+        .event-desc {
+            line-height: 1.6;
+            color: <%=t.descColor %>;
+            font-size: 0.95rem;
+        }
+
+        .event-desc a {
+            color: <%=t.descLinkColor %>;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1px 3px;
+            border-radius: 3px;
+            background: <%=t.descLinkBg %>;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 40px;
+            background: <%=t.footerBg %>;
+            color: <%=t.footerColor %>;
+            font-size: 0.9rem;
+            border-top: 1px solid <%=t.footerBorder %>;
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 60px 40px;
+            color: <%=t.noEventsColor %>;
+        }
+
+        .no-events .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .date {
+                font-size: 1.2rem;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 今日历史</h1>
+            <div class="date"><%= currentDate %> · 历史上的今天</div>
+        </div>
+
+        <div class="content">
+            <% if (data && data.length> 0) { %>
+                <div class="events-grid">
+                    <% data.forEach(function(event) { %>
+                        <div class="event-card <%= event.type %>">
+                            <div class="event-header">
+                                <span class="event-year">
+                                    <%= event.year %>
+                                </span>
+                                <span class="event-type <%= event.type %>">
+                                    <% if (event.type==='birth' ) { %>
+                                        出生
+                                        <% } else if (event.type==='death' ) { %>
+                                            逝世
+                                            <% } else { %>
+                                                事件
+                                                <% } %>
+                                </span>
+                            </div>
+                            <h3 class="event-title"><%- event.title %></h3>
+                            <p class="event-desc"><%- event.desc %></p>
+                        </div>
+                        <% }); %>
+                </div>
+                <% } else { %>
+                    <div class="no-events">
+                        <div class="icon">📜</div>
+                        <h3>暂无历史事件</h3>
+                        <p>今天的历史事件正在整理中...</p>
+                    </div>
+                    <% } %>
+        </div>
+
+        <div class="footer">
+            <div>历史的每一天都值得铭记</div>
+        </div>
+    </div>
+</body>
+
+</html>

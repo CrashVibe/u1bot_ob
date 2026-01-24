@@ -1,0 +1,19 @@
+{
+    "name": "@u1bot/koishi-plugin-music",
+    "version": "0.0.1",
+    "description": "Just a music plugin for U1 @ Onebot",
+    "keywords": [
+        "chatbot",
+        "koishi",
+        "plugin"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "lib"
+    ],
+    "main": "src/index.ts",
+    "peerDependencies": {
+        "koishi": "^4.18.9"
+    }
+}

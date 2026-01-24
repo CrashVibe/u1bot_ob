@@ -1,0 +1,21 @@
+{
+    "name": "@u1bot/koishi-plugin-tarot",
+    "version": "0.0.1",
+    "description": "塔罗牌",
+    "keywords": [
+        "chatbot",
+        "koishi",
+        "plugin"
+    ],
+    "files": [
+        "dist",
+        "lib"
+    ],
+    "main": "src/index.ts",
+    "devDependencies": {
+        "@koishijs/plugin-adapter-qq": "^4.10.1"
+    },
+    "peerDependencies": {
+        "koishi": "^4.18.9"
+    }
+}
