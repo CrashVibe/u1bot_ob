@@ -221,8 +221,8 @@ export async function apply(ctx: Context, config: Config) {
             if (!session.guildId || !session.channel) {
                 return h.quote(session.messageId) + "怎么啦，你要控制自己不要钓鱼嘛";
             }
-            if (!session.onebot) {
-                return h.quote(session.messageId) + "暂不支持非 OneBot 适配器的钓鱼开关";
+            if (session.qq) {
+                return h.quote(session.messageId) + "暂时不支持此功能";
             }
             if (!session.event.member?.roles?.includes("admin") && !session.event.member?.roles?.includes("owner")) {
                 return h.quote(session.messageId) + "你没有权限设置钓鱼开关";
