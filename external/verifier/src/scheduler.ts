@@ -2,18 +2,17 @@ import {} from "koishi-plugin-cron";
 import type { Context } from "koishi";
 import type { Config } from ".";
 import type { Handlers, SessionProcess } from "./types";
-import { CachedRequest, RequestHandler } from "./types";
 import { handleRequest } from "./handler";
 
-export async function applycron(ctx: Context, config: Config) {
-    const { cronExpression, batchSize } = config;
+export function applycron(ctx: Context, config: Config) {
+    const { cronExpression } = config;
 
     ctx.cron(cronExpression, async () => {
         ctx.logger.info("开始处理缓存的请求...");
         try {
             await processRequests(ctx, config);
         } catch (error) {
-            ctx.logger.error(`定时任务执行失败: ${error}`);
+            ctx.logger.error(`定时任务执行失败: ${error instanceof Error ? error.message : String(error)}`);
         }
     });
 }
@@ -105,7 +104,7 @@ export async function processRequests(ctx: Context, config: Config): Promise<num
                 });
                 ctx.logger.info(`已处理请求: ${key} (机器人: ${botId})`);
             } catch (error) {
-                ctx.logger.error(`处理请求失败 ${key} (机器人: ${botId}): ${error}`);
+                ctx.logger.error(`处理请求失败 ${key} (机器人: ${botId}): ${error instanceof Error ? error.message : String(error)}`);
                 req.status = "pending";
                 await ctx.cache.set("verifier:requests", key, {
                     ...req,

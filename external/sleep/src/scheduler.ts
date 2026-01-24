@@ -9,7 +9,7 @@ async function groupo_daily_refresh(ctx: Context) {
 }
 
 async function user_weekly_refresh(ctx: Context) {
-    ctx.database.set(
+    await ctx.database.set(
         "sleep_user",
         {},
         {
@@ -23,7 +23,7 @@ async function user_weekly_refresh(ctx: Context) {
     ctx.logger.info("每周 早晚安数据-用户 已刷新！");
 }
 
-export async function applycron(ctx: Context, config: Config) {
+export function applycron(ctx: Context, config: Config) {
     ctx.cron(`0 0 ${config.nightStartHour} * * *`, async () => {
         await groupo_daily_refresh(ctx);
     });
