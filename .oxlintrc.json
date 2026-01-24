@@ -84,6 +84,7 @@
         "typescript/no-non-null-asserted-optional-chain": "warn",
         "typescript/no-redundant-type-constituents": "warn",
         "typescript/no-this-alias": "warn",
+        "typescript/consistent-type-imports": "error",
         "typescript/no-unnecessary-parameter-property-assignment": "warn",
         "typescript/no-unsafe-declaration-merging": "warn",
         "typescript/no-unsafe-unary-minus": "warn",
