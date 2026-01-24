@@ -100,7 +100,7 @@ export const Config: Schema<Config> = Schema.object({
 
 export async function apply(ctx: Context, config: Config) {
     applyModel(ctx);
-    await applycron(ctx, config);
+    applycron(ctx, config);
     ctx.on("message", async (session) => {
         if (!session || !session.content) {
             return;

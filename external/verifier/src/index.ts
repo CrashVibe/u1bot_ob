@@ -58,16 +58,16 @@ export async function apply(ctx: Context, config: Config) {
         applycron(ctx, config);
     }
 
-    ctx.on("friend-request", (session) => {
-        handleEvent(ctx, session, config, "friend");
+    ctx.on("friend-request", async (session) => {
+        await handleEvent(ctx, session, config, "friend");
     });
 
-    ctx.on("guild-request", (session) => {
-        handleEvent(ctx, session, config, "guild");
+    ctx.on("guild-request", async (session) => {
+        await handleEvent(ctx, session, config, "guild");
     });
 
-    ctx.on("guild-member-request", (session) => {
-        handleEvent(ctx, session, config, "guild-member");
+    ctx.on("guild-member-request", async (session) => {
+        await handleEvent(ctx, session, config, "guild-member");
     });
 
     ctx.command("验证器处理", { authority: 3 }).action(async () => {
