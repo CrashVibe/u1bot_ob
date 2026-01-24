@@ -1,0 +1,24 @@
+{
+    "name": "@u1bot/koishi-plugin-today-history",
+    "version": "0.0.1",
+    "description": "今日历史",
+    "keywords": [
+        "chatbot",
+        "koishi",
+        "plugin"
+    ],
+    "files": [
+        "dist",
+        "lib"
+    ],
+    "main": "src/index.ts",
+    "dependencies": {
+        "moment-timezone": "^0.6.0"
+    },
+    "devDependencies": {
+        "@mrlingxd/koishi-plugin-renderer": "workspace:^"
+    },
+    "peerDependencies": {
+        "koishi": "^4.18.9"
+    }
+}

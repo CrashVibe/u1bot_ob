@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "lib",
+        "target": "es2022",
+        "module": "esnext",
+        "declaration": true,
+        "composite": true,
+        "incremental": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "moduleResolution": "bundler",
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "@satorijs/element",
+        "types": ["node", "yml-register/types"]
+    },
+    "include": ["src", "src/**/*.json"]
+}

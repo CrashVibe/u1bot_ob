@@ -1,0 +1,26 @@
+{
+    "name": "@mrlingxd/koishi-plugin-renderer",
+    "version": "0.0.1",
+    "description": "可以使用 vue 来渲染的插件",
+    "keywords": [
+        "chatbot",
+        "koishi",
+        "plugin"
+    ],
+    "files": [
+        "dist",
+        "lib"
+    ],
+    "main": "src/index.ts",
+    "dependencies": {
+        "@playwright/browser-chromium": "^1.58.0",
+        "ejs": "^4.0.1",
+        "playwright": "^1.58.0"
+    },
+    "devDependencies": {
+        "@types/ejs": "^3.1.5"
+    },
+    "peerDependencies": {
+        "koishi": "^4.18.10"
+    }
+}
