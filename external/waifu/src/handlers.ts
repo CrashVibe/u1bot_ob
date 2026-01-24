@@ -36,7 +36,7 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
     }
     // 计算成功率
     const rate = Math.random() * 100;
-    if (rate >= config.successRate) {
+    if (rate > config.successRate) {
         await ctx.database.create("waifu_relationships", {
             group_id: session.guildId!,
             owner_id: session.userId!,
@@ -65,38 +65,42 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
 
     /** 构建最终消息用 */
     let msg: Element[] = [];
+    let target_id: string | null = null;
 
     // 看看有没有喜欢的
     const at_users = session.elements?.filter((el) => el.type === "at").map((el) => el.attrs.id as string) || [];
     if (at_users.length > 1) {
         return "不要那么渣！一次只能一个对象啊喂";
     } else if (at_users.length === 1) {
-        const target_id = at_users[0];
-        if (target_id === session.userId) {
+        if (at_users[0] === session.userId) {
             return "自己跟自己...这也太自恋了吧";
         }
-        if (married_user_ids.has(target_id)) {
+        if (married_user_ids.has(at_users[0])) {
             return "可惜，这个人已经有 CP 了哦～";
         }
         // 计算成功率
         const rate = Math.random() * 100;
         if (rate <= config.atSuccessRate) {
-            return target_id;
+            target_id = at_users[0];
+        } else {
+            msg.push(h.text("看来你的运气不太好，没能成功娶到心上人"));
+            msg.push(h.text("不过...我给你找了新的 CP ！"));
         }
-        msg.push(h.text("看来你的运气不太好，没能成功娶到心上人"));
-        msg.push(h.text("不过...我给你找了新的 CP ！"));
     }
 
-    // 能到这里，要么没at，要么没有娶到心上人～
-    const candidates = await getAvailableGroupMembers(session);
-    /** 最终候选人名单 */
-    const filtered_candidates = candidates.filter((id) => id !== session.userId && !married_user_ids.has(id));
-    if (filtered_candidates.length === 0) {
-        return "看起来大家都已经有对象了...其实一个人也挺好的～";
+    if (!target_id) {
+        // 能到这里，要么没at，要么没有娶到心上人～
+        const candidates = await getAvailableGroupMembers(session);
+        /** 最终候选人名单 */
+        const filtered_candidates = candidates.filter((id) => id !== session.userId && !married_user_ids.has(id));
+        if (filtered_candidates.length === 0) {
+            return "看起来大家都已经有对象了...其实一个人也挺好的～";
+        }
+
+        target_id = Random.pick(filtered_candidates);
     }
 
-    const waifu_id = Random.pick(filtered_candidates);
-    const member = await session.bot.getGuildMember(session.guildId, waifu_id);
+    const member = await session.bot.getGuildMember(session.guildId, target_id);
     msg.push(h.text("你的 CP 是！"));
     if (member.avatar) {
         msg.push(h.image(member.avatar));
@@ -107,7 +111,7 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
     await ctx.database.create("waifu_relationships", {
         group_id: session.guildId,
         owner_id: session.userId,
-        waifu_id: waifu_id,
+        waifu_id: target_id,
         married_at: new Date()
     });
 
