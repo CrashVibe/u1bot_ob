@@ -4,6 +4,7 @@
     "tabWidth": 4,
     "useTabs": false,
     "semi": true,
+    "experimentalSortPackageJson": true,
     "quoteProps": "as-needed",
     "jsxSingleQuote": false,
     "trailingComma": "none",
@@ -17,5 +18,5 @@
     "endOfLine": "lf",
     "embeddedLanguageFormatting": "auto",
     "singleAttributePerLine": false,
-    "ignorePatterns": ["**/package.json", "yarn.lock", "koishi.yml", "yakumo.yml", "tsconfig*"]
+    "ignorePatterns": ["yarn.lock", "koishi.yml", "yakumo.yml"]
 }
