@@ -1,12 +1,14 @@
+import { readFileSync } from "fs";
+import { join } from "path";
+
+import type { Config } from "./config";
+import type { Fish } from "./config";
 import {} from "@koishijs/plugin-adapter-qq";
 import {} from "@u1bot/koishi-plugin-coin";
-import { readFileSync } from "fs";
 import type { Context } from "koishi";
 import { h } from "koishi";
 import {} from "koishi-plugin-rate-limit";
-import { join } from "path";
-import type { Config } from "./config";
-import type { Fish } from "./config";
+
 import { getFishingRodDisplay, getFishingRodProgress } from "./fishing_rod";
 import { applyModel } from "./model";
 import {
@@ -298,4 +300,37 @@ export async function apply(ctx: Context, config: Config) {
       }cm，获得了 ${price.toFixed(2)} 次元币`
     );
   });
+
+  ctx
+    .command("fish_leaderboard", "查看本群钓鱼排行榜")
+    .alias("钓鱼排行榜")
+    .action(async ({ session }) => {
+      if (!session || !session.userId) {
+        throw new Error("无法获取用户信息");
+      }
+      if (!session.guildId) {
+        return h.quote(session.messageId) + "钓鱼排行榜只能在群内查看～";
+      }
+
+      const group_members = await session.bot.getGuildMemberList(session.guildId);
+      const userIds = group_members.data.map((member) => member.user?.id).filter((id): id is string => !!id);
+      const records = await ctx.database.get("fishing_record", { user_id: userIds });
+      if (records.length === 0) {
+        return h.quote(session.messageId) + "本群还没有人钓过鱼诶...";
+      }
+      records.sort((a, b) => b.total_fishing_count - a.total_fishing_count);
+
+      const top10 = records.slice(0, 10); // 我们是冠军！超绝钓鱼 F10
+      let leaderboard = "本群钓鱼排行榜：\n";
+      const userNames = await Promise.all(
+        top10.map(async (record) => {
+          const user = await session.bot.getUser(record.user_id);
+          return user.name || "未知用户";
+        })
+      );
+      leaderboard +=
+        top10.map((record, i) => `${i + 1}. ${userNames[i]} - 总钓鱼次数：${record.total_fishing_count}`).join("\n") +
+        "\n";
+      return h.quote(session.messageId) + leaderboard;
+    });
 }
