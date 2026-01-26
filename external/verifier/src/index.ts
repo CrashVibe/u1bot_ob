@@ -70,6 +70,11 @@ export async function apply(ctx: Context, config: Config) {
     await handleEvent(ctx, session, config, "guild-member");
   });
 
+  ctx.command("验证器清理", { authority: 3 }).action(async () => {
+    await ctx.cache.clear("verifier:requests")
+    return "已清理所有缓存请求";
+  });
+
   ctx.command("验证器处理", { authority: 3 }).action(async () => {
     return `已处理 ${await processRequests(ctx, config)} 条缓存请求`;
   });
@@ -200,7 +205,7 @@ export async function handleEvent(
     return;
   }
   const result = await handleRequest(handler, session, prefer, isChannel);
-  if (result && session.messageId) session.bot[method](session.messageId, ...result);
+  if (result && session.messageId) await session.bot[method](session.messageId, ...result);
 }
 
 async function cacheRequest(
