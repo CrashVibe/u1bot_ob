@@ -4,7 +4,7 @@ import type { CachedRequest } from "./types";
 export {};
 
 declare module "@koishijs/cache" {
-    interface Tables {
-        "verifier:requests": CachedRequest;
-    }
+  interface Tables {
+    "verifier:requests": CachedRequest;
+  }
 }

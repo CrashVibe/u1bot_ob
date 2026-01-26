@@ -1,18 +1,18 @@
 {
-    "name": "@u1bot/koishi-plugin-menu",
-    "version": "0.0.1",
-    "description": "菜单",
-    "keywords": [
-        "chatbot",
-        "koishi",
-        "plugin"
-    ],
-    "files": [
-        "dist",
-        "lib"
-    ],
-    "main": "src/index.ts",
-    "peerDependencies": {
-        "koishi": "^4.18.9"
-    }
+  "name": "@u1bot/koishi-plugin-menu",
+  "version": "0.0.1",
+  "description": "菜单",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "main": "src/index.ts",
+  "peerDependencies": {
+    "koishi": "^4.18.9"
+  }
 }
