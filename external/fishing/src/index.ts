@@ -317,22 +317,25 @@ export async function apply(ctx: Context, config: Config) {
         streak: "连续倒霉榜",
         exp: "经验榜"
       };
-      let msg = "";
+      let msg =[];
       const members = await session.bot.getGuildMemberList(guildId)
       for (const type of types) {
         const result = await getTop(ctx, guildId, type, undefined, 3);
         if (result.length === 0) {
           continue;
         }
-        msg += `\n[${typeMap[type]}排行榜]\n`;
+        msg.push(`\n[${typeMap[type]}排行榜]\n`);
         result.forEach((item, idx) => {
           const member = members.data.find((m) => m.user?.id === item.value);
           if (!member || !member.user) {
             return;
           }
-          msg += `No.${idx + 1} -  ${member.user.name}，${typeMap[type]}: ${item.score}\n`;
+          msg.push(`No.${idx + 1} -  ${member.user.name}，${typeMap[type]}: ${item.score}\n`);
         });
       }
-      return h.quote(session.messageId) + msg.trim();
+      if (msg.length === 0) {
+        return h.quote(session.messageId) + "本群暂无钓鱼数据～";
+      }
+      return h.quote(session.messageId) + msg.join("").trim();
     });
 }
