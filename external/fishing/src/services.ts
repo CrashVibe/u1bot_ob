@@ -155,10 +155,10 @@ export async function save_fish(
   newLevel?: FishingRodLevel;
   downgradeReason?: string;
 }> {
-  if (!session.userId || !session.guildId) {
-    throw new Error("无法获取用户ID或群组ID");
+  if (!session.userId) {
+    throw new Error("无法获取用户ID");
   }
-  const { userId, guildId } = session;
+  const { userId } = session;
   let record = await ctx.database.get("fishing_record", { user_id: userId });
 
   let fishingResult: {
@@ -224,7 +224,9 @@ export async function save_fish(
         fishingResult.newLevel = upgradedLevel;
       }
     }
-    await updateRankings(ctx, guildId, userId, fish, userRecord); // 更新排行榜
+    if (session.guildId) {
+      await updateRankings(ctx, session.guildId, userId, fish, userRecord); // 更新排行榜
+    }
     await ctx.database.set(
       "fishing_record",
       { user_id: userId },
@@ -308,4 +310,3 @@ export async function get_backpack(ctx: Context, userId: string) {
 
   return formatted;
 }
-
