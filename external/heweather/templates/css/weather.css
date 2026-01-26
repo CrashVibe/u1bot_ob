@@ -1,478 +1,478 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-    min-height: 100vh;
-    color: white;
-    overflow-x: hidden;
-    transition: background 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+  transition: background 0.3s ease;
 }
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .weather-container.theme-light {
-    background: linear-gradient(180deg, #326299 0%, #4d8fbe 50%, #90b6db 100%);
+  background: linear-gradient(180deg, #326299 0%, #4d8fbe 50%, #90b6db 100%);
 }
 
 .weather-container.theme-dark {
-    background: linear-gradient(180deg, #0f1419 0%, #1a1d29 50%, #252a3d 100%);
+  background: linear-gradient(180deg, #0f1419 0%, #1a1d29 50%, #252a3d 100%);
 }
 
 .weather-container {
-    margin: 0 auto;
-    padding: 25px 20px;
+  margin: 0 auto;
+  padding: 25px 20px;
 }
 
 .weather-container::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .weather-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
 }
 
 .weather-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
 /* 主信息 */
 .main-weather {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .location h1 {
-    font-size: 36px;
-    font-weight: 300;
-    margin-bottom: 3px;
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: 3px;
 }
 
 .update-time {
-    font-size: 13px;
-    opacity: 0.75;
-    font-weight: 300;
+  font-size: 13px;
+  opacity: 0.75;
+  font-weight: 300;
 }
 
 .current-temp {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .temp-display {
-    font-size: 96px;
-    font-weight: 200;
-    line-height: 1;
-    letter-spacing: -3px;
+  font-size: 96px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -3px;
 }
 
 .weather-desc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .weather-icon-large {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .weather-desc span {
-    font-size: 20px;
-    font-weight: 300;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .temp-range {
-    font-size: 16px;
-    font-weight: 300;
-    opacity: 0.85;
+  font-size: 16px;
+  font-weight: 300;
+  opacity: 0.85;
 }
 
 .temp-range .separator {
-    margin: 0 10px;
-    opacity: 0.5;
+  margin: 0 10px;
+  opacity: 0.5;
 }
 
 /* 玻璃卡片样式 */
 .glass-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .theme-dark .glass-card {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card-header-compact {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 14px;
-    opacity: 0.95;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  opacity: 0.95;
 }
 
 .compact-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .weather-alerts {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .alert-card {
-    background: rgba(255, 59, 48, 0.2);
-    backdrop-filter: blur(20px);
-    border-radius: 18px;
-    border: 1px solid rgba(255, 59, 48, 0.3);
-    padding: 16px;
-    margin-bottom: 12px;
+  background: rgba(255, 59, 48, 0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  padding: 16px;
+  margin-bottom: 12px;
 }
 
 .alert-header {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 10px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .alert-icon {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .alert-title h3 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
 
 .alert-time {
-    font-size: 12px;
-    opacity: 0.75;
+  font-size: 12px;
+  opacity: 0.75;
 }
 
 .alert-description {
-    font-size: 13px;
-    line-height: 1.4;
-    opacity: 0.9;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0.9;
 }
 
 .air-quality-compact .card-header-compact {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .air-quality-compact h2 {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .aqi-badge {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
 }
 
 .aqi-category {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .pollutants-compact {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .pollutant-mini {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 }
 
 .pollutant-mini span {
-    font-size: 11px;
-    opacity: 0.7;
+  font-size: 11px;
+  opacity: 0.7;
 }
 
 .pollutant-mini strong {
-    font-size: 18px;
-    font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .quick-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .quick-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 }
 
 .quick-icon {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .quick-data {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .quick-data strong {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .quick-data span {
-    font-size: 11px;
-    opacity: 0.7;
+  font-size: 11px;
+  opacity: 0.7;
 }
 
 .hourly-scroll {
-    display: flex;
-    gap: 14px;
-    overflow-x: auto;
-    padding: 8px 0;
-    scrollbar-width: none;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none;
 }
 
 .hourly-scroll::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .hour-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    min-width: 55px;
-    opacity: 0.75;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 55px;
+  opacity: 0.75;
 }
 
 .hour-item.current {
-    opacity: 1;
+  opacity: 1;
 }
 
 .hour-time {
-    font-size: 13px;
-    font-weight: 500;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .hour-icon {
-    font-size: 28px;
+  font-size: 28px;
 }
 
 .hour-temp {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .hour-humidity {
-    display: flex;
-    align-items: center;
-    gap: 2px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .daily-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .day-item {
-    display: grid;
-    grid-template-columns: 150px 1fr 10px;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-columns: 150px 1fr 10px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .day-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .day-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .day-name {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .day-date {
-    font-size: 12px;
-    opacity: 0.65;
+  font-size: 12px;
+  opacity: 0.65;
 }
 
 .day-weather {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .day-icons {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .day-icon,
 .night-icon {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .night-icon {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .day-description {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 60px;
 }
 
 .day-description span {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .day-night-text {
-    opacity: 0.6;
-    font-size: 12px;
+  opacity: 0.6;
+  font-size: 12px;
 }
 
 .temp-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
 }
 
 .temp-min,
 .temp-max {
-    font-size: 15px;
-    font-weight: 500;
-    min-width: 32px;
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 32px;
 }
 
 .temp-min {
-    opacity: 0.6;
-    text-align: right;
+  opacity: 0.6;
+  text-align: right;
 }
 
 .temp-line {
-    width: 180px;
-    height: 3px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
-    border-radius: 2px;
+  width: 180px;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
+  border-radius: 2px;
 }
 
 .detail-group h3 {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    opacity: 0.9;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  opacity: 0.9;
 }
 
 .detail-compact {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .detail-mini {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 }
 
 .detail-mini .detail-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 20px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
 }
 
 .detail-mini > div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .detail-label {
-    font-size: 11px;
-    opacity: 0.7;
+  font-size: 11px;
+  opacity: 0.7;
 }
 
 .detail-mini strong {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .pollutants-grid-detailed {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .pollutant-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
 }
 
 .pollutant-detail .pollutant-label {
-    font-size: 12px;
-    opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 .pollutant-detail .pollutant-value {
-    font-size: 20px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .pollutant-bar {
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
-    overflow: hidden;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .pollutant-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00e400, #ffff00, #ff7e00, #ff0000);
-    border-radius: 2px;
-    transition: width 0.3s ease;
+  height: 100%;
+  background: linear-gradient(90deg, #00e400, #ffff00, #ff7e00, #ff0000);
+  border-radius: 2px;
+  transition: width 0.3s ease;
 }

@@ -1,21 +1,21 @@
 {
-    "name": "@u1bot/koishi-plugin-fortune",
-    "version": "0.0.1",
-    "description": "运势",
-    "keywords": [
-        "chatbot",
-        "koishi",
-        "plugin"
-    ],
-    "files": [
-        "dist",
-        "lib"
-    ],
-    "main": "src/index.ts",
-    "dependencies": {
-        "moment-timezone": "^0.6.0"
-    },
-    "peerDependencies": {
-        "koishi": "^4.18.9"
-    }
+  "name": "@u1bot/koishi-plugin-fortune",
+  "version": "0.0.1",
+  "description": "运势",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "main": "src/index.ts",
+  "dependencies": {
+    "moment-timezone": "^0.6.0"
+  },
+  "peerDependencies": {
+    "koishi": "^4.18.9"
+  }
 }
