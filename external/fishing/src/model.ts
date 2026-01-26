@@ -11,13 +11,21 @@ declare module "koishi" {
 }
 
 export interface FishingRecordModel {
+  /** 用户ID */
   user_id: string;
+  /** 倒霉次数 */
   frequency: number;
+  /** 鱼的列表 */
   fishes: Fish[];
+  /** 钓鱼竿等级 */
   fishing_rod_level: FishingRodLevel;
+  /** 钓鱼竿经验 */
   fishing_rod_experience: number;
+  /** 总钓鱼次数 */
   total_fishing_count: number;
+  /** 上次钓鱼时间 */
   last_fishing_time: Date;
+  /** 连续倒霉次数 */
   consecutive_bad_count: number;
 }
 
