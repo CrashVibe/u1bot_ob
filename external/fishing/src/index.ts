@@ -2,13 +2,14 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 import type { Config } from "./config";
-import type { Fish } from "./config";
+import type { Fish } from "./types";
 import {} from "@koishijs/plugin-adapter-qq";
 import {} from "@u1bot/koishi-plugin-coin";
 import type { Context } from "koishi";
 import { h } from "koishi";
 import {} from "koishi-plugin-rate-limit";
 
+import { getTop } from "./crud";
 import { getFishingRodDisplay, getFishingRodProgress } from "./fishing_rod";
 import { applyModel } from "./model";
 import {
@@ -17,15 +18,13 @@ import {
   get_display_quality,
   get_fish_info,
   get_fish_price,
-  get_fishing_stats,
   get_quality_display,
-  get_user_fishing_rod_info,
   save_fish
 } from "./services";
 export { Config } from "./config";
 export const name = "fishing";
 export const inject = {
-  required: ["database", "coin"],
+  required: ["database", "coin", "redis"],
   optional: ["fortune"]
 };
 
@@ -150,15 +149,11 @@ export async function apply(ctx: Context, config: Config) {
     if (!session || !session.userId) {
       throw new Error("无法获取用户信息");
     }
-    const stats = await get_fishing_stats(ctx, session.userId);
-    const rodInfo = await get_user_fishing_rod_info(ctx, session.userId, config);
-    const progress = getFishingRodProgress(
-      {
-        fishing_rod_level: stats.fishing_rod_level,
-        total_fishing_count: stats.total_fishing_count
-      } as any,
-      config
-    );
+    const record = await ctx.database.get("fishing_record", { user_id: session.userId });
+    if (!record[0]) {
+      return h.quote(session.messageId) + "你还没有开始钓鱼呢，快去钓鱼吧！";
+    }
+    const progress = getFishingRodProgress(record[0], config);
 
     let progressText = "";
     if (progress.next) {
@@ -168,10 +163,10 @@ export async function apply(ctx: Context, config: Config) {
     }
 
     return `你的钓鱼统计信息：
-- 总钓鱼次数：${stats.frequency}
-- 背包中的鱼总长：${stats.fishes.reduce((sum, fish) => sum + fish.length, 0)}cm
-- 当前鱼竿：[${rodInfo.display}] 等级${progressText}
-- 连续倒霉次数：${stats.consecutive_bad_count}
+- 总钓鱼次数：${record[0].frequency}
+- 背包中的鱼总长：${record[0].fishes.reduce((sum, fish) => sum + fish.length, 0)}cm
+- 当前鱼竿：[${getFishingRodDisplay(record[0].fishing_rod_level, config)}] 等级${progressText}
+- 连续倒霉次数：${record[0].consecutive_bad_count}
         `;
   });
 
@@ -183,14 +178,14 @@ export async function apply(ctx: Context, config: Config) {
         throw new Error("无法获取用户信息");
       }
 
-      const rodInfo = await get_user_fishing_rod_info(ctx, session.userId, config);
-      const progress = getFishingRodProgress(
-        {
-          fishing_rod_level: rodInfo.level,
-          total_fishing_count: rodInfo.total_fishing_count
-        } as any,
-        config
-      );
+      const record = await ctx.database.get("fishing_record", {
+        user_id: session.userId
+      });
+      if (!record[0]) {
+        return h.quote(session.messageId) + "你还没有开始钓鱼呢，快去钓鱼吧！";
+      }
+
+      const progress = getFishingRodProgress(record[0], config);
 
       let progressText = "";
       if (progress.next) {
@@ -200,7 +195,7 @@ export async function apply(ctx: Context, config: Config) {
         progressText = `\n已达到最高等级！恭喜你成为钓鱼大师！`;
       }
 
-      const rodConfig = config.fishing_rods[rodInfo.level];
+      const rodConfig = config.fishing_rods[record[0].fishing_rod_level];
       const bonusText = Object.entries(rodConfig.quality_bonus)
         .map(([quality, bonus]) => `${get_quality_display(quality)}: ${(bonus * 100).toFixed(0)}%`)
         .join(", ");
@@ -208,7 +203,7 @@ export async function apply(ctx: Context, config: Config) {
       return (
         h.quote(session.messageId) +
         `你的鱼竿信息：
-当前等级：[${rodInfo.display}]${progressText}
+当前等级：[${getFishingRodDisplay(record[0].fishing_rod_level, config)}]${progressText}
 品质加成：${bonusText}
 特殊鱼加成：${(rodConfig.special_fish_bonus * 100).toFixed(0)}%`
       );
@@ -302,7 +297,7 @@ export async function apply(ctx: Context, config: Config) {
   });
 
   ctx
-    .command("fish_leaderboard", "查看本群钓鱼排行榜")
+    .command("fish_leaderboard", "查看本群钓鱼排行榜（所有类型前三名）")
     .alias("钓鱼排行榜")
     .action(async ({ session }) => {
       if (!session || !session.userId) {
@@ -312,25 +307,32 @@ export async function apply(ctx: Context, config: Config) {
         return h.quote(session.messageId) + "钓鱼排行榜只能在群内查看～";
       }
 
-      const group_members = await session.bot.getGuildMemberList(session.guildId);
-      const userIds = group_members.data.map((member) => member.user?.id).filter((id): id is string => !!id);
-      const records = await ctx.database.get("fishing_record", { user_id: userIds });
-      if (records.length === 0) {
-        return h.quote(session.messageId) + "本群还没有人钓过鱼诶...";
-      }
-      records.sort((a, b) => b.total_fishing_count - a.total_fishing_count);
+      const { guildId } = session;
 
-      const top10 = records.slice(0, 10); // 我们是冠军！超绝钓鱼 F10
-      let leaderboard = "本群钓鱼排行榜：\n";
-      const userNames = await Promise.all(
-        top10.map(async (record) => {
-          const user = await session.bot.getUser(record.user_id);
-          return user.name || "未知用户";
-        })
-      );
-      leaderboard +=
-        top10.map((record, i) => `${i + 1}. ${userNames[i]} - 总钓鱼次数：${record.total_fishing_count}`).join("\n") +
-        "\n";
-      return h.quote(session.messageId) + leaderboard;
+      const types = ["count", "lucky", "unlucky", "streak", "exp"] as const;
+      const typeMap: Record<string, string> = {
+        count: "钓鱼次数",
+        lucky: "欧皇榜",
+        unlucky: "非酋榜",
+        streak: "连续倒霉榜",
+        exp: "经验榜"
+      };
+      let msg = "";
+      const members = await session.bot.getGuildMemberList(guildId)
+      for (const type of types) {
+        const result = await getTop(ctx, guildId, type, undefined, 3);
+        if (result.length === 0) {
+          continue;
+        }
+        msg += `\n[${typeMap[type]}排行榜]\n`;
+        result.forEach((item, idx) => {
+          const member = members.data.find((m) => m.user?.id === item.value);
+          if (!member || !member.user) {
+            return;
+          }
+          msg += `No.${idx + 1} -  ${member.user.name}，${typeMap[type]}: ${item.score}\n`;
+        });
+      }
+      return h.quote(session.messageId) + msg.trim();
     });
 }

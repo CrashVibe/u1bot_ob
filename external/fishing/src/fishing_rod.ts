@@ -1,6 +1,6 @@
 import type { Config } from "./config";
-import { FishingRodLevel, FishQuality } from "./config";
 import { type FishingRecordModel } from "./model";
+import { FishingRodLevel, FishQuality } from "./types";
 
 /**
  * 获取鱼竿等级显示名称
@@ -87,7 +87,7 @@ export function shouldDowngradeFishingRod(
   record: FishingRecordModel,
   config: Config,
   fishName: string
-): { shouldDowngrade: boolean; reason: string } {
+): { shouldDowngrade: boolean; reason: string|null } {
   const currentConfig = config.fishing_rods[record.fishing_rod_level];
 
   // 检查是否钓到了倒霉鱼
@@ -113,7 +113,7 @@ export function shouldDowngradeFishingRod(
     return { shouldDowngrade: true, reason: "鱼竿生锈了" };
   }
 
-  return { shouldDowngrade: false, reason: "" };
+  return { shouldDowngrade: false, reason: null };
 }
 
 /**
@@ -143,7 +143,8 @@ export function calculateFishingRodBonus(level: FishingRodLevel, quality: FishQu
  * 更新连续倒霉计数
  */
 export function updateConsecutiveBadCount(record: FishingRecordModel, quality: FishQuality): void {
-  // 如果钓到的是腐烂或发霉的鱼，增加连续倒霉计数
+  record.frequency += 1;
+
   if (quality === FishQuality.rotten || quality === FishQuality.moldy) {
     record.consecutive_bad_count++;
   } else {

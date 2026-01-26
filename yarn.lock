@@ -1853,6 +1853,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redis/bloom@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "@redis/bloom@npm:5.0.0-next.7"
+  peerDependencies:
+    "@redis/client": ^5.0.0-next.7
+  checksum: 10c0/3c363752986b8b92ba5693499c4e4c7db050383707dc65b413de83aa1e59a045ea07372c504903e63b1f67c239f080c10f33a451e91bc7c343e05886f9b61a22
+  languageName: node
+  linkType: hard
+
 "@redis/client@npm:1.6.1":
   version: 1.6.1
   resolution: "@redis/client@npm:1.6.1"
@@ -1861,6 +1870,15 @@ __metadata:
     generic-pool: "npm:3.9.0"
     yallist: "npm:4.0.0"
   checksum: 10c0/216c61f5aa2fef212386c2ef5b5f6d10f44244f6928682f370e190402d23338e11260377c08e87dd6d678408fa7c0a6b7bb5571ecadb830abfa3d7355b9eff1e
+  languageName: node
+  linkType: hard
+
+"@redis/client@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "@redis/client@npm:5.0.0-next.7"
+  dependencies:
+    cluster-key-slot: "npm:1.1.2"
+  checksum: 10c0/a7620e65e02718dbe5be9151a12414fb117c04842a6b145af8a649297dc07ec90cbb02d20ed709c8979c3f1782de5ea866f0dec83bcedd5541782272155c1376
   languageName: node
   linkType: hard
 
@@ -1882,6 +1900,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redis/json@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "@redis/json@npm:5.0.0-next.7"
+  peerDependencies:
+    "@redis/client": ^5.0.0-next.7
+  checksum: 10c0/58a056cc53aeddb2ad53ab1fcb3a66842eaf37507ce6e53ca2a031420302e906a2d4ee78d8d3ab339b5d9c33616b07e0e0851b6740f5aeccdcbfb56cfeb7290b
+  languageName: node
+  linkType: hard
+
 "@redis/search@npm:1.2.0":
   version: 1.2.0
   resolution: "@redis/search@npm:1.2.0"
@@ -1891,12 +1918,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redis/search@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "@redis/search@npm:5.0.0-next.7"
+  peerDependencies:
+    "@redis/client": ^5.0.0-next.7
+  checksum: 10c0/51d2d64bd64cb21f3cd45b63804268c9749ac29b4562a1dc51c6100322cbb0d147ef9503d61d717256b76f8b5a60b841080311ae9c145e6cf9be60912248df32
+  languageName: node
+  linkType: hard
+
 "@redis/time-series@npm:1.1.0":
   version: 1.1.0
   resolution: "@redis/time-series@npm:1.1.0"
   peerDependencies:
     "@redis/client": ^1.0.0
   checksum: 10c0/503d0d5cbc9113d26666bb7b4dea57619badbcdfeee0369abf647250f26c5482ed5827c83f88f9f0cf22e021e3e7cb562459669d733fac05652972e208d6ba0f
+  languageName: node
+  linkType: hard
+
+"@redis/time-series@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "@redis/time-series@npm:5.0.0-next.7"
+  peerDependencies:
+    "@redis/client": ^5.0.0-next.7
+  checksum: 10c0/fc3bc25d2c4582ffc99fca7d2efc5efb9b0fb7bda9771e56664745bf27eb7e5f8203687ec69bf2ac4342d543ad3c3cf993fb69d9760a6c1f6c48ac822c75d028
   languageName: node
   linkType: hard
 
@@ -2639,6 +2684,8 @@ __metadata:
     "@u1bot/koishi-plugin-coin": "workspace:^"
     "@u1bot/koishi-plugin-fortune": "workspace:^"
     koishi-plugin-rate-limit: "npm:^2.0.4"
+    koishi-plugin-redis: "npm:^1.0.0"
+    moment-timezone: "npm:^0.6.0"
   peerDependencies:
     koishi: ^4.18.9
   languageName: unknown
@@ -5790,6 +5837,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"koishi-plugin-redis@npm:1.0.0, koishi-plugin-redis@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "koishi-plugin-redis@npm:1.0.0"
+  dependencies:
+    "@redis/client": "npm:5.0.0-next.7"
+    redis: "npm:5.0.0-next.7"
+  peerDependencies:
+    koishi: ^4.18.7
+  checksum: 10c0/c99a33e1c05d9de4e679396156800f5aa27e0cf3ecab85433a0b392b1b935c0411a70e533ff94d06232c6842b33bd6416c778f6062003006c58696c00ed53a7e
+  languageName: node
+  linkType: hard
+
 "koishi-plugin-telemetry@npm:^0.2.3":
   version: 0.2.3
   resolution: "koishi-plugin-telemetry@npm:0.2.3"
@@ -6919,6 +6978,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redis@npm:5.0.0-next.7":
+  version: 5.0.0-next.7
+  resolution: "redis@npm:5.0.0-next.7"
+  dependencies:
+    "@redis/bloom": "npm:5.0.0-next.7"
+    "@redis/client": "npm:5.0.0-next.7"
+    "@redis/json": "npm:5.0.0-next.7"
+    "@redis/search": "npm:5.0.0-next.7"
+    "@redis/time-series": "npm:5.0.0-next.7"
+  checksum: 10c0/b1988e480265f69eb45c013d00a8f66a2d7c16617a0d9797250a82e119df76f402f5443c372c7b8f4040d28e1ea7c46c1c00c03df5190b0353d9025002f9a40e
+  languageName: node
+  linkType: hard
+
 "redis@npm:^4.6.11":
   version: 4.7.1
   resolution: "redis@npm:4.7.1"
@@ -7711,6 +7783,7 @@ __metadata:
     koishi-plugin-cron: "npm:^3.1.0"
     koishi-plugin-dataview: "npm:^2.7.8"
     koishi-plugin-rate-limit: "npm:^2.0.4"
+    koishi-plugin-redis: "npm:1.0.0"
     koishi-plugin-telemetry: "npm:^0.2.3"
     koishi-plugin-theme-vanilla: "npm:^1.1.0"
     koishi-plugin-verifier: "npm:^1.1.1"
