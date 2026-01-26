@@ -1,5 +1,5 @@
 import type { Context } from "koishi";
-import { type Fish, FishingRodLevel } from "./config";
+import { FishingRodLevel, type Fish } from "./types";
 
 declare module "koishi" {
   interface Tables {

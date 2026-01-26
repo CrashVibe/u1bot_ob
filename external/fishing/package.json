@@ -16,9 +16,13 @@
     "@koishijs/plugin-adapter-qq": "^4.10.1",
     "@u1bot/koishi-plugin-coin": "workspace:^",
     "@u1bot/koishi-plugin-fortune": "workspace:^",
-    "koishi-plugin-rate-limit": "^2.0.4"
+    "koishi-plugin-rate-limit": "^2.0.4",
+    "koishi-plugin-redis": "^1.0.0"
   },
   "peerDependencies": {
     "koishi": "^4.18.9"
+  },
+  "dependencies": {
+    "moment-timezone": "^0.6.0"
   }
 }

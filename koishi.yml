@@ -56,6 +56,8 @@ plugins:
       password: ${{ env.MYSQL_PASSWORD }}
     cache-redis:x572p9:
       endpoint: ${{ env.REDIS_ENDPOINT }}
+    redis:a0eyaa:
+      url: ${{ env.REDIS_ENDPOINT }}
     database-sqlite:7gog12:
       $if: env.DATABASE_TYPE === 'sqlite'
       path: data/koishi.db
@@ -137,6 +139,3 @@ nickname:
 prefix:
   - ''
   - /
-logger:
-  level:
-    heweather: 3

@@ -1,18 +1,19 @@
-import type { Config } from "./config";
 import {} from "@u1bot/koishi-plugin-fortune";
 import type { Context } from "koishi";
 import { Random, type Session } from "koishi";
+import {} from "koishi-plugin-redis";
 
-import { type Fish, FISH_CONFIG, type FishInfo, FishingRodLevel, FishQuality } from "./config";
+import { FISH_CONFIG, type Config } from "./config";
+import { updateRankings } from "./crud";
 import {
   calculateFishingRodBonus,
   canUpgradeFishingRod,
   downgradeFishingRod,
-  getFishingRodDisplay,
   shouldDowngradeFishingRod,
   updateConsecutiveBadCount,
   upgradeFishingRod
 } from "./fishing_rod";
+import { FishQuality, type Fish, FishingRodLevel, type FishInfo } from "./types";
 
 export async function choice(ctx: Context, session: Session, config: Config) {
   if (!session.userId) {
@@ -154,14 +155,22 @@ export async function save_fish(
   newLevel?: FishingRodLevel;
   downgradeReason?: string;
 }> {
-  const { userId } = session;
+  if (!session.userId || !session.guildId) {
+    throw new Error("无法获取用户ID或群组ID");
+  }
+  const { userId, guildId } = session;
   let record = await ctx.database.get("fishing_record", { user_id: userId });
 
-  let fishingResult = {
+  let fishingResult: {
+    upgraded: boolean;
+    downgraded: boolean;
+    newLevel?: FishingRodLevel;
+    downgradeReason?: string;
+  } = {
     upgraded: false,
     downgraded: false,
-    newLevel: undefined as FishingRodLevel | undefined,
-    downgradeReason: undefined as string | undefined
+    newLevel: undefined,
+    downgradeReason: undefined
   };
 
   if (!record[0]) {
@@ -199,11 +208,10 @@ export async function save_fish(
       if (downgradedLevel) {
         fishingResult.downgraded = true;
         fishingResult.newLevel = downgradedLevel;
-        fishingResult.downgradeReason = downgradeCheck.reason;
+        fishingResult.downgradeReason = downgradeCheck.reason === null ? undefined : downgradeCheck.reason;
       }
     }
 
-    userRecord.frequency += 1;
     userRecord.total_fishing_count += 1;
     userRecord.last_fishing_time = new Date();
     userRecord.fishing_rod_experience += 1;
@@ -216,7 +224,7 @@ export async function save_fish(
         fishingResult.newLevel = upgradedLevel;
       }
     }
-
+    await updateRankings(ctx, guildId, userId, fish, userRecord); // 更新排行榜
     await ctx.database.set(
       "fishing_record",
       { user_id: userId },
@@ -301,46 +309,3 @@ export async function get_backpack(ctx: Context, userId: string) {
   return formatted;
 }
 
-export async function get_fishing_stats(ctx: Context, userId: string) {
-  const record = await ctx.database.get("fishing_record", {
-    user_id: userId
-  });
-  if (!record[0]) {
-    return {
-      frequency: 0,
-      fishes: [],
-      fishing_rod_level: FishingRodLevel.normal,
-      total_fishing_count: 0,
-      consecutive_bad_count: 0
-    };
-  }
-  return {
-    frequency: record[0].frequency,
-    fishes: record[0].fishes,
-    fishing_rod_level: record[0].fishing_rod_level || FishingRodLevel.normal,
-    total_fishing_count: record[0].total_fishing_count || 0,
-    consecutive_bad_count: record[0].consecutive_bad_count || 0
-  };
-}
-
-export async function get_user_fishing_rod_info(ctx: Context, userId: string, config: Config) {
-  const record = await ctx.database.get("fishing_record", {
-    user_id: userId
-  });
-  if (!record[0]) {
-    return {
-      level: FishingRodLevel.normal,
-      display: getFishingRodDisplay(FishingRodLevel.normal, config),
-      total_fishing_count: 0,
-      experience: 0
-    };
-  }
-
-  const userRecord = record[0];
-  return {
-    level: userRecord.fishing_rod_level || FishingRodLevel.normal,
-    display: getFishingRodDisplay(userRecord.fishing_rod_level || FishingRodLevel.normal, config),
-    total_fishing_count: userRecord.total_fishing_count || 0,
-    experience: userRecord.fishing_rod_experience || 0
-  };
-}
