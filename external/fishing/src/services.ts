@@ -1,7 +1,8 @@
+import type { Config } from "./config";
 import {} from "@u1bot/koishi-plugin-fortune";
 import type { Context } from "koishi";
 import { Random, type Session } from "koishi";
-import type { Config } from "./config";
+
 import { type Fish, FISH_CONFIG, type FishInfo, FishingRodLevel, FishQuality } from "./config";
 import {
   calculateFishingRodBonus,
@@ -78,7 +79,10 @@ function calculate_weight_increase(config: Config, luck_star_num: number): numbe
  * @returns
  */
 async function get_weight(ctx: Context, config: Config, userId: string) {
-  const luck_star_num = await ctx.fortune.get_user_luck_star(userId);
+  let luck_star_num: number | null = null;
+  if (ctx.fortune) {
+    luck_star_num = await ctx.fortune.get_user_luck_star(userId);
+  }
 
   const [userRecord] = await ctx.database.get("fishing_record", {
     user_id: userId
