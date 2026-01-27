@@ -65,16 +65,28 @@ plugins:
   group:adapter:
     '@mrlingxd/adapter-onebot:zjekt1':
       $if: env.ONEBOT_SELF_ID1 !== undefined
+      protocol: ws
+      token: ${{ env.ONEBOT_TOKEN_ID1 }}
       selfId: ${{ env.ONEBOT_SELF_ID1 }}
-      path: /onebot/koishi
+      endpoint: ${{ env.ONEBOT_ENDPOINT_ID1 }}
     '@mrlingxd/adapter-onebot:fu2toc':
       $if: env.ONEBOT_SELF_ID2 !== undefined
+      protocol: ws
+      token: ${{ env.ONEBOT_TOKEN_ID2 }}
       selfId: ${{ env.ONEBOT_SELF_ID2 }}
-      path: /onebot/koishi
+      endpoint: ${{ env.ONEBOT_ENDPOINT_ID2 }}
     '@mrlingxd/adapter-onebot:1z278h':
       $if: env.ONEBOT_SELF_ID3 !== undefined
+      protocol: ws
+      token: ${{ env.ONEBOT_TOKEN_ID3 }}
       selfId: ${{ env.ONEBOT_SELF_ID3 }}
-      path: /onebot/koishi
+      endpoint: ${{ env.ONEBOT_ENDPOINT_ID3 }}
+    '@mrlingxd/adapter-onebot:c2j74h':
+      $if: env.NODE_ENV === 'development'
+      protocol: ws
+      token: ${{ env.ONEBOT_TOKEN_DEV }}
+      selfId: ${{ env.ONEBOT_SELF_ID_DEV }}
+      endpoint: ${{ env.ONEBOT_ENDPOINT_DEV }}
     adapter-qq:ni7i8a:
       $if: env.QQ_BOT_ID !== undefined
       id: ${{ env.QQ_BOT_ID }}
