@@ -38,8 +38,8 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
   const rate = Math.random() * 100;
   if (rate > config.successRate) {
     await ctx.database.create("waifu_relationships", {
-      group_id: session.guildId!,
-      owner_id: session.userId!,
+      group_id: session.guildId,
+      owner_id: session.userId,
       waifu_id: null,
       married_at: new Date()
     });
@@ -80,7 +80,7 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
     }
     // 计算成功率
     const rate = Math.random() * 100;
-    if (rate <= config.atSuccessRate) {
+    if (rate < config.atSuccessRate) {
       target_id = at_users[0];
     } else {
       msg.push(h.text("看来你的运气不太好，没能成功娶到心上人"));

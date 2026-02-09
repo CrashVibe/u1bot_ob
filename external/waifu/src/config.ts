@@ -72,7 +72,7 @@ interface Config {
 
 const Config: Schema<Config> = Schema.object({
   atSuccessRate: Schema.number().description("at 对象时成功的概率，取值范围 0-100\n百分比").default(40),
-  successRate: Schema.number().description("娶群友成功率，取值范围 0-100\n百分比").default(72),
+  successRate: Schema.number().description("娶群友成功率，取值范围 0-100\n百分比").default(90),
   noWaifuMessages: Schema.array(String).description("没有娶到对象时的提示语").default(no_waifu),
   happyEndMessages: Schema.array(String).description("成功娶到对象时的提示语").default(happy_end),
   divorceMessages: Schema.array(String).description("离婚时的提示语").default(divorce_messages),
