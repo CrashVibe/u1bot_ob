@@ -498,6 +498,10 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
         name: "社恐珍珠",
         prompt: "* 这颗珍珠内向到极致，躲在壳子里不出来..."
       },
+      {
+        name: "毒药幻梦鱼",
+        prompt: "* 翡萨烈现任家主，前任圣女坎特蕾拉...她编织的幻梦令人无法自拔..."
+      },
       { name: "迷失虚空鱼", prompt: "* 这条鱼在虚空中迷茫地游荡..." }
     ]
   },
