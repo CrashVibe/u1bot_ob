@@ -45,6 +45,8 @@ export interface FishInfo {
   name: string;
   /** 特殊描述，如果有则优先显示 */
   prompt?: string;
+  /** 是否仅显示特殊描述，不显示常规钓鱼结果 */
+  prompt_only?: boolean;
 }
 
 export interface QualityConfig {

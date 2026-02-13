@@ -66,23 +66,13 @@ export async function apply(ctx: Context, config: Config) {
           let result = "";
 
           // 检查是否有特殊描述（prompt）
-          if (fishInfo && fishInfo.prompt) {
-            result = `* 你钓到了一条 [${get_quality_display(fish.fish.quality)}]${fish.fish.name}，长度为 ${
+          if (fishInfo) {
+            result = `你钓到了一条 [${get_quality_display(fish.fish.quality)}]${fish.fish.name}，长度为 ${
               fish.fish.length
             }cm！`;
-            result += "\n" + fishInfo.prompt;
-          } else if (fish.fish.name == "河") {
-            result = "* 河累了，休息..等等...你钓到了一条河？！";
-          } else if (fish.fish.name == "尚方宝剑") {
-            result = `* 你钓到了一把 [${get_quality_display(fish.fish.quality)}]${fish.fish.name}，长度为 ${
-              fish.fish.length
-            }cm！`;
-          } else if (fish.fish.name == "MrlingXD") {
-            result = `* 你钓到了一条...呃我没看错吧？！这是 MrlingXD 吗？`;
-          } else {
-            result = `* 你钓到了一条 [${get_quality_display(fish.fish.quality)}]${fish.fish.name}，长度为 ${
-              fish.fish.length
-            }cm！`;
+            if (fishInfo.prompt !== undefined) {
+              result = fishInfo.prompt_only ? `* ${fishInfo.prompt}` : result + "\n* " + fishInfo.prompt;
+            }
           }
 
           const fishingResult = await save_fish(ctx, session, fish.fish, config);
@@ -317,8 +307,8 @@ export async function apply(ctx: Context, config: Config) {
         streak: "连续倒霉榜",
         exp: "经验榜"
       };
-      let msg =[];
-      const members = await session.bot.getGuildMemberList(guildId)
+      let msg = [];
+      const members = await session.bot.getGuildMemberList(guildId);
       for (const type of types) {
         const result = await getTop(ctx, guildId, type, undefined, 3);
         if (result.length === 0) {
