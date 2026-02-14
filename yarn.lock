@@ -1114,14 +1114,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/plugin-database-mysql@npm:^6.7.0":
-  version: 6.7.0
-  resolution: "@koishijs/plugin-database-mysql@npm:6.7.0"
+"@koishijs/plugin-database-postgres@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@koishijs/plugin-database-postgres@npm:2.7.0"
   dependencies:
-    "@minatojs/driver-mysql": "npm:^3.7.0"
+    "@minatojs/driver-postgres": "npm:^2.7.0"
   peerDependencies:
     koishi: ^4.18.10
-  checksum: 10c0/0fbbe98741ee05d7a97e0c2a10412d5ac858995d83f099441b0d31630adcf3ffa139bfffc57bbd0d4a858b872c6a554bbf04fcdd38fefb7457b96b74d88d483f
+  checksum: 10c0/8b9088f1632b2dc00fa5f229af4243a95d053a0321a677daa9c486dec3b84ba192e71972d5249d28ef79a9f04fdc127b9583158079d032465202d339ee02a5c9
   languageName: node
   linkType: hard
 
@@ -1383,16 +1383,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@minatojs/driver-mysql@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@minatojs/driver-mysql@npm:3.7.0"
+"@minatojs/driver-postgres@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@minatojs/driver-postgres@npm:2.7.0"
   dependencies:
     "@minatojs/sql-utils": "npm:^5.6.0"
-    "@vlasky/mysql": "npm:^2.18.6"
     cosmokit: "npm:^1.6.3"
+    postgres: "npm:^3.4.4"
   peerDependencies:
     minato: ^3.7.0
-  checksum: 10c0/8945034a9cba2ad92eb57ca0239e72dd933abf6a72f05098394a56bfc6953a6a632430dd2fc5348f6f8493c2bf7b86be054d6bd1f7837353f3da519532261fc4
+  checksum: 10c0/8352a1da2a9b16050830f44c8bde6087bd10c4ce8dc385c66823d855c9d1decd73f9c42734e014777951bb73c7a745c80746a300d5525c13b0b365242ccf2820
   languageName: node
   linkType: hard
 
@@ -3074,18 +3074,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vlasky/mysql@npm:^2.18.6":
-  version: 2.18.7
-  resolution: "@vlasky/mysql@npm:2.18.7"
-  dependencies:
-    bignumber.js: "npm:9.1.1"
-    readable-stream: "npm:2.3.7"
-    safe-buffer: "npm:5.2.1"
-    sqlstring: "npm:2.3.3"
-  checksum: 10c0/30f227b18de17470585ab14ace9c6e1d4130678f30c2da70046c942140e13f2f4a01a4ced6f71f704208dcbe30cf1b7baa0d0d1a9f3d3256c6bd7efda0ad0745
-  languageName: node
-  linkType: hard
-
 "@volar/language-core@npm:2.4.27":
   version: 2.4.27
   resolution: "@volar/language-core@npm:2.4.27"
@@ -3612,13 +3600,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bignumber.js@npm:9.1.1":
-  version: 9.1.1
-  resolution: "bignumber.js@npm:9.1.1"
-  checksum: 10c0/950312b15d038ae06028c8a6901fb4efd57fa889ada8c887cebd856e79f2fc9667641bebfb2e2ea4cc694e663fd55c1fe6e62a7e8fe40bbdebdf92269537b802
-  languageName: node
-  linkType: hard
-
 "binary-extensions@npm:^2.0.0":
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
@@ -4016,13 +3997,6 @@ __metadata:
   bin:
     cordis: lib/bin/cordis.mjs
   checksum: 10c0/4fa14c759783e4ecd62b0db7a9468a98360c9221d6be5a995fc1c4548ef65f64828bd80dd0535f20d1f28f22d69935ad5b3254c35c9aa01343d2f5d1a8157917
-  languageName: node
-  linkType: hard
-
-"core-util-is@npm:~1.0.0":
-  version: 1.0.3
-  resolution: "core-util-is@npm:1.0.3"
-  checksum: 10c0/90a0e40abbddfd7618f8ccd63a74d88deea94e77d0e8dbbea059fa7ebebb8fbb4e2909667fe26f3a467073de1a542ebe6ae4c73a73745ac5833786759cd906c9
   languageName: node
   linkType: hard
 
@@ -5401,7 +5375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inherits@npm:2.0.4, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.3, inherits@npm:~2.0.4":
+"inherits@npm:2.0.4, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.4":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 10c0/4e531f648b29039fb7426fb94075e6545faa1eb9fe83c29f0b6d9e7263aceb4289d2d4557db0d428188eeb449cc7c5e77b0a0b2c4e248ff2a65933a0dee49ef2
@@ -5529,13 +5503,6 @@ __metadata:
   dependencies:
     is-docker: "npm:^2.0.0"
   checksum: 10c0/a6fa2d370d21be487c0165c7a440d567274fbba1a817f2f0bfa41cc5e3af25041d84267baa22df66696956038a43973e72fca117918c91431920bdef490fa25e
-  languageName: node
-  linkType: hard
-
-"isarray@npm:~1.0.0":
-  version: 1.0.0
-  resolution: "isarray@npm:1.0.0"
-  checksum: 10c0/18b5be6669be53425f0b84098732670ed4e727e3af33bc7f948aac01782110eb9a18b3b329c5323bcdd3acdaae547ee077d3951317e7f133bff7105264b3003d
   languageName: node
   linkType: hard
 
@@ -6792,17 +6759,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postgres@npm:^3.4.4":
+  version: 3.4.8
+  resolution: "postgres@npm:3.4.8"
+  checksum: 10c0/fc737d79cd50d7be76750dfffc71e6322c64fe6a8fa8ed38001f2d969de0200302216ffbfd252560a3a2fa72d3f2fad6d1bdafc493c4e64020653a7c363df348
+  languageName: node
+  linkType: hard
+
 "proc-log@npm:^6.0.0":
   version: 6.1.0
   resolution: "proc-log@npm:6.1.0"
   checksum: 10c0/4f178d4062733ead9d71a9b1ab24ebcecdfe2250916a5b1555f04fe2eda972a0ec76fbaa8df1ad9c02707add6749219d118a4fc46dc56bdfe4dde4b47d80bb82
-  languageName: node
-  linkType: hard
-
-"process-nextick-args@npm:~2.0.0":
-  version: 2.0.1
-  resolution: "process-nextick-args@npm:2.0.1"
-  checksum: 10c0/bec089239487833d46b59d80327a1605e1c5287eaad770a291add7f45fda1bb5e28b38e0e061add0a1d0ee0984788ce74fa394d345eed1c420cacf392c554367
   languageName: node
   linkType: hard
 
@@ -6911,21 +6878,6 @@ __metadata:
     iconv-lite: "npm:~0.4.24"
     unpipe: "npm:~1.0.0"
   checksum: 10c0/449844344fc90547fb994383a494b83300e4f22199f146a79f68d78a199a8f2a923ea9fd29c3be979bfd50291a3884733619ffc15ba02a32e703b612f8d3f74a
-  languageName: node
-  linkType: hard
-
-"readable-stream@npm:2.3.7":
-  version: 2.3.7
-  resolution: "readable-stream@npm:2.3.7"
-  dependencies:
-    core-util-is: "npm:~1.0.0"
-    inherits: "npm:~2.0.3"
-    isarray: "npm:~1.0.0"
-    process-nextick-args: "npm:~2.0.0"
-    safe-buffer: "npm:~5.1.1"
-    string_decoder: "npm:~1.1.1"
-    util-deprecate: "npm:~1.0.1"
-  checksum: 10c0/1708755e6cf9daff6ff60fa5b4575636472289c5b95d38058a91f94732b8d024a940a0d4d955639195ce42c22cab16973ee8fea8deedd24b5fec3dd596465f86
   languageName: node
   linkType: hard
 
@@ -7248,13 +7200,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
-  version: 5.1.2
-  resolution: "safe-buffer@npm:5.1.2"
-  checksum: 10c0/780ba6b5d99cc9a40f7b951d47152297d0e260f0df01472a1b99d4889679a4b94a13d644f7dbc4f022572f09ae9005fa2fbb93bbbd83643316f365a3e9a45b21
-  languageName: node
-  linkType: hard
-
 "safe-regex-test@npm:^1.1.0":
   version: 1.1.0
   resolution: "safe-regex-test@npm:1.1.0"
@@ -7468,13 +7413,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sqlstring@npm:2.3.3":
-  version: 2.3.3
-  resolution: "sqlstring@npm:2.3.3"
-  checksum: 10c0/3b5dd7badb3d6312f494cfa6c9a381ee630fbe3dbd571c4c9eb8ecdb99a7bf5a1f7a5043191d768797f6b3c04eed5958ac6a5f948b998f0a138294c6d3125fbd
-  languageName: node
-  linkType: hard
-
 "ssri@npm:^13.0.0":
   version: 13.0.0
   resolution: "ssri@npm:13.0.0"
@@ -7504,15 +7442,6 @@ __metadata:
   dependencies:
     safe-buffer: "npm:~5.2.0"
   checksum: 10c0/810614ddb030e271cd591935dcd5956b2410dd079d64ff92a1844d6b7588bf992b3e1b69b0f4d34a3e06e0bd73046ac646b5264c1987b20d0601f81ef35d731d
-  languageName: node
-  linkType: hard
-
-"string_decoder@npm:~1.1.1":
-  version: 1.1.1
-  resolution: "string_decoder@npm:1.1.1"
-  dependencies:
-    safe-buffer: "npm:~5.1.0"
-  checksum: 10c0/b4f89f3a92fd101b5653ca3c99550e07bdf9e13b35037e9e2a1c7b47cec4e55e06ff3fc468e314a0b5e80bfbaf65c1ca5a84978764884ae9413bec1fc6ca924e
   languageName: node
   linkType: hard
 
@@ -7752,7 +7681,7 @@ __metadata:
     "@koishijs/plugin-commands": "npm:^3.5.5"
     "@koishijs/plugin-config": "npm:^2.8.6"
     "@koishijs/plugin-console": "npm:^5.30.11"
-    "@koishijs/plugin-database-mysql": "npm:^6.7.0"
+    "@koishijs/plugin-database-postgres": "npm:2.7.0"
     "@koishijs/plugin-database-sqlite": "npm:^4.7.0"
     "@koishijs/plugin-explorer": "npm:^1.5.5"
     "@koishijs/plugin-help": "npm:^2.4.6"
@@ -7920,7 +7849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"util-deprecate@npm:^1.0.1, util-deprecate@npm:~1.0.1":
+"util-deprecate@npm:^1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 10c0/41a5bdd214df2f6c3ecf8622745e4a366c4adced864bc3c833739791aeeeb1838119af7daed4ba36428114b5c67dcda034a79c882e97e43c03e66a4dd7389942
