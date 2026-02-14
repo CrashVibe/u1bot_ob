@@ -17,10 +17,10 @@ export default class Coin extends Service {
   constructor(ctx: Context) {
     super(ctx, "coin");
     this.ctx = ctx;
-    applyModel(ctx);
   }
 
   start() {
+    applyModel(this.ctx);
     this.ctx.command("次元币", "查看你的次元币余额").action(async ({ session }) => {
       if (!session || !session.userId) {
         throw new Error("会话对象不存在");
