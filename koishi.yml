@@ -49,15 +49,15 @@ plugins:
     status:t02hrz: {}
     theme-vanilla:suxbn7: {}
   group:storage:
-    database-mysql:uaaort:
-      $if: env.DATABASE_TYPE === 'mysql'
-      database: ${{ env.MYSQL_DATABASE }}
-      user: ${{ env.MYSQL_USER }}
-      password: ${{ env.MYSQL_PASSWORD }}
     cache-redis:x572p9:
       endpoint: ${{ env.REDIS_ENDPOINT }}
     redis:a0eyaa:
       url: ${{ env.REDIS_ENDPOINT }}
+    ~database-postgres:zr4jaj:
+      $if: env.DATABASE_TYPE === 'postgres'
+      database: ${{ env.POSTGRES_DATABASE }}
+      password: ${{ env.POSTGRES_PASSWORD }}
+      user: ${{ env.POSTGRES_USER }}
     database-sqlite:7gog12:
       $if: env.DATABASE_TYPE === 'sqlite'
       path: data/koishi.db
