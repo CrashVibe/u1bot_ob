@@ -53,7 +53,7 @@ plugins:
       endpoint: ${{ env.REDIS_ENDPOINT }}
     redis:a0eyaa:
       url: ${{ env.REDIS_ENDPOINT }}
-    ~database-postgres:zr4jaj:
+    database-postgres:zr4jaj:
       $if: env.DATABASE_TYPE === 'postgres'
       database: ${{ env.POSTGRES_DATABASE }}
       password: ${{ env.POSTGRES_PASSWORD }}
