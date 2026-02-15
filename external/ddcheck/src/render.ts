@@ -35,7 +35,7 @@ export async function renderDdcheckImage(
   };
   const templateDir = path.resolve(__dirname, "templates");
   return await ctx.renderer.render_template(
-    path.resolve(templateDir, "index.ejs"),
+    path.resolve(templateDir, "info.ejs"),
     { info: info },
     {
       width: 100,
