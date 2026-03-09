@@ -1,11 +1,12 @@
-import { render } from "ejs";
 import { readFile } from "fs/promises";
+import path from "path";
+
+import type { RenderOptions } from "./types";
+import { render } from "ejs";
 import type { Context } from "koishi";
 import { Schema, Service } from "koishi";
-import path from "path";
 import type { Browser } from "playwright";
 import { chromium } from "playwright";
-import type { RenderOptions } from "./types";
 
 export const name = "renderer";
 
@@ -105,9 +106,9 @@ export default class Renderer extends Service {
     const screenshotBuffer = await page.screenshot({
       type: render_options.type,
       quality: render_options.quality,
-      fullPage: true
+      fullPage: true,
     });
-    // await page.close();
+    await page.close();
     return screenshotBuffer;
   }
 }
