@@ -21,18 +21,7 @@ export function applyModel(ctx: Context) {
       id: { type: "unsigned" },
       user_id: { type: "string" },
       content: { type: "text" },
-      createdAt: {
-        type: "timestamp",
-        dump: (value: Date | null) => {
-          if (value === null) {
-            return new Date();
-          }
-          return value;
-        },
-        load: (value: any) => {
-          return new Date(value);
-        }
-      },
+      createdAt: { type: "timestamp" },
       anonymous: { type: "boolean", initial: false }
     },
     {

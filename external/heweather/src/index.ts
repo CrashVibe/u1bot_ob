@@ -1,10 +1,11 @@
-import {} from "@mrlingxd/koishi-plugin-renderer";
-import console from "console";
 import { readFile } from "fs/promises";
+import * as path from "path";
+
+import {} from "@mrlingxd/koishi-plugin-renderer";
 import type { Context } from "koishi";
 import { h, Schema } from "koishi";
 import moment from "moment";
-import * as path from "path";
+
 import { type AirQualityResponse, HourlyType } from "./model";
 import { CityNotFoundError, Weather } from "./services";
 import { add_date, add_hour_data, convert_color_to_hex } from "./utils";
@@ -79,7 +80,12 @@ export async function apply(ctx: Context, config: Config) {
         await session.send(h.quote(session.messageId) + "请输入一个有效的地点");
         return;
       }
-      void session.execute(`heweather -l ${location}`);
+      const command = ctx.$commander.resolve("heweather", session);
+        session.argv = {
+          ...session.argv,
+          command: command,
+        }; // 注入 session.argv
+        void session.execute(`heweather -l ${location}`);
     }
   });
 
@@ -90,9 +96,8 @@ export async function apply(ctx: Context, config: Config) {
       if (!session || !options) {
         throw new Error("无法获取会话信息");
       }
-      const options_result = JSON.parse(JSON.stringify(options));
-      const { location } = options_result;
-      if (location.includes("天气")) {
+      const { location } = options;
+      if (location?.includes("天气")) {
         return;
       }
       if (location) {
@@ -142,7 +147,7 @@ export async function apply(ctx: Context, config: Config) {
           hours: add_hour_data(w_data.hourly?.hourly || [], config.qweather_hourlytype, config.timezone),
           theme: theme
         };
-
+        // @ts-ignore - 动态加载懒得生成类型了
         const { render } = await import("./dist/server/render.js");
         const renderer = await render(propsData);
 
