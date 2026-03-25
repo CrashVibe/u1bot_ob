@@ -2,6 +2,7 @@ import type { Context } from "koishi";
 import { h, Schema } from "koishi";
 import {} from "koishi-plugin-cron";
 import moment from "moment-timezone";
+
 import { applyModel } from "./models";
 import { applycron } from "./scheduler";
 import { get_all_morning_night_data, get_morning, get_night, get_user_sleep_stats } from "./services";
@@ -118,8 +119,18 @@ export async function apply(ctx: Context, config: Config) {
       }
     }
     if (config.MORNING_MESSAGES.some((msg) => session.content?.startsWith(msg)) || session.content === "早") {
+      const command = ctx.$commander.resolve("morning", session);
+      session.argv = {
+        ...session.argv,
+        command: command
+      }; // 注入 session.argv
       void session.execute("morning");
     } else if (config.NIGHT_MESSAGES.some((msg) => session.content?.startsWith(msg)) || session.content === "晚") {
+      const command = ctx.$commander.resolve("night", session);
+      session.argv = {
+        ...session.argv,
+        command: command
+      }; // 注入 session.argv
       void session.execute("night");
     }
   });
