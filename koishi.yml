@@ -49,8 +49,6 @@ plugins:
     status:t02hrz: {}
     theme-vanilla:suxbn7: {}
   group:storage:
-    cache-redis:x572p9:
-      endpoint: ${{ env.REDIS_ENDPOINT }}
     redis:a0eyaa:
       url: ${{ env.REDIS_ENDPOINT }}
     database-postgres:zr4jaj:
@@ -108,12 +106,6 @@ plugins:
   group:develop:
     hmr:2k9f09:
       root: .
-  '@u1bot/verifier:6ntgzg':
-    onFriendRequest: true
-    onGuildRequest: true
-    cacheTypes:
-      - friend
-      - guild
   cron:y34tyf: {}
   whateat-pic:dsrcxq:
     botname: 姚奕
