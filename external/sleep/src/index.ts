@@ -124,14 +124,12 @@ export async function apply(ctx: Context, config: Config) {
         ...session.argv,
         command: command
       }; // 注入 session.argv
-      void session.execute("morning");
     } else if (config.NIGHT_MESSAGES.some((msg) => session.content?.startsWith(msg)) || session.content === "晚") {
       const command = ctx.$commander.resolve("night", session);
       session.argv = {
         ...session.argv,
         command: command
       }; // 注入 session.argv
-      void session.execute("night");
     }
   });
 

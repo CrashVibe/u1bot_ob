@@ -80,12 +80,14 @@ export async function apply(ctx: Context, config: Config) {
         await session.send(h.quote(session.messageId) + "请输入一个有效的地点");
         return;
       }
-      const command = ctx.$commander.resolve("heweather", session);
-        session.argv = {
-          ...session.argv,
-          command: command,
-        }; // 注入 session.argv
-        void session.execute(`heweather -l ${location}`);
+      const command = ctx.$commander.resolve(`heweather`, session);
+      session.argv = {
+        ...session.argv,
+        command: command,
+        options: {
+          location: location
+        }
+      }; // 注入 session.argv
     }
   });
 
