@@ -59,20 +59,20 @@ plugins:
     adapter-milky:ygnejp:
       $if: env.NODE_ENV === 'development'
       token: ${{ env.MILKY_TOKEN_DEV }}
-      endpoint: ${{ env.MILKYT_ENDPOINT_DEV }}
+      endpoint: ${{ env.MILKY_ENDPOINT_DEV }}
       keepAlive: true
-    'adapter-milky:zjekt1':
-      $if: env.MILKYT_SELF_ID1 !== undefined
-      token: ${{ env.MILKYT_TOKEN_ID1 }}
-      endpoint: ${{ env.MILKYT_ENDPOINT_ID1 }}
-    'adapter-milky:fu2toc':
-      $if: env.MILKYT_SELF_ID2 !== undefined
-      token: ${{ env.MILKYT_TOKEN_ID2 }}
-      endpoint: ${{ env.MILKYT_ENDPOINT_ID2 }}
-    'adapter-milky:1z278h':
-      $if: env.MILKYT_SELF_ID3 !== undefined
-      token: ${{ env.MILKYT_TOKEN_ID3 }}
-      endpoint: ${{ env.MILKYT_ENDPOINT_ID3 }}
+    adapter-milky:zjekt1:
+      $if: env.MILKY_TOKEN_ID1 !== undefined
+      token: ${{ env.MILKY_TOKEN_ID1 }}
+      endpoint: ${{ env.MILKY_ENDPOINT_ID1 }}
+    adapter-milky:fu2toc:
+      $if: env.MILKY_TOKEN_ID2 !== undefined
+      token: ${{ env.MILKY_TOKEN_ID2 }}
+      endpoint: ${{ env.MILKY_ENDPOINT_ID2 }}
+    adapter-milky:1z278h:
+      $if: env.MILKY_TOKEN_ID3 !== undefined
+      token: ${{ env.MILKY_TOKEN_ID3 }}
+      endpoint: ${{ env.MILKY_ENDPOINT_ID3 }}
     adapter-qq:ni7i8a:
       $if: env.QQ_BOT_ID !== undefined
       id: ${{ env.QQ_BOT_ID }}
