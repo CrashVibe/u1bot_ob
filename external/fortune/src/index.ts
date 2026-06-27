@@ -23,6 +23,7 @@ class Fortune extends Service {
   declare config: Fortune.Config;
   constructor(ctx: Context, config: Fortune.Config) {
     super(ctx, "fortune", true);
+    this.config = config;
     applyModel(ctx);
   }
 
