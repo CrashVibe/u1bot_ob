@@ -8,17 +8,32 @@
     "plugin"
   ],
   "files": [
-    "dist",
-    "lib"
+    "lib",
+    "templates",
+    "vite.config.ts"
   ],
+  "type": "module",
   "main": "src/index.ts",
+  "scripts": {
+    "dev": "vite"
+  },
   "dependencies": {
-    "moment-timezone": "^0.6.0"
+    "moment-timezone": "^0.6.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@mrlingxd/koishi-plugin-renderer": "workspace:^"
+    "@mrlingxd/koishi-plugin-renderer": "workspace:^",
+    "@tailwindcss/vite": "^4.3.1",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2"
   },
   "peerDependencies": {
-    "koishi": "^4.18.9"
+    "koishi": "^4.18.11"
   }
 }

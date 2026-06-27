@@ -1,7 +1,8 @@
 import type { Awaitable, Context } from "koishi";
 import { h, Schema, Service } from "koishi";
-import { get_user_fortune_display, get_user_luck_star } from "./services";
+
 import { applyModel } from "./model";
+import { get_user_fortune_display, get_user_luck_star } from "./services";
 
 export const name = "fortune";
 
@@ -18,12 +19,10 @@ declare module "koishi" {
  */
 class Fortune extends Service {
   static inject = ["database"];
-  ctx: Context;
-  config: Fortune.Config;
+  declare ctx: Context;
+  declare config: Fortune.Config;
   constructor(ctx: Context, config: Fortune.Config) {
     super(ctx, "fortune", true);
-    this.ctx = ctx;
-    this.config = config;
     applyModel(ctx);
   }
 

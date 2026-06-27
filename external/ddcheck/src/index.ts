@@ -1,9 +1,11 @@
 import type { Context } from "koishi";
 import { h, Schema } from "koishi";
 import {} from "koishi-plugin-cron";
+
 import { renderDdcheckImage } from "./render";
-import { getMedalList, getUserInfo } from "./services/bilibili";
+import { getMedalList, getUserInfo, type UserInfo } from "./services/bilibili";
 import { getVtbList, updateVtbList } from "./services/vtb";
+
 export const name = "ddcheck";
 export const inject = ["renderer", "BiliBiliLogin", "BiliBiliSearch", "cron"];
 
@@ -19,7 +21,7 @@ export function apply(ctx: Context) {
     if (!name) {
       return "请输入B站用户名或UID";
     }
-    let uid: number | undefined = undefined;
+    let uid: number | undefined;
     if (/^\d+$/.test(name)) {
       uid = Number(name);
     } else {
@@ -32,7 +34,7 @@ export function apply(ctx: Context) {
     if (!uid) {
       return `未找到名为 ${name} 的用户`;
     }
-    let fetchedUserInfo;
+    let fetchedUserInfo: UserInfo;
     try {
       fetchedUserInfo = await getUserInfo(ctx, uid);
     } catch (error) {

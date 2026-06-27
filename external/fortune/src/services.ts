@@ -1,7 +1,9 @@
 import { createHash } from "crypto";
+
+import type Fortune from ".";
 import type { Context } from "koishi";
 import moment from "moment-timezone";
-import type Fortune from ".";
+
 import fortuneData from "./fortune_data.json";
 
 export interface FortuneInfo {

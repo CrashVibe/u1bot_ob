@@ -1,4 +1,5 @@
 import type { Config } from "./config";
+
 import { type FishingRecordModel } from "./model";
 import { FishingRodLevel, FishQuality } from "./types";
 
@@ -87,7 +88,7 @@ export function shouldDowngradeFishingRod(
   record: FishingRecordModel,
   config: Config,
   fishName: string
-): { shouldDowngrade: boolean; reason: string|null } {
+): { shouldDowngrade: boolean; reason: string | null } {
   const currentConfig = config.fishing_rods[record.fishing_rod_level];
 
   // 检查是否钓到了倒霉鱼

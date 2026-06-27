@@ -1,5 +1,6 @@
-import type { Context } from "koishi";
 import type { Config } from ".";
+import type { Context } from "koishi";
+
 import { applyModel } from "./models";
 
 async function groupo_daily_refresh(ctx: Context) {

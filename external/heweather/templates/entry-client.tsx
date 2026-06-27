@@ -1,6 +1,14 @@
-import { createApp } from "./main";
+import { hydrateRoot } from "react-dom/client";
 
-const initialState = (window as any).__INITIAL_STATE__ || {
+import App, { type AppProps } from "./App";
+
+declare global {
+  interface Window {
+    __INITIAL_STATE__?: AppProps;
+  }
+}
+
+const initialState: AppProps = window.__INITIAL_STATE__ || {
   now: {
     obsTime: "XXXX-XX-XXT08:25+08:00",
     temp: "10",
@@ -355,7 +363,6 @@ const initialState = (window as any).__INITIAL_STATE__ || {
   theme: "light"
 };
 
-delete (window as any).__INITIAL_STATE__;
+delete window.__INITIAL_STATE__;
 
-const { app } = createApp(initialState, false);
-app.mount("#app", true);
+hydrateRoot(document.getElementById("app")!, <App {...initialState} />);

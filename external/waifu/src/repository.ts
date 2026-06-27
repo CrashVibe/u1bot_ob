@@ -1,24 +1,64 @@
+import type { WaifuRelationship } from "./models";
 import type { Context } from "koishi";
-import { $ } from "koishi";
 
 /**
- * 获取该群的用户关系
- *
- * @param ctx Koishi 上下文
- * @param group_id 群号
- * @param owner_id 用户号
- * @returns 用户关系记录或 null
+ * 获取该群当前所有在婚关系（一对多关系图谱用）
  */
-export async function get_user_relationship(ctx: Context, group_id: string, owner_id: string) {
-  const relationship = await ctx.database.get("waifu_relationships", (row) =>
-    $.and(
-      $.eq(row.group_id, group_id),
-      $.eq(row.is_married, true),
-      $.or($.eq(row.owner_id, owner_id), $.eq(row.waifu_id, owner_id))
-    )
+export async function get_all_active_relationships(ctx: Context, group_id: string): Promise<WaifuRelationship[]> {
+  const rows = await ctx.database.get("waifu_relationships", { group_id, is_married: true });
+  return rows.filter((row) => row.waifu_id !== null);
+}
+
+/**
+ * 获取某用户作为主人时持有的在婚关系
+ *
+ * 用于判断是否重复娶同一个人，以及计算娶亲费用
+ */
+export async function get_owner_relationships(
+  ctx: Context,
+  group_id: string,
+  owner_id: string
+): Promise<WaifuRelationship[]> {
+  const rows = await ctx.database.get("waifu_relationships", { group_id, owner_id, is_married: true });
+  return rows.filter((row) => row.waifu_id !== null);
+}
+
+/**
+ * 获取某用户今天涉及到的全部关系记录（包含已离婚的），用于离婚罚款计数
+ */
+export async function get_relationships_involving(
+  ctx: Context,
+  group_id: string,
+  user_id: string
+): Promise<WaifuRelationship[]> {
+  const rows = await ctx.database.get("waifu_relationships", { group_id });
+  return rows.filter((row) => row.owner_id === user_id || row.waifu_id === user_id);
+}
+
+/**
+ * 获取两人之间当前在婚的关系（不限方向）
+ */
+export async function get_relationship_between(
+  ctx: Context,
+  group_id: string,
+  user_a: string,
+  user_b: string
+): Promise<WaifuRelationship | undefined> {
+  const rows = await ctx.database.get("waifu_relationships", { group_id, is_married: true });
+  return rows.find(
+    (row) =>
+      (row.owner_id === user_a && row.waifu_id === user_b) || (row.owner_id === user_b && row.waifu_id === user_a)
   );
-  if (relationship.length === 0) {
-    return undefined;
-  }
-  return relationship[0];
+}
+
+/**
+ * 获取某用户当前在婚的全部关系（作为主人或对象）
+ */
+export async function get_active_relationships_for_user(
+  ctx: Context,
+  group_id: string,
+  user_id: string
+): Promise<WaifuRelationship[]> {
+  const rows = await ctx.database.get("waifu_relationships", { group_id, is_married: true });
+  return rows.filter((row) => row.waifu_id !== null && (row.owner_id === user_id || row.waifu_id === user_id));
 }

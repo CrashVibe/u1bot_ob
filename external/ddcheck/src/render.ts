@@ -1,13 +1,14 @@
+import path from "path";
+
+import type { MedalItem, MedalInfo, UserInfo } from "./services/bilibili";
+import type { VtbInfo } from "./services/vtb";
 import {} from "@mrlingxd/koishi-plugin-renderer";
 import type { Context } from "koishi";
-import path from "path";
-import type { UserInfo } from "./services/bilibili";
-import type { VtbInfo } from "./services/vtb";
 
 export async function renderDdcheckImage(
   userInfo: UserInfo,
   vtbList: VtbInfo[],
-  medalList: any[],
+  medalList: MedalItem[],
   ctx: Context
 ): Promise<Buffer> {
   const attentions: number[] = userInfo.attentions || [];
@@ -15,7 +16,7 @@ export async function renderDdcheckImage(
   const attentionSet = new Set(attentions);
   const vtbDict: Record<number, VtbInfo> = {};
   for (const info of vtbList) vtbDict[Number(info.mid)] = info;
-  const medalDict: Record<string, any> = {};
+  const medalDict: Record<string, MedalItem> = {};
   for (const medal of medalList) medalDict[medal.target_name] = medal;
   const vtbs = Object.entries(vtbDict)
     .filter(([uid]) => attentionSet.has(Number(uid)))
@@ -44,12 +45,18 @@ export async function renderDdcheckImage(
   );
 }
 
-function formatVtbInfo(info: any, medalDict: Record<string, any>): any {
+interface VtbEntry {
+  name: string;
+  uid: number;
+  medal?: { name: string; level: number; color_border: string; color_start: string; color_end: string };
+}
+
+function formatVtbInfo(info: VtbInfo, medalDict: Record<string, MedalItem>): VtbEntry {
   const name = info.uname;
   const uid = info.mid;
-  let medal = undefined;
-  if (medalDict[name] && medalDict[name].medal_info) {
-    const medalInfo = medalDict[name].medal_info;
+  let medal: VtbEntry["medal"];
+  const medalInfo: MedalInfo | undefined = medalDict[name]?.medal_info;
+  if (medalInfo) {
     medal = {
       name: medalInfo.medal_name,
       level: medalInfo.level,

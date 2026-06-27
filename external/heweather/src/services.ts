@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { Config } from ".";
 import type {
   AirQualityResponse,
@@ -9,6 +8,8 @@ import type {
   RealtimeWeatherResponse,
   WeatherAlertResponse
 } from "./model";
+import axios from "axios";
+
 import { getJwtToken, type JwtConfig } from "./utils";
 
 export class ConfigError extends Error {
@@ -80,8 +81,8 @@ export class Weather {
     }
   }
 
-  private async _request(url: string, params: any) {
-    const headers: any = {};
+  private async _request<T>(url: string, params: Record<string, string | number>): Promise<T> {
+    const headers: Record<string, string> = {};
 
     if (this.config.qweather_apikey) {
       headers["X-QW-Api-Key"] = this.config.qweather_apikey;
@@ -97,7 +98,7 @@ export class Weather {
       throw new ConfigError("Please configure API Key or JWT");
     }
 
-    const response = await axios.get(url, {
+    const response = await axios.get<T>(url, {
       params,
       headers
     });
@@ -128,40 +129,34 @@ export class Weather {
   private async _getNow(cityID: string): Promise<RealtimeWeatherResponse> {
     const url = `${this.config.qweather_apihost}/v7/weather/now`;
     const params = { location: cityID };
-    const data: RealtimeWeatherResponse = await this._request(url, params);
-    return data;
+    return await this._request(url, params);
   }
 
   private async _getDaily(cityID: string): Promise<DailyApi> {
     const days = this.config.qweather_forecast_days;
     const url = `${this.config.qweather_apihost}/v7/weather/${days}d`;
     const params = { location: cityID };
-    const data: DailyApi = await this._request(url, params);
-    return data;
+    return await this._request(url, params);
   }
 
   private async _getAir(latitude: string, longitude: string): Promise<AirQualityResponse> {
     const url = `${this.config.qweather_apihost}/airquality/v1/current/${latitude}/${longitude}`;
-    const data: AirQualityResponse = await this._request(url, {
+    return await this._request(url, {
       lang: "zh-hans"
     });
-    return data;
   }
 
   private async _getWarning(latitude: string, longitude: string): Promise<WeatherAlertResponse> {
     const url = `${this.config.qweather_apihost}/weatheralert/v1/current/${latitude}/${longitude}`;
-    const data: WeatherAlertResponse = await this._request(url, {
+    return await this._request(url, {
       lang: "zh-hans"
     });
-
-    return data;
   }
 
   private async _getHourly(cityID: string): Promise<HourlyApi> {
     const url = `${this.config.qweather_apihost}/v7/weather/24h`;
     const params = { location: cityID };
-    const data: HourlyApi = await this._request(url, params);
-    return data;
+    return await this._request(url, params);
   }
 
   private _validateData() {

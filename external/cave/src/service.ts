@@ -1,7 +1,7 @@
+import type { Config } from ".";
 import type { Context, Session } from "koishi";
 import { h } from "koishi";
 import moment from "moment-timezone";
-import type { Config } from ".";
 
 /**
  * 添加内容到回声洞
@@ -106,7 +106,7 @@ export async function add_cave(ctx: Context, session: Session, config: Config, c
  * @param images 图片列表
  * @returns 是否符合要求
  */
-function check_save_content(content: string, images: Array<any>): string | null {
+function check_save_content(content: string, images: unknown[]): string | null {
   if (images.length > 1) {
     return "呃，投稿只能包含一张图片诶~\n再斟酌一下你的投稿内容吧~";
   }

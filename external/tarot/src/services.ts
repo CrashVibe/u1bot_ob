@@ -1,9 +1,11 @@
-import {} from "@koishijs/plugin-adapter-qq";
 import * as fs from "fs/promises";
+import path from "path";
+
+import type { Config } from ".";
+import {} from "@koishijs/plugin-adapter-qq";
 import type { Session } from "koishi";
 import { h, Random } from "koishi";
-import path from "path";
-import type { Config } from ".";
+
 import tarot_json from "./tarot.json";
 
 // 类型定义

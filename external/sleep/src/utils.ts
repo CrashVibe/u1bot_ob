@@ -1,5 +1,5 @@
-import moment from "moment-timezone";
 import type { Config } from ".";
+import moment from "moment-timezone";
 
 export function isTimeInMorningRange(tz: string, now_time: moment.Moment, start_time: number, end_time: number) {
   let dateStr = now_time.format("YYYY-MM-DD");

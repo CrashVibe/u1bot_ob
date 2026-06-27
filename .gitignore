@@ -34,3 +34,4 @@ tsconfig.tsbuildinfo
 .env
 mir.py
 .idea
+/.codegraph/

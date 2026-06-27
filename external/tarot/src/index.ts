@@ -1,5 +1,6 @@
 import type { Context } from "koishi";
 import { h, Schema } from "koishi";
+
 import Tarot from "./services";
 
 export const name = "tarot";

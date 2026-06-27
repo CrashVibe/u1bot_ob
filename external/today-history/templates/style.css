@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-paper: #f3e9d2;
+  --color-paper-soft: #ece0c2;
+  --color-paper-dark: #241b14;
+  --color-paper-dark-soft: #2f241a;
+  --color-ink: #3c2f22;
+  --color-ink-muted: #6b5841;
+  --color-ink-dark: #e8dcc0;
+  --color-ink-dark-muted: #b9a980;
+  --color-seal: #9c3b2e;
+  --color-seal-dark: #c9982c;
+  --color-birth: #2f6f5e;
+  --color-birth-dark: #5fae9a;
+  --color-death: #8a3a3a;
+  --color-death-dark: #d97b7b;
+  --color-event: #8a6a1f;
+  --color-event-dark: #d6b14d;
+  --font-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+}
+
+body {
+  font-family: var(--font-display);
+}
+
+.paper-grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(60, 47, 34, 0.12) 1px, transparent 0);
+  background-size: 4px 4px;
+}
+
+.dark .paper-grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(232, 220, 192, 0.08) 1px, transparent 0);
+}

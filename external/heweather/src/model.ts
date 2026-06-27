@@ -375,6 +375,21 @@ export interface AirQualityResponse {
 }
 
 /**
+ * 天气卡片 React 组件的 props，供 templates/App.tsx 与 src/index.ts 共用，
+ * 避免 src/index.ts 直接 import 一个 .tsx 文件（src 的 tsconfig 未配置 jsx）。
+ */
+export interface WeatherAppProps {
+  theme?: "light" | "dark";
+  city?: string;
+  now?: Now | null;
+  days?: (DailyItem & { week: string; date: string })[];
+  hours?: (HourlyItem & { hour: string; temp_percent: string })[];
+  warning?: WeatherAlertResponse | null;
+  airQualityData?: (AirQualityResponse["indexes"][0] & { air_color: string }) | null;
+  airPollutantData?: Record<string, number> | null;
+}
+
+/**
  * 健康影响与建议信息
  */
 export interface HealthInfo {

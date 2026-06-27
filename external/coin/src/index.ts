@@ -1,5 +1,6 @@
 import type { Context } from "koishi";
 import { h, Schema, Service } from "koishi";
+
 import { applyModel } from "./models";
 export const name = "coin";
 export interface Config {}
@@ -13,10 +14,9 @@ declare module "koishi" {
 
 export default class Coin extends Service {
   static inject = ["database"];
-  ctx: Context;
+  declare ctx: Context;
   constructor(ctx: Context) {
     super(ctx, "coin");
-    this.ctx = ctx;
   }
 
   start() {

@@ -1,4 +1,5 @@
 import type { Context } from "koishi";
+
 import { FishingRodLevel, type Fish } from "./types";
 
 declare module "koishi" {

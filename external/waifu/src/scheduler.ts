@@ -1,5 +1,6 @@
-import {} from "koishi-plugin-cron";
 import type { Context } from "koishi";
+import {} from "koishi-plugin-cron";
+
 import { applyModel } from "./models";
 
 export function applyCron(ctx: Context) {

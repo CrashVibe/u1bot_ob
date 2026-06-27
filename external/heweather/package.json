@@ -8,36 +8,34 @@
     "plugin"
   ],
   "files": [
-    "dist",
-    "lib"
+    "lib",
+    "templates",
+    "vite.config.ts"
   ],
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "yarn build:client && yarn build:server",
-    "build:client": "vite build --outDir src/dist/client",
-    "build:server": "vite build --outDir src/dist/server --ssr templates/render.ts"
+    "dev": "vite"
   },
   "dependencies": {
-    "axios": "^1.13.2",
-    "jose": "^6.1.3",
+    "axios": "^1.15.0",
+    "jose": "^6.2.2",
     "koishi-plugin-bilibili-login": "^0.1.50",
-    "moment-timezone": "^0.6.0",
-    "vue": "^3.5.27"
+    "lucide-react": "^0.545.0",
+    "moment-timezone": "^0.6.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@mrlingxd/koishi-plugin-renderer": "workspace:^",
-    "@types/node": "^25.0.10",
-    "@vitejs/plugin-vue": "^6.0.3",
-    "@vue/server-renderer": "^3.5.27",
-    "@vue/tsconfig": "^0.8.1",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.0.4",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vue": "^3.5.27",
-    "vue-tsc": "^3.2.3"
+    "vite": "^7.3.2"
   },
   "peerDependencies": {
-    "koishi": "^4.18.9"
+    "koishi": "^4.18.11"
   }
 }

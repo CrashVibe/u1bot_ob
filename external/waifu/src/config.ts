@@ -68,6 +68,14 @@ interface Config {
   /** 离婚罚款，指数增长
    */
   divorceFine: number;
+  /**
+   * 免费娶对象的次数（同一时间持有的对象数量在这个数字以内不需要花钱）
+   */
+  marryFreeCount: number;
+  /**
+   * 超出免费次数后，娶对象的次元币基础消耗，指数增长
+   */
+  marryFineBase: number;
 }
 
 const Config: Schema<Config> = Schema.object({
@@ -77,7 +85,9 @@ const Config: Schema<Config> = Schema.object({
   happyEndMessages: Schema.array(String).description("成功娶到对象时的提示语").default(happy_end),
   divorceMessages: Schema.array(String).description("离婚时的提示语").default(divorce_messages),
   divorceCooldown: Schema.number().description("离婚 CD，单位：秒").default(3600),
-  divorceFine: Schema.number().description("离婚罚款，指数增长").default(200)
+  divorceFine: Schema.number().description("离婚罚款，指数增长").default(200),
+  marryFreeCount: Schema.number().description("免费娶对象的次数").default(2),
+  marryFineBase: Schema.number().description("超出免费次数后，娶对象的次元币基础消耗，指数增长").default(50)
 });
 
 export { Config };

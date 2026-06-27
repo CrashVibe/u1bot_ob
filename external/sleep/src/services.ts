@@ -1,7 +1,8 @@
+import type { Config } from ".";
 import type { Context } from "koishi";
 import { $ } from "koishi";
 import moment from "moment-timezone";
-import type { Config } from ".";
+
 import { get_adjusted_minutes, isTimeInMorningRange, isTimeInNightRange, updateConsecutiveDays } from "./utils";
 
 /**

@@ -211,7 +211,8 @@ export async function apply(ctx: Context, config: Config) {
       if (session.qq) {
         return h.quote(session.messageId) + "暂时不支持此功能";
       }
-      if (!session.event.member?.roles?.includes("admin") && !session.event.member?.roles?.includes("owner")) {
+      const memberRoles = session.event.member?.roles as string[] | undefined;
+      if (!memberRoles?.includes("admin") && !memberRoles?.includes("owner")) {
         return h.quote(session.messageId) + "你没有权限设置钓鱼开关";
       }
       session.channel.fishing_switch = !session.channel.fishing_switch;

@@ -11,6 +11,14 @@ export function isAtBot(session: Session): boolean {
 }
 
 /**
+ * 获取消息中被 At 的用户 ID 列表
+ */
+export function getAtUsers(session: Session): string[] {
+  if (!session.elements) return [];
+  return session.elements.filter((element) => element.type === "at").map((element) => element.attrs.id as string);
+}
+
+/**
  * 获取可用的群成员列表
  *
  * 排除：机器人自己、QQ 机器人（自带的那种）

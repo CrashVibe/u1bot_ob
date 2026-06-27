@@ -1,12 +1,13 @@
-import type { Context } from "koishi";
-import axios from "axios";
-import path from "path";
 import fsa from "fs/promises";
+import path from "path";
+
+import axios from "axios";
+import type { Context } from "koishi";
 
 export interface VtbInfo {
   mid: number;
   uname: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const VTB_LIST_URLS = [
@@ -37,8 +38,8 @@ export async function updateVtbList(ctx: Context): Promise<void> {
         }
       }
       break;
-    } catch (e: any) {
-      if (e.code === "ECONNABORTED") {
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code === "ECONNABORTED") {
         console.warn(`Get ${url} timeout`);
       } else {
         console.warn(`Error when getting ${url}, ignore`, e);

@@ -61,30 +61,23 @@ plugins:
       path: data/koishi.db
     assets-local:zbu459: {}
   group:adapter:
-    '@mrlingxd/adapter-onebot:zjekt1':
-      $if: env.ONEBOT_SELF_ID1 !== undefined
-      protocol: ws
-      token: ${{ env.ONEBOT_TOKEN_ID1 }}
-      selfId: ${{ env.ONEBOT_SELF_ID1 }}
-      endpoint: ${{ env.ONEBOT_ENDPOINT_ID1 }}
-    '@mrlingxd/adapter-onebot:fu2toc':
-      $if: env.ONEBOT_SELF_ID2 !== undefined
-      protocol: ws
-      token: ${{ env.ONEBOT_TOKEN_ID2 }}
-      selfId: ${{ env.ONEBOT_SELF_ID2 }}
-      endpoint: ${{ env.ONEBOT_ENDPOINT_ID2 }}
-    '@mrlingxd/adapter-onebot:1z278h':
-      $if: env.ONEBOT_SELF_ID3 !== undefined
-      protocol: ws
-      token: ${{ env.ONEBOT_TOKEN_ID3 }}
-      selfId: ${{ env.ONEBOT_SELF_ID3 }}
-      endpoint: ${{ env.ONEBOT_ENDPOINT_ID3 }}
-    '@mrlingxd/adapter-onebot:c2j74h':
+    adapter-milky:ygnejp:
       $if: env.NODE_ENV === 'development'
-      protocol: ws
-      token: ${{ env.ONEBOT_TOKEN_DEV }}
-      selfId: ${{ env.ONEBOT_SELF_ID_DEV }}
-      endpoint: ${{ env.ONEBOT_ENDPOINT_DEV }}
+      token: ${{ env.MILKY_TOKEN_DEV }}
+      endpoint: ${{ env.MILKYT_ENDPOINT_DEV }}
+      keepAlive: true
+    'adapter-milky:zjekt1':
+      $if: env.MILKYT_SELF_ID1 !== undefined
+      token: ${{ env.MILKYT_TOKEN_ID1 }}
+      endpoint: ${{ env.MILKYT_ENDPOINT_ID1 }}
+    'adapter-milky:fu2toc':
+      $if: env.MILKYT_SELF_ID2 !== undefined
+      token: ${{ env.MILKYT_TOKEN_ID2 }}
+      endpoint: ${{ env.MILKYT_ENDPOINT_ID2 }}
+    'adapter-milky:1z278h':
+      $if: env.MILKYT_SELF_ID3 !== undefined
+      token: ${{ env.MILKYT_TOKEN_ID3 }}
+      endpoint: ${{ env.MILKYT_ENDPOINT_ID3 }}
     adapter-qq:ni7i8a:
       $if: env.QQ_BOT_ID !== undefined
       id: ${{ env.QQ_BOT_ID }}
@@ -104,7 +97,7 @@ plugins:
         - AUDIO_ACTION
         - PUBLIC_GUILD_MESSAGES
   group:develop:
-    hmr:2k9f09:
+    ~hmr:2k9f09:
       root: .
   cron:y34tyf: {}
   whateat-pic:dsrcxq:
@@ -121,7 +114,6 @@ plugins:
     $if: env.NODE_ENV !== 'development'
   bilibili-login:0t8j0u:
     $if: env.NODE_ENV !== 'development'
-    refresh: true
   '@u1bot/heweather:9ynxlz':
     qweather_apikey: ${{ env.QWEATHER_APIKEY }}
     qweather_jwt_sub: ${{ env.QWEATHER_JWT_SUB }}
@@ -138,8 +130,12 @@ plugins:
   '@yyyhf/onebot-assign:bb9v9l': {}
   '@u1bot/waifu:3wnasr': {}
   '@mrlingxd/renderer:1r38fq': {}
+  '@u1bot/aichat:db1af9': {}
 nickname:
   - 姚奕
 prefix:
   - ''
   - /
+logger:
+  levels:
+    aichat: 3

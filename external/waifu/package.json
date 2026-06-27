@@ -10,19 +10,39 @@
   "license": "MIT",
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "templates",
+    "vite.config.ts"
   ],
+  "type": "module",
   "main": "src/index.ts",
+  "scripts": {
+    "dev": "vite"
+  },
   "dependencies": {
     "@u1bot/koishi-plugin-coin": "workspace:^",
-    "koishi-plugin-cron": "^3.1.0"
+    "d3-force": "^3.0.0",
+    "koishi-plugin-cron": "^3.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@mrlingxd/koishi-plugin-renderer": "workspace:^",
+    "@types/d3-force": "^3.0.10",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2"
   },
   "peerDependencies": {
-    "koishi": "^4.18.9"
+    "koishi": "^4.18.11"
   },
   "service": {
     "required": [
-      "coin"
+      "coin",
+      "renderer"
     ]
   }
 }

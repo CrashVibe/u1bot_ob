@@ -1,4 +1,3 @@
-import { readFile } from "fs/promises";
 import * as path from "path";
 
 import {} from "@mrlingxd/koishi-plugin-renderer";
@@ -6,12 +5,15 @@ import type { Context } from "koishi";
 import { h, Schema } from "koishi";
 import moment from "moment";
 
-import { type AirQualityResponse, HourlyType } from "./model";
+import { type AirQualityResponse, HourlyType, type WeatherAppProps } from "./model";
 import { CityNotFoundError, Weather } from "./services";
 import { add_date, add_hour_data, convert_color_to_hex } from "./utils";
 
 export const name = "heweather";
 export const inject = ["renderer", "database"];
+
+const packageRoot = path.resolve(__dirname, "..");
+const cssDir = path.resolve(packageRoot, "templates/css");
 
 export interface Config {
   timezone: string;
@@ -137,9 +139,8 @@ export async function apply(ctx: Context, config: Config) {
         const now = moment.tz(config.timezone);
         const hour = now.hour();
         const theme = hour >= 18 || hour < 6 ? "dark" : "light";
-        let template = await readFile(path.resolve(__dirname, "./dist/client/index.html"), "utf-8");
 
-        const propsData = {
+        const propsData: WeatherAppProps = {
           now: w_data.now?.now,
           days: add_date(w_data.daily?.daily || []),
           city: w_data.cityName,
@@ -149,24 +150,20 @@ export async function apply(ctx: Context, config: Config) {
           hours: add_hour_data(w_data.hourly?.hourly || [], config.qweather_hourlytype, config.timezone),
           theme: theme
         };
-        // @ts-ignore - 动态加载懒得生成类型了
-        const { render } = await import("./dist/server/render.js");
-        const renderer = await render(propsData);
-
-        // 将 props 序列化到 HTML 中，供客户端使用
-        const serializedProps = `<script>window.__INITIAL_STATE__ = ${JSON.stringify(propsData).replace(/</g, "\\u003c")}</script>`;
-        const html_str = template
-          .replace("<!--app-html-->", renderer.html ?? "")
-          .replace("<!--app-head-->", renderer.head ?? "")
-          .replace("</head>", `${serializedProps}</head>`);
-        const image = await ctx.renderer.render_html(
-          html_str,
-          path.resolve(__dirname, "./dist/client"),
+        const image = await ctx.renderer.render_jsx(
+          "/templates/App.tsx",
+          propsData,
           { width: 800, height: 1250 },
           {
             wait_time: 1000,
             type: "png",
             scale: 1
+          },
+          {
+            root: packageRoot,
+            configFile: path.resolve(packageRoot, "vite.config.ts"),
+            cssFiles: [path.resolve(cssDir, "weather.css"), path.resolve(cssDir, "qweather-icons.css")],
+            baseURL: cssDir
           }
         );
         return [h.quote(session.messageId), h.image(image, "image/png")];

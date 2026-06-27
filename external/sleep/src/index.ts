@@ -139,9 +139,6 @@ export async function apply(ctx: Context, config: Config) {
     }
     if (session.guildId && session.userId) {
       return h.quote(session.messageId) + (await get_morning(ctx, config, session.userId, session.guildId));
-    } else {
-      // TODO: 添加私聊的处理逻辑
-      return "私聊早晚安还在开发中，去群里试试吧～";
     }
   });
 
@@ -151,8 +148,6 @@ export async function apply(ctx: Context, config: Config) {
     }
     if (session.guildId && session.userId) {
       return h.quote(session.messageId) + (await get_night(ctx, config, session.userId, session.guildId));
-    } else {
-      return "私聊早晚安还在开发中，去群里试试吧～";
     }
   });
 

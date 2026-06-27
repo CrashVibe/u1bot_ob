@@ -72,5 +72,3 @@ export interface Fish {
   /** 鱼的长度 */
   length: number;
 }
-
-

@@ -1,7 +1,20 @@
-import { SendFetch } from "koishi-plugin-bilibili-login/lib/API/BiliBiliAPI";
 import type { Context } from "koishi";
+import { SendFetch } from "koishi-plugin-bilibili-login/lib/API/BiliBiliAPI";
 
 const PAGE_SIZE = 50;
+
+export interface MedalInfo {
+  medal_name: string;
+  level: number;
+  medal_color_border: number;
+  medal_color_start: number;
+  medal_color_end: number;
+}
+
+export interface MedalItem {
+  target_name: string;
+  medal_info?: MedalInfo;
+}
 
 export interface UserBasicInfo {
   name: string;
@@ -33,7 +46,7 @@ const API_CONFIGS: API_CONFIG[] = [
 ];
 
 export class BiliBiliUserAPI extends SendFetch {
-  public async getUserMedals(uid: number): Promise<any[]> {
+  public async getUserMedals(uid: number): Promise<MedalItem[]> {
     const url = "https://api.live.bilibili.com/xlive/web-ucenter/user/MedalWall";
     const params = new URLSearchParams({ target_id: uid.toString() });
     const response = await this.sendGet(url, params, this.returnBilibiliHeaders());
@@ -165,7 +178,7 @@ export class BiliBiliUserAPI extends SendFetch {
           break;
         }
 
-        const pageFollowings = pageList.map((user: any) => Number(user.mid));
+        const pageFollowings = pageList.map((user: Record<string, unknown>) => Number(user["mid"]));
         followings.push(...pageFollowings);
         consecutiveFailures = 0;
 
@@ -228,7 +241,7 @@ export async function getUserInfo(ctx: Context, uid: number): Promise<UserInfo> 
   };
 }
 
-export async function getMedalList(ctx: Context, uid: number): Promise<any[]> {
+export async function getMedalList(ctx: Context, uid: number): Promise<MedalItem[]> {
   const sendFetch = new BiliBiliUserAPI(await ctx.BiliBiliLogin.getBilibiliAccountData());
   return await sendFetch.getUserMedals(uid);
 }

@@ -1,5 +1,6 @@
 import type { Context } from "koishi";
 import { h, Random, Schema } from "koishi";
+
 import answers from "../resource/answers.json";
 export const name = "answersbook";
 
