@@ -1853,24 +1853,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mrlingxd/koishi-plugin-adapter-onebot@workspace:external/adapter-onebot":
-  version: 0.0.0-use.local
-  resolution: "@mrlingxd/koishi-plugin-adapter-onebot@workspace:external/adapter-onebot"
-  dependencies:
-    "@koishijs/plugin-server": "npm:^3.2.9"
-    "@types/node": "npm:^25.6.0"
-    atsc: "npm:^2.1.0"
-    esbuild: "npm:^0.27.7"
-    esbuild-register: "npm:^3.6.0"
-    koishi: "npm:^4.18.11"
-    qface: "npm:^1.4.1"
-    typescript: "npm:^5.9.3"
-    yml-register: "npm:^1.2.5"
-  peerDependencies:
-    koishi: ^4.18.11
-  languageName: unknown
-  linkType: soft
-
 "@mrlingxd/koishi-plugin-renderer@workspace:^, @mrlingxd/koishi-plugin-renderer@workspace:external/renderer":
   version: 0.0.0-use.local
   resolution: "@mrlingxd/koishi-plugin-renderer@workspace:external/renderer"
@@ -6939,7 +6921,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi@npm:4.18.11, koishi@npm:^4.18.11":
+"koishi@npm:4.18.11":
   version: 4.18.11
   resolution: "koishi@npm:4.18.11"
   dependencies:
@@ -8238,13 +8220,6 @@ __metadata:
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 10c0/14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
-  languageName: node
-  linkType: hard
-
-"qface@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "qface@npm:1.4.1"
-  checksum: 10c0/64f84389b120c3a9b3408eacbedf1eac895ab19abdf4341a8610cdc6eff1b1c92024083b342ea091f2fe897544aefb57bd5a509f4483daeee41403065d7a389c
   languageName: node
   linkType: hard
 

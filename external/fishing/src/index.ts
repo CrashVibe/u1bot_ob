@@ -211,7 +211,7 @@ export async function apply(ctx: Context, config: Config) {
       if (session.qq) {
         return h.quote(session.messageId) + "暂时不支持此功能";
       }
-      const memberRoles = session.event.member?.roles as string[] | undefined;
+      const memberRoles = session.event.member?.roles?.map(r => r.id);
       if (!memberRoles?.includes("admin") && !memberRoles?.includes("owner")) {
         return h.quote(session.messageId) + "你没有权限设置钓鱼开关";
       }

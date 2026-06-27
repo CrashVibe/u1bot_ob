@@ -22,5 +22,5 @@
     "jsxImportSource": "@satorijs/element",
     "types": ["node", "yml-register/types"]
   },
-  "include": ["src"]
+  "include": ["src", "src/**/*.json"]
 }
