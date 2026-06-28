@@ -13,7 +13,7 @@
   ],
   "main": "src/index.ts",
   "devDependencies": {
-    "@koishijs/plugin-adapter-qq": "^4.11.0"
+    "@koishijs/plugin-adapter-qq": "^4.13.0"
   },
   "peerDependencies": {
     "koishi": "^4.18.11"

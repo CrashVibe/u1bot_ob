@@ -13,10 +13,10 @@
   ],
   "main": "src/index.ts",
   "dependencies": {
-    "moment-timezone": "^0.6.1"
+    "moment-timezone": "^0.6.2"
   },
   "devDependencies": {
-    "@koishijs/plugin-adapter-qq": "^4.11.0",
+    "@koishijs/plugin-adapter-qq": "^4.13.0",
     "@u1bot/koishi-plugin-coin": "workspace:^"
   },
   "peerDependencies": {
