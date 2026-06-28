@@ -67,9 +67,8 @@ export function buildRelationshipGraph(
   const compRadius = (n: number) => Math.max(NODE_R * 2, (NODE_R * 2 + GAP / 2) * n / (2 * Math.PI));
 
   const compSizes = components.map((comp) => {
-    const r = compRadius(comp.length);
-    const size = comp.length === 1 ? NODE_R * 2 : r * 2;
-    return size + GAP;
+    const visualR = comp.length === 1 ? NODE_R : compRadius(comp.length) + NODE_R;
+    return visualR * 2 + GAP;
   });
 
   const cols = Math.max(1, Math.ceil(Math.sqrt(components.length)));
