@@ -1,0 +1,19 @@
+{
+  "name": "@u1bot/koishi-plugin-group-assign",
+  "version": "0.0.1",
+  "description": "获取在线的群列表并分配受理人",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "main": "src/index.ts",
+  "peerDependencies": {
+    "koishi": "^4.18.11"
+  }
+}

@@ -63,7 +63,6 @@
     "@koishijs/plugin-sandbox": "^3.4.2",
     "@koishijs/plugin-server": "3.2.9",
     "@koishijs/plugin-status": "^7.4.10",
-    "@yyyhf/koishi-plugin-onebot-assign": "^0.0.3",
     "koishi": "4.18.11",
     "koishi-plugin-adapter-milky": "0.1.1",
     "koishi-plugin-assets-local": "^3.3.2",
