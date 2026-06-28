@@ -127,7 +127,7 @@ interface Assignment {
   assignee: string;
 }
 
-// 修改后的分配函数，只返回分配结果
+// 按最小负载把群分配给机器人，写入 channel.assignee
 async function distributeGroupsToBots(
   ctx: Context,
   bots: BotGroups[],
