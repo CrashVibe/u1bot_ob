@@ -28,9 +28,8 @@ export const inject = {
   optional: ["fortune"]
 };
 
-const fishingImagePath = join(__dirname, "assets", "fishing.png");
-const fishingImageBuffer = readFileSync(fishingImagePath);
-const fishingImageBase64 = `data:image/png;base64,${fishingImageBuffer.toString("base64")}`;
+
+const fishingImageBase64 = `data:image/png;base64,${readFileSync(join(__dirname, "assets", "fishing.png")).toString("base64")}`;
 
 export async function apply(ctx: Context, config: Config) {
   applyModel(ctx);
@@ -53,9 +52,11 @@ export async function apply(ctx: Context, config: Config) {
             return;
           }
 
-          const fishingImageMessageID = (
-            await session.send([h.quote(session.messageId), h.image(fishingImageBase64)])
-          )[0];
+          if (session.isDirect) {
+            await session.send([h.quote(session.messageId), h.image(fishingImageBase64)]);
+          } else {
+            try { await session.bot.createReaction(session.channelId, session.messageId, "emoji|128051"); } catch {}
+          }
           const fish = await choice(ctx, session, config);
           const waitTime = Math.floor(Math.random() * 6 + 1) * 1000;
           await new Promise((resolve) => setTimeout(resolve, waitTime));
@@ -88,8 +89,11 @@ export async function apply(ctx: Context, config: Config) {
             )}] 等级...`;
           }
 
-          if (fishingImageMessageID && session.channelId) {
-            await session.bot.deleteMessage(session.channelId, fishingImageMessageID);
+          if (!session.isDirect) {
+            try {
+              await session.bot.deleteReaction(session.channelId, session.messageId, "emoji|128051");
+              await session.bot.createReaction(session.channelId, session.messageId, "emoji|127881");
+            } catch {}
           }
 
           await session.send(h.quote(session.messageId) + fullResult);
