@@ -7,7 +7,7 @@ import type { Session } from "koishi";
  */
 export function isAtBot(session: Session): boolean {
   if (!session.elements) throw new Error("会话中没有元素信息");
-  return session.elements.some((element) => element.type === "at" && element.attrs.id === session.bot.selfId);
+  return session.elements.slice(1).some((element) => element.type === "at" && element.attrs.id === session.bot.selfId);
 }
 
 /**
