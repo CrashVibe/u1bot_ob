@@ -158,10 +158,6 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
       },
       { name: "躺平海参", prompt: "海参已躺平，拒绝社交！" },
       {
-        name: "孙笑川258鱼",
-        prompt: "258~这条鱼要坏掉了（但其实一直都是坏的）"
-      },
-      {
         name: "熬夜猝死鱼",
         prompt: "这条鱼告诉你要早睡，但它自己却熬夜到现在..."
       },
@@ -300,7 +296,6 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
       },
       { name: "yee鱼", prompt: "这条鱼发音很奇怪：yee~" },
       { name: "supper面筋鱼", prompt: "素食主义者的鱼类替代品..." },
-      { name: "武昌起义鱼", prompt: "这条鱼要起义了！" },
       { name: "大草原草鱼", prompt: "广袤草原上的草鱼，草肥鱼壮..." },
       { name: "青岛青鱼", prompt: "来自青岛的青鱼，有地方特色..." },
       { name: "胖头鳙鱼", prompt: "这条鱼头很大，说明脑子好使..." },
@@ -420,14 +415,6 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
       { name: "超频显卡水母", prompt: "580 显卡水母，性能强劲！" },
       { name: "网红带货鱼", prompt: "不要648，不要48，钓到就能回家！" },
       { name: "金闪闪土豪鱼", prompt: "这条鱼身上闪烁着金光~" },
-      {
-        name: "区块链NFT鱼",
-        prompt: "这条鱼要价一个以太坊，但现在免费送给你！"
-      },
-      {
-        name: "理财产品鱼",
-        prompt: "这条鱼的投资回报率高达500%...相信我..."
-      },
       {
         name: "五一黄金周特产鱼",
         prompt: "这条鱼只在五一黄金周出现..."
