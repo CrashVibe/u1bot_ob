@@ -35,3 +35,4 @@ tsconfig.tsbuildinfo
 mir.py
 .idea
 /.codegraph/
+.zed/

@@ -64,7 +64,7 @@ export function buildRelationshipGraph(
     components.push(comp);
   }
 
-  const compRadius = (n: number) => Math.max(NODE_R * 2, (NODE_R * 2 + GAP / 2) * n / (2 * Math.PI));
+  const compRadius = (n: number) => Math.max(NODE_R * 2, ((NODE_R * 2 + GAP / 2) * n) / (2 * Math.PI));
 
   const compSizes = components.map((comp) => {
     const visualR = comp.length === 1 ? NODE_R : compRadius(comp.length) + NODE_R;
@@ -73,10 +73,18 @@ export function buildRelationshipGraph(
 
   const cols = Math.max(1, Math.ceil(Math.sqrt(components.length)));
   const positions: { cx: number; cy: number }[] = [];
-  let x = 0, y = 0, rowH = 0, col = 0;
+  let x = 0,
+    y = 0,
+    rowH = 0,
+    col = 0;
   for (let i = 0; i < components.length; i++) {
     const s = compSizes[i]!;
-    if (col > 0 && col >= cols) { x = 0; y += rowH; rowH = 0; col = 0; }
+    if (col > 0 && col >= cols) {
+      x = 0;
+      y += rowH;
+      rowH = 0;
+      col = 0;
+    }
     positions.push({ cx: x + s / 2, cy: y + s / 2 });
     x += s;
     rowH = Math.max(rowH, s);

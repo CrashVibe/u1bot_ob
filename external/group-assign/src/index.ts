@@ -1,4 +1,4 @@
-import type { Bot, Context} from "koishi";
+import type { Bot, Context } from "koishi";
 import { Schema } from "koishi";
 
 export const name = "group-assign";
@@ -29,8 +29,8 @@ async function getAllGroups(bot: Bot, ctx: Context): Promise<Group[]> {
       allGroups = allGroups.concat(
         result.data.map((g) => ({
           groupId: g.id,
-          groupName: g.name || `群组-${g.id.slice(-4)}`,
-        })),
+          groupName: g.name || `群组-${g.id.slice(-4)}`
+        }))
       );
       nextToken = result.next || null;
       attempts++;
@@ -67,7 +67,7 @@ export function apply(ctx: Context) {
           ctx.logger("group-assign").info(botMessage);
           return {
             selfId: bot.selfId,
-            joinedGroups: groups,
+            joinedGroups: groups
           };
         } catch (error) {
           const errorMsg = `机器人 ${bot.selfId} 获取群列表失败: ${(error as Error).message}`;
@@ -75,10 +75,10 @@ export function apply(ctx: Context) {
           ctx.logger("group-assign").error(errorMsg);
           return {
             selfId: bot.selfId,
-            joinedGroups: [],
+            joinedGroups: []
           };
         }
-      }),
+      })
     );
     // 统计所有群组
     const allGroups: Group[] = [];
@@ -128,11 +128,7 @@ interface Assignment {
 }
 
 // 按最小负载把群分配给机器人，写入 channel.assignee
-async function distributeGroupsToBots(
-  ctx: Context,
-  bots: BotGroups[],
-  groups: Group[],
-): Promise<Assignment[]> {
+async function distributeGroupsToBots(ctx: Context, bots: BotGroups[], groups: Group[]): Promise<Assignment[]> {
   const groupToBotsMap: Record<string, string[]> = {};
   groups.forEach((group) => {
     groupToBotsMap[group.groupId] = bots
@@ -147,9 +143,7 @@ async function distributeGroupsToBots(
   for (const groupId in groupToBotsMap) {
     const availableBots = groupToBotsMap[groupId];
     if (availableBots.length === 0) continue;
-    const selectedBot = availableBots.reduce((prev, curr) =>
-      botWorkload[curr] < botWorkload[prev] ? curr : prev,
-    );
+    const selectedBot = availableBots.reduce((prev, curr) => (botWorkload[curr] < botWorkload[prev] ? curr : prev));
     assignments.push({ groupId, assignee: selectedBot });
     botWorkload[selectedBot]++;
   }
@@ -159,13 +153,13 @@ async function distributeGroupsToBots(
         "channel",
         {
           platform: "milky",
-          id: assignment.groupId,
+          id: assignment.groupId
         },
         {
-          assignee: assignment.assignee,
-        },
+          assignee: assignment.assignee
+        }
       );
-    }),
+    })
   );
   return assignments;
 }

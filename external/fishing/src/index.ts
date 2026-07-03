@@ -28,7 +28,6 @@ export const inject = {
   optional: ["fortune"]
 };
 
-
 const fishingImageBase64 = `data:image/png;base64,${readFileSync(join(__dirname, "assets", "fishing.png")).toString("base64")}`;
 
 export async function apply(ctx: Context, config: Config) {
@@ -55,7 +54,11 @@ export async function apply(ctx: Context, config: Config) {
           if (session.isDirect) {
             await session.send([h.quote(session.messageId), h.image(fishingImageBase64)]);
           } else {
-            try { await session.bot.createReaction(session.channelId, session.messageId, "emoji|128051"); } catch {}
+            try {
+              if (session.channelId) {
+                await session.bot.createReaction(session.channelId, session.messageId, "emoji|128051");
+              }
+            } catch {}
           }
           const fish = await choice(ctx, session, config);
           const waitTime = Math.floor(Math.random() * 6 + 1) * 1000;
@@ -89,7 +92,7 @@ export async function apply(ctx: Context, config: Config) {
             )}] 等级...`;
           }
 
-          if (!session.isDirect) {
+          if (!session.isDirect && session.channelId) {
             try {
               await session.bot.deleteReaction(session.channelId, session.messageId, "emoji|128051");
               await session.bot.createReaction(session.channelId, session.messageId, "emoji|127881");
@@ -215,7 +218,7 @@ export async function apply(ctx: Context, config: Config) {
       if (session.qq) {
         return h.quote(session.messageId) + "暂时不支持此功能";
       }
-      const memberRoles = session.event.member?.roles?.map(r => r.id);
+      const memberRoles = session.event.member?.roles?.map((r) => r.id);
       if (!memberRoles?.includes("admin") && !memberRoles?.includes("owner")) {
         return h.quote(session.messageId) + "你没有权限设置钓鱼开关";
       }
