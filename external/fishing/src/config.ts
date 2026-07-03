@@ -171,8 +171,12 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
         name: "低电量焦虑鱼",
         prompt: "这条鱼一直在担心自己的电量，就像你担心手机一样..."
       },
+      { name: "外卖凉了鱼", prompt: "点的外卖到的时候已经凉透了，这条鱼也一样..." },
       { name: "毒河豚", prompt: "这条河豚有剧毒！" },
       { name: "瘪了的气球鱼", prompt: "充气鱼现在是没气鱼..." },
+      { name: "已读不回鱼", prompt: "消息已读，但是这条鱼永远不会回复你..." },
+      { name: "拖延症晚期鱼", prompt: "本来说好现在就交，结果这条鱼拖到了截止日..." },
+      { name: "闹钟无视鱼", prompt: "响了八个闹钟，这条鱼还是赖床不起..." },
       { name: "社畜007鱼", prompt: "007特工？不，这是007加班时间..." },
       { name: "吃土西北风鱼", prompt: "这条鱼吃土吃风，勤俭持家..." },
       {
@@ -197,6 +201,10 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
         name: "计算机二级鱼",
         prompt: "这条鱼通过了计算机二级考试，但还是找不到工作..."
       },
+      { name: "过期优惠券鱼", prompt: "这张优惠券昨天刚过期，这条鱼也跟着蔫了..." },
+      { name: "简历投了没回音鱼", prompt: "投了一百份简历，回复的只有这条鱼..." },
+      { name: "路由器信号弱鱼", prompt: "这条鱼游到哪儿，Wi-Fi信号就断到哪儿..." },
+      { name: "自习室占座鱼", prompt: "一本书占了一整天的座，这条鱼替它值班..." },
       {
         name: "专科学历鱼",
         prompt: "一条学历不高的鱼，但工作经验老丰富了！"
@@ -270,6 +278,11 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
         prompt: "这条鱼自带尚方宝剑光环，但没人知道是什么意思..."
       },
       { name: "丁真鱼", prompt: "理塘的丁真，为你献上最纯真的鱼！" },
+      { name: "早八迟到鱼", prompt: "闹钟响了但没起来，这条鱼替你去上早八了..." },
+      { name: "深夜泡面鱼", prompt: "十二点还没睡，这条鱼陪你煮了包泡面..." },
+      { name: "阳台晒太阳鱼", prompt: "这条鱼最大的爱好就是趴在阳台晒太阳..." },
+      { name: "地铁早高峰鱼", prompt: "挤过早高峰地铁的鱼，比谁都能挤..." },
+      { name: "菜市场砍价鱼", prompt: "这条鱼被砍了三次价，还是被钓走了..." },
       {
         name: "鱼",
         prompt: "这条鱼在水中自由自在地游动，仿佛在享受生活"
@@ -355,6 +368,10 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
     price: 0.15,
     lengthRange: [125, 800],
     fishes: [
+      { name: "锦上添花鱼", prompt: "这条鱼自带光环，钓到就是运气加成！" },
+      { name: "月薪打工人鱼", prompt: "这条鱼工资虽不高，但胜在稳定发光..." },
+      { name: "周末躺赢鱼", prompt: "什么都没做，这条鱼就自己游上钩了！" },
+      { name: "限量发售鱼", prompt: "全网限量999条，你抢到了其中一条！" },
       {
         name: "林北鱼商",
         prompt: "这位鱼商林北得不行，卖鱼的手段一流..."
@@ -428,6 +445,10 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
     price: 0.2,
     lengthRange: [800, 4000],
     fishes: [
+      { name: "星海漫游鱼", prompt: "在无边星海中独自游荡，寻找归宿..." },
+      { name: "时间胶囊鱼", prompt: "这条鱼封存了一段被遗忘的旧时光..." },
+      { name: "回声空间水母", prompt: "在虚空里游一圈，能听见自己的回声..." },
+      { name: "折叠空间鲨", prompt: "这条鲨鱼能把空间对折，从裂缝里游出来..." },
       {
         name: "珊瑚宫心海",
         prompt: "璃月港的军师，不对，是稻妻的现人神巫女！"
@@ -499,6 +520,9 @@ export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {
     price: 0.2,
     lengthRange: [1000, 4000],
     fishes: [
+      { name: "永夜烛火鱼", prompt: "即使身处永夜，这条鱼也从未熄灭过..." },
+      { name: "熔金涌泉鱼", prompt: "这条鱼身下涌动着滚烫的金色岩浆..." },
+      { name: "破晓先声鱼", prompt: "第一缕晨光尚未降临，这条鱼已提前燃烧..." },
       {
         name: "黄河之水天上来",
         prompt: "君不见黄河之水天上来，奔流到海不复回！"
