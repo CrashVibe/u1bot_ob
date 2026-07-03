@@ -114,7 +114,7 @@ export default class Renderer extends Service {
     const appHtml = renderToString(createElement(Component, props));
 
     const cssParts = await Promise.all([
-      ...(jsx_options.cssFiles ?? []).map((file) => readFile(file, "utf-8")),
+      ...(jsx_options.cssFiles ?? []).map((file) => this._loadCssFile(file)),
       ...(jsx_options.cssUrls ?? []).map((url) => this._loadProcessedCss(server, url))
     ]);
     const css = cssParts.join("\n");
@@ -142,6 +142,12 @@ export default class Renderer extends Service {
       throw new Error(`无法从 Vite 编译结果中提取 CSS: ${url}`);
     }
     return JSON.parse(match[1]);
+  }
+
+  private async _loadCssFile(cssFile: string): Promise<string> {
+    const content = await readFile(cssFile, "utf-8");
+    // Strip ?inline suffix from font URLs (Vite convention, unnecessary for file:// loading)
+    return content.replace(/url\((["']?)([^"')]+)\?inline\1\)/g, 'url($1$2$1)');
   }
 
   private _getViteServer(root: string, configFile?: string): Promise<ViteDevServer> {
@@ -172,6 +178,20 @@ export default class Renderer extends Service {
     const page = await this.browser.newPage({
       viewport: { width: viewport.width, height: viewport.height }
     });
+
+    // Intercept font file requests and serve from disk, avoiding CORS issues with setContent
+    const fontsDir = path.join(baseURL, "fonts");
+    const fontMimes: Record<string, string> = { woff2: "font/woff2", woff: "font/woff", ttf: "font/truetype" };
+    await page.route(/\.(?:woff2|woff|ttf)(?:\?.*)?$/i, async (route) => {
+      const filename = route.request().url().split("/").pop()!.split("?")[0];
+      try {
+        const ext = path.extname(filename).slice(1).toLowerCase();
+        await route.fulfill({ body: await readFile(path.join(fontsDir, filename)), contentType: fontMimes[ext] ?? "application/octet-stream" });
+      } catch {
+        route.continue();
+      }
+    });
+
     await page.goto(`file://${baseURL}`);
     await page.setContent(html_str);
     await page.waitForTimeout(render_options.wait_time);

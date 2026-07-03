@@ -5,5 +5,9 @@
 *.ico -text
 *.gif -text
 *.webp -text
+*.woff2 -text
+*.woff -text
+*.ttf -text
+*.otf -text
 
 yarn-*.cjs linguist-vendored
