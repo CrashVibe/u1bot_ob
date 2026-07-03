@@ -246,8 +246,8 @@ export async function apply(ctx: Context, config: Config) {
     if (name === "全部") {
       const totalCount = fishes.length;
       const totalPrice = fishes.reduce((sum, fish) => sum + get_fish_price(fish), 0);
-      await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes: [] });
       await ctx.coin.adjustCoin(session.userId, totalPrice, "卖全部鱼");
+      await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes: [] });
       return (
         h.quote(session.messageId) + `* 你卖掉了所有鱼（共 ${totalCount} 条），获得了 ${totalPrice.toFixed(2)} 次元币`
       );
@@ -263,8 +263,8 @@ export async function apply(ctx: Context, config: Config) {
       const totalCount = qualityFishes.length;
       const totalPrice = qualityFishes.reduce((sum, fish) => sum + get_fish_price(fish), 0);
       const newFishes = fishes.filter((fish) => fish.quality !== quality);
-      await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes: newFishes });
       await ctx.coin.adjustCoin(session.userId, totalPrice, `卖掉全部品质为 [${get_quality_display(quality)}] 的鱼`);
+      await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes: newFishes });
       return (
         h.quote(session.messageId) +
         `* 你卖掉了所有品质为 [${get_quality_display(
@@ -283,8 +283,8 @@ export async function apply(ctx: Context, config: Config) {
     const price = get_fish_price(fish);
 
     fishes.splice(fishIndex, 1);
-    await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes });
     await ctx.coin.adjustCoin(session.userId, price, `卖鱼 [${fish.quality}]${fish.name}`);
+    await ctx.database.set("fishing_record", { user_id: session.userId }, { fishes });
 
     return (
       h.quote(session.messageId) +
