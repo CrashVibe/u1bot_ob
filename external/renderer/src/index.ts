@@ -147,7 +147,7 @@ export default class Renderer extends Service {
   private async _loadCssFile(cssFile: string): Promise<string> {
     const content = await readFile(cssFile, "utf-8");
     // Strip ?inline suffix from font URLs (Vite convention, unnecessary for file:// loading)
-    return content.replace(/url\((["']?)([^"')]+)\?inline\1\)/g, 'url($1$2$1)');
+    return content.replace(/url\((["']?)([^"')]+)\?inline\1\)/g, "url($1$2$1)");
   }
 
   private _getViteServer(root: string, configFile?: string): Promise<ViteDevServer> {
@@ -186,7 +186,10 @@ export default class Renderer extends Service {
       const filename = route.request().url().split("/").pop()!.split("?")[0];
       try {
         const ext = path.extname(filename).slice(1).toLowerCase();
-        await route.fulfill({ body: await readFile(path.join(fontsDir, filename)), contentType: fontMimes[ext] ?? "application/octet-stream" });
+        await route.fulfill({
+          body: await readFile(path.join(fontsDir, filename)),
+          contentType: fontMimes[ext] ?? "application/octet-stream"
+        });
       } catch {
         route.continue();
       }
