@@ -49,16 +49,18 @@ export async function select_waifu(ctx: Context, session: Session, config: Confi
   if (at_users.length > 1) {
     return "不要那么渣！一次只能一个对象啊喂";
   } else if (at_users.length === 1) {
-    if (at_users[0] === session.userId) {
+    const target = at_users[0];
+    if (!target) return "未找到目标用户";
+    if (target === session.userId) {
       return "自己跟自己...这也太自恋了吧";
     }
-    if (existing_target_ids.has(at_users[0])) {
+    if (existing_target_ids.has(target)) {
       return "你已经娶过这个人了，不许重复迎娶啦～";
     }
     // 计算成功率
     const rate = Math.random() * 100;
     if (rate < config.atSuccessRate) {
-      target_id = at_users[0];
+      target_id = target;
     } else {
       msg.push(h.text("看来你的运气不太好，没能成功娶到心上人"));
       msg.push(h.text("不过...我给你找了新的 CP ！"));

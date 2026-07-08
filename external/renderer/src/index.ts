@@ -141,7 +141,9 @@ export default class Renderer extends Service {
     if (!match) {
       throw new Error(`无法从 Vite 编译结果中提取 CSS: ${url}`);
     }
-    return JSON.parse(match[1]);
+    const css = match[1];
+    if (!css) throw new Error(`CSS match group is empty for: ${url}`);
+    return JSON.parse(css);
   }
 
   private async _loadCssFile(cssFile: string): Promise<string> {
@@ -183,7 +185,10 @@ export default class Renderer extends Service {
     const fontsDir = path.join(baseURL, "fonts");
     const fontMimes: Record<string, string> = { woff2: "font/woff2", woff: "font/woff", ttf: "font/truetype" };
     await page.route(/\.(?:woff2|woff|ttf)(?:\?.*)?$/i, async (route) => {
-      const filename = route.request().url().split("/").pop()!.split("?")[0];
+      const segment = route.request().url().split("/").pop();
+      if (!segment) { route.continue(); return; }
+      const filename = segment.split("?")[0];
+      if (!filename) { route.continue(); return; }
       try {
         const ext = path.extname(filename).slice(1).toLowerCase();
         await route.fulfill({

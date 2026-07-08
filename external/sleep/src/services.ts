@@ -31,17 +31,17 @@ export async function get_morning(ctx: Context, config: Config, uid: string, gid
 
   if (result.length == 0) {
     const randomIndex = Math.floor(Math.random() * config.morningPrompts.length);
-    return config.morningPrompts[randomIndex];
+    return config.morningPrompts[randomIndex] ?? "早上好！";
   }
 
-  const target_user = result[0]; // 拿第一个记录
-
+  const target_user = result[0];
+  if (!target_user) return config.morningPrompts[0] ?? "";
   const last_sleep_time = moment(target_user.night_time).tz(config.timezone);
 
   // 检查是否隔日了
   if (last_sleep_time.isBefore(now_time, "day")) {
     const randomIndex = Math.floor(Math.random() * config.morningPrompts.length);
-    return config.morningPrompts[randomIndex];
+    return config.morningPrompts[randomIndex] ?? "早上好！";
   }
 
   // 能不能多次起床
@@ -65,11 +65,11 @@ export async function get_morning(ctx: Context, config: Config, uid: string, gid
   let message = `你是第 ${morningResult.global_rank} 个起床哒，群里第 ${morningResult.num} 个\n睡了 ${morningResult.duration}，`;
 
   if (morningResult.is_broken) {
-    message += `连续打卡已中断...\n${config.morningPrompts[randomIndex]}`;
+    message += `连续打卡已中断...\n${config.morningPrompts[randomIndex] ?? ""}`;
   } else if (morningResult.consecutive_days > 0) {
-    message += `连续打卡 ${morningResult.consecutive_days} 天！\n${config.morningPrompts[randomIndex]}`;
+    message += `连续打卡 ${morningResult.consecutive_days} 天！\n${config.morningPrompts[randomIndex] ?? ""}`;
   } else {
-    message += config.morningPrompts[randomIndex];
+    message += config.morningPrompts[randomIndex] ?? "";
   }
 
   return message;
@@ -90,7 +90,9 @@ async function get_or_create_group(ctx: Context, gid: string) {
       night_count: 0
     });
   }
-  return result[0];
+  const row = result[0];
+  if (!row) throw new Error("sleep_group record is empty after get");
+  return row;
 }
 
 /**
@@ -104,7 +106,9 @@ async function get_or_create_user(ctx: Context, uid: string) {
   if (result.length == 0) {
     return await ctx.database.create("sleep_user", { user_id: uid });
   }
-  return result[0];
+  const row = result[0];
+  if (!row) throw new Error("sleep_user record is empty after get");
+  return row;
 }
 
 /**
@@ -144,8 +148,8 @@ async function morning_and_update(
   if (result.length == 0) {
     throw new Error("用户记录不存在");
   }
-  const target_user = result[0]; // 拿第一个记录
-
+  const target_user = result[0];
+  if (!target_user) throw new Error("用户记录为空");
   if (!target_user.night_time) {
     throw new Error("用户没有晚安打卡记录");
   }
@@ -314,7 +318,8 @@ export async function get_night(ctx: Context, config: Config, uid: string, gid: 
 
   const result = await ctx.database.get("sleep_user", { user_id: uid });
   if (!(result.length == 0)) {
-    const target_user = result[0]; // 拿第一个记录
+    const target_user = result[0];
+    if (!target_user) return `未找到用户记录`;
     if (
       config.goodSleepEnable &&
       target_user.night_time &&
@@ -337,9 +342,9 @@ export async function get_night(ctx: Context, config: Config, uid: string, gid: 
 
   const randomIndex = Math.floor(Math.random() * config.nightPrompts.length);
   if (nightResult.duration) {
-    return `你是第 ${nightResult.global_rank} 个睡觉哒，群里第 ${nightResult.num} 个\n活动了 ${nightResult.duration}，${config.nightPrompts[randomIndex]}`;
+    return `你是第 ${nightResult.global_rank} 个睡觉哒，群里第 ${nightResult.num} 个\n活动了 ${nightResult.duration}，${config.nightPrompts[randomIndex] ?? ""}`;
   }
-  return `你是第 ${nightResult.global_rank} 个睡觉哒，群里第 ${nightResult.num} 个\n${config.nightPrompts[randomIndex]}`;
+  return `你是第 ${nightResult.global_rank} 个睡觉哒，群里第 ${nightResult.num} 个\n${config.nightPrompts[randomIndex] ?? ""}`;
 }
 
 /**

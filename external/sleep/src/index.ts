@@ -106,15 +106,17 @@ export async function apply(ctx: Context, config: Config) {
     if (!session || !session.content) {
       return;
     }
-    if (session.guildId) {
+    const guildId = session.guildId;
+    if (guildId) {
       const targetChannels = await ctx.database.get("channel", {
-        id: session.guildId,
+        id: guildId,
         platform: session.platform
       });
       if (targetChannels.length === 0) {
         return;
       }
-      if (targetChannels[0].assignee !== session.selfId) {
+      const first = targetChannels[0];
+      if (!first || first.assignee !== session.selfId) {
         return;
       }
     }
@@ -137,47 +139,62 @@ export async function apply(ctx: Context, config: Config) {
     if (!session || !session.content) {
       return;
     }
-    if (session.guildId && session.userId) {
-      return h.quote(session.messageId) + (await get_morning(ctx, config, session.userId, session.guildId));
-    }
+    const morningGid: string | undefined = session.guildId;
+    const morningUid: string | undefined = session.userId;
+    const morningMsgId: string | undefined = session.messageId;
+    if (!morningGid || !morningUid || !morningMsgId) return;
+    const gid: string = morningGid;
+    const uid: string = morningUid;
+    const msgId: string = morningMsgId;
+    return h.quote(msgId) + (await get_morning(ctx, config, uid, gid));
   });
 
   ctx.command("night", "晚安消息打卡").action(async ({ session }) => {
     if (!session || !session.content) {
       return;
     }
-    if (session.guildId && session.userId) {
-      return h.quote(session.messageId) + (await get_night(ctx, config, session.userId, session.guildId));
-    }
+    const nightGid: string | undefined = session.guildId;
+    const nightUid: string | undefined = session.userId;
+    const nightMsgId: string | undefined = session.messageId;
+    if (!nightGid || !nightUid || !nightMsgId) return;
+    const ngid: string = nightGid;
+    const nuid: string = nightUid;
+    const nmsgId: string = nightMsgId;
+    return h.quote(nmsgId) + (await get_night(ctx, config, nuid, ngid));
   });
 
   ctx.command("早晚安统计", "查看早晚安统计信息").action(async ({ session }) => {
     if (!session) {
       throw new Error("无法获取会话信息");
     }
-    if (session.guildId && session.userId) {
-      const result = await get_all_morning_night_data(ctx, session.guildId);
-      const today = moment().tz(config.timezone).format("YYYY年MM月DD日");
-      return (
-        h.quote(session.messageId) +
-        (`✨ 今日睡眠统计 (${today}) ✨\n` +
-          `╔═══════════\n` +
-          `║ 全服统计:\n` +
-          `║  早安次数: ${result.morning_count.toString().padStart(6)}\n` +
-          `║  晚安次数: ${result.night_count.toString().padStart(6)}\n` +
-          `║  正在睡觉: ${result.sleeping_count.toString().padStart(6)}\n` +
-          `║  已经起床: ${result.getting_up_count.toString().padStart(6)}\n` +
-          `╠═══════════\n` +
-          `║ 本群统计:\n` +
-          `║  早安次数: ${result.group_morning_count.toString().padStart(6)}\n` +
-          `║  晚安次数: ${result.group_night_count.toString().padStart(6)}\n` +
-          `║  早安占比: ${(result.morning_percent * 100).toFixed(2).padStart(6)}%\n` +
-          `║  晚安占比: ${(result.night_percent * 100).toFixed(2).padStart(6)}%\n` +
-          `╚═══════════`)
-      );
-    } else {
-      return h.quote(session.messageId) + "只能在群聊中使用早晚安统计哦～";
+    const statsGid: string | undefined = session.guildId;
+    const statsUid: string | undefined = session.userId;
+    const statsMsgId: string | undefined = session.messageId;
+    if (!statsGid || !statsUid || !statsMsgId) {
+      return h.quote(session.messageId ?? "") + "只能在群聊中使用早晚安统计哦～";
     }
+    const sgid: string = statsGid;
+    const suid: string = statsUid;
+    const smsgId: string = statsMsgId;
+    const result = await get_all_morning_night_data(ctx, sgid);
+    const today = moment().tz(config.timezone).format("YYYY年MM月DD日");
+    return (
+      h.quote(smsgId) +
+      (`✨ 今日睡眠统计 (${today}) ✨\n` +
+        `╔═══════════\n` +
+        `║ 全服统计:\n` +
+        `║  早安次数: ${result.morning_count.toString().padStart(6)}\n` +
+        `║  晚安次数: ${result.night_count.toString().padStart(6)}\n` +
+        `║  正在睡觉: ${result.sleeping_count.toString().padStart(6)}\n` +
+        `║  已经起床: ${result.getting_up_count.toString().padStart(6)}\n` +
+        `╠═══════════\n` +
+        `║ 本群统计:\n` +
+        `║  早安次数: ${result.group_morning_count.toString().padStart(6)}\n` +
+        `║  晚安次数: ${result.group_night_count.toString().padStart(6)}\n` +
+        `║  早安占比: ${(result.morning_percent * 100).toFixed(2).padStart(6)}%\n` +
+        `║  晚安占比: ${(result.night_percent * 100).toFixed(2).padStart(6)}%\n` +
+        `╚═══════════`)
+    );
   });
 
   ctx.command("我的作息", "查看个人作息统计").action(async ({ session }) => {

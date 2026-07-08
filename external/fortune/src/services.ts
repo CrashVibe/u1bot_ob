@@ -27,7 +27,9 @@ export async function get_user_luck_star(ctx: Context, user: string): Promise<nu
   const results = await ctx.database.get("fortune", { user });
   const result = results[0];
   if (result) {
-    return fortuneDataMap[result.luckid].星级.split("★").length - 1;
+    const fortune = fortuneDataMap[result.luckid];
+    if (!fortune) return null;
+    return fortune.星级.split("★").length - 1;
   }
   return null;
 }
@@ -54,7 +56,9 @@ export async function get_user_fortune(ctx: Context, config: Fortune.Config, use
   if (results.length > 1) {
     console.warn(`用户 ${user} 有多条运势记录，可能是数据异常，请检查数据库。`);
   }
-  const recordDate = moment(results[0].date).tz(config.timezone);
+  const first = results[0];
+  if (!first) return random_fortune().fortune;
+  const recordDate = moment(first.date).tz(config.timezone);
   const today = moment().tz(config.timezone);
 
   if (recordDate.format("YYYY-MM-DD") !== today.format("YYYY-MM-DD")) {
@@ -70,8 +74,9 @@ export async function get_user_fortune(ctx: Context, config: Fortune.Config, use
     );
     return randomFortune.fortune;
   }
-  const result = results[0];
-  return fortuneDataMap[result.luckid];
+  const fortune = fortuneDataMap[first.luckid];
+  if (!fortune) return random_fortune().fortune;
+  return fortune;
 }
 
 /**
@@ -86,7 +91,9 @@ function random_fortune(): {
 } {
   const keys = Object.keys(fortuneDataMap);
   const randomKey = keys[Math.floor(Math.random() * keys.length)];
+  if (!randomKey) throw new Error("fortuneDataMap has no keys");
   const fortune = fortuneDataMap[randomKey];
+  if (!fortune) throw new Error(`fortune data missing for key: ${randomKey}`);
   return { id: randomKey, fortune };
 }
 

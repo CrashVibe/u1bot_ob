@@ -142,10 +142,12 @@ async function distributeGroupsToBots(ctx: Context, bots: BotGroups[], groups: G
   });
   for (const groupId in groupToBotsMap) {
     const availableBots = groupToBotsMap[groupId];
-    if (availableBots.length === 0) continue;
-    const selectedBot = availableBots.reduce((prev, curr) => (botWorkload[curr] < botWorkload[prev] ? curr : prev));
+    if (!availableBots || availableBots.length === 0) continue;
+    const selectedBot = availableBots.reduce((prev, curr) =>
+      ((botWorkload[curr] ?? 0) < (botWorkload[prev] ?? 0) ? curr : prev)
+    );
     assignments.push({ groupId, assignee: selectedBot });
-    botWorkload[selectedBot]++;
+    botWorkload[selectedBot] = (botWorkload[selectedBot] ?? 0) + 1;
   }
   await Promise.all(
     assignments.map(async (assignment) => {

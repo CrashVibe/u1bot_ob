@@ -59,7 +59,9 @@ export default class Tarot {
       const msg_header = h.text(
         `${is_cut && i === cards_num - 1 ? "切牌" : `第${i + 1}张牌`}「${representations[i]}」\n`
       );
-      const msg_body = await this.get_text_and_image(theme, cards_indo_list[i]);
+      const card = cards_indo_list[i];
+      if (!card) continue;
+      const msg_body = await this.get_text_and_image(theme, card);
       if (!this.is_chain_reply || session.qq) {
         await session.send([h.quote(session.messageId), msg_header, ...msg_body]);
       } else {
@@ -89,7 +91,9 @@ export default class Tarot {
   async onetime_divine() {
     const theme = await this.pick_theme();
     const allCards = tarot_json.cards;
-    const [cardInfo] = await this.random_cards(allCards, theme, 1);
+    const cards = await this.random_cards(allCards, theme, 1);
+    const cardInfo = cards[0];
+    if (!cardInfo) return "未能抽取塔罗牌";
     const body = await this.get_text_and_image(theme, cardInfo);
 
     return "回应是" + body;
@@ -142,17 +146,21 @@ export default class Tarot {
     const allThemes = Array.from(new Set([...customThemes, ...Object.keys(OFFICIAL_THEMES)]));
 
     if (allThemes.length > 0) {
-      return allThemes[Math.floor(Math.random() * allThemes.length)];
+      const picked = allThemes[Math.floor(Math.random() * allThemes.length)];
+      if (picked) return picked;
     }
 
     // 兜底
     const officialKeys = Object.keys(OFFICIAL_THEMES);
-    return officialKeys[Math.floor(Math.random() * officialKeys.length)];
+    const fallback = officialKeys[Math.floor(Math.random() * officialKeys.length)];
+    if (fallback) return fallback;
+    throw new Error("no tarot themes available");
   }
 
   private async pick_sub_types(theme: string): Promise<string[]> {
     if (theme in OFFICIAL_THEMES) {
-      return OFFICIAL_THEMES[theme];
+      const subtypes = OFFICIAL_THEMES[theme];
+      if (subtypes) return subtypes;
     }
 
     const resourceDir = path.join(__dirname, "resource", theme);

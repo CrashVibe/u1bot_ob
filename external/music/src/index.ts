@@ -234,7 +234,8 @@ export function apply(ctx: Context, config: Config) {
         const results = await officialAPIs[platform](ctx, keyword);
         if (results.length > 0) {
           logger.success(`Found music via official ${platform} API`);
-          return results[0];
+          const first = results[0];
+          if (first) return first;
         }
       } catch (error) {
         logger.warn(`Official ${platform} API failed:`, error);
@@ -248,6 +249,7 @@ export function apply(ctx: Context, config: Config) {
     .alias("music")
     .usage("music.usage")
     .action(async ({ session }, keyword) => {
+      if (!session) return;
       if (!keyword?.trim()) {
         return session.text("music.usage");
       }
