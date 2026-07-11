@@ -1,0 +1,27 @@
+{
+  "name": "@u1bot/koishi-plugin-leaderboard-reward",
+  "version": "0.0.1",
+  "description": "排行榜定期奖励",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "main": "src/index.ts",
+  "dependencies": {
+    "@u1bot/koishi-plugin-coin": "workspace:^",
+    "moment-timezone": "^0.5.45"
+  },
+  "devDependencies": {
+    "@u1bot/koishi-plugin-fishing": "workspace:^",
+    "@u1bot/koishi-plugin-sleep": "workspace:^"
+  },
+  "peerDependencies": {
+    "koishi": "^4.18.11",
+    "koishi-plugin-cron": "^3.1.0"
+  }
+}
