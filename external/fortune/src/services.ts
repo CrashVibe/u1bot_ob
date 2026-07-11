@@ -1,3 +1,5 @@
+import "@u1bot/koishi-plugin-coin";
+
 import { createHash } from "crypto";
 
 import type Fortune from ".";
@@ -15,6 +17,50 @@ export interface FortuneInfo {
 
 // 将 fortuneData 类型断言为支持字符串索引的类型
 const fortuneDataMap = fortuneData as Record<string, FortuneInfo>;
+
+export interface CheckinResult {
+  shouldReward: boolean;
+  stars: number;
+  streak: number;
+  reward: number;
+  baseReward: number;
+  streakBonus: number;
+}
+
+// 每日签到：检查是否今天已签到，未签到则按星级+连续天数发币
+async function do_checkin(
+  ctx: Context,
+  user: string,
+  fortune: FortuneInfo,
+  today: moment.Moment
+): Promise<CheckinResult> {
+  const todayStr = today.format("YYYY-MM-DD");
+  const stars = fortune.星级.split("★").length - 1;
+
+  const records = await ctx.database.get("fortune_checkin", { user });
+  const record = records[0];
+
+  if (!record || record.last_date !== todayStr) {
+    const yesterday = today.clone().subtract(1, "day").format("YYYY-MM-DD");
+    let streak: number;
+    if (record && record.last_date === yesterday) {
+      streak = Math.min(record.streak + 1, 30);
+    } else {
+      streak = 1;
+    }
+
+    const baseReward = stars * 15;
+    const streakBonus = Math.min(streak * 5, 150);
+    const totalReward = baseReward + streakBonus;
+
+    await ctx.coin.adjustCoin(user, totalReward, `运势签到 (${fortune.运势} ${fortune.星级}, 连续${streak}天)`);
+    await ctx.database.upsert("fortune_checkin", (_) => [{ user, last_date: todayStr, streak }], ["user"]);
+
+    return { shouldReward: true, stars, streak, reward: totalReward, baseReward, streakBonus };
+  } else {
+    return { shouldReward: false, stars, streak: record.streak, reward: 0, baseReward: 0, streakBonus: 0 };
+  }
+}
 
 /**
  * 从数据库中获取指定用户的幸运星值。
@@ -35,14 +81,20 @@ export async function get_user_luck_star(ctx: Context, user: string): Promise<nu
 }
 
 /**
- * 获取用户完整的运势信息。
+ * 获取用户完整的运势信息与签到结果。
  *
  * @param ctx - 包含数据库实例的上下文对象。
  * @param user - 需要获取运势信息的用户标识符。
- * @returns 包含用户运势信息的对象 object，如果未找到则为 null。
+ * @returns 包含用户运势与签到信息的对象。
  */
-export async function get_user_fortune(ctx: Context, config: Fortune.Config, user: string): Promise<FortuneInfo> {
+export async function get_user_fortune(
+  ctx: Context,
+  config: Fortune.Config,
+  user: string
+): Promise<{ fortune: FortuneInfo; checkin: CheckinResult }> {
+  const today = moment().tz(config.timezone);
   const results = await ctx.database.get("fortune", { user });
+
   if (results.length == 0) {
     // 创建
     const randomFortune = random_fortune();
@@ -51,18 +103,24 @@ export async function get_user_fortune(ctx: Context, config: Fortune.Config, use
       luckid: randomFortune.id,
       date: new Date()
     });
-    return randomFortune.fortune;
+    const checkin = await do_checkin(ctx, user, randomFortune.fortune, today);
+    return { fortune: randomFortune.fortune, checkin };
   }
+
   if (results.length > 1) {
     console.warn(`用户 ${user} 有多条运势记录，可能是数据异常，请检查数据库。`);
   }
   const first = results[0];
-  if (!first) return random_fortune().fortune;
+  if (!first) {
+    const rf = random_fortune();
+    const checkin = await do_checkin(ctx, user, rf.fortune, today);
+    return { fortune: rf.fortune, checkin };
+  }
+
   const recordDate = moment(first.date).tz(config.timezone);
-  const today = moment().tz(config.timezone);
 
   if (recordDate.format("YYYY-MM-DD") !== today.format("YYYY-MM-DD")) {
-    // 日期不同，随机获取一条运势
+    // 日期不同，随机获取一条运势并签到
     const randomFortune = random_fortune();
     await ctx.database.set(
       "fortune",
@@ -72,11 +130,34 @@ export async function get_user_fortune(ctx: Context, config: Fortune.Config, use
         date: new Date()
       }
     );
-    return randomFortune.fortune;
+    const checkin = await do_checkin(ctx, user, randomFortune.fortune, today);
+    return { fortune: randomFortune.fortune, checkin };
   }
+
+  // 今天已经获取过运势，返回缓存
   const fortune = fortuneDataMap[first.luckid];
-  if (!fortune) return random_fortune().fortune;
-  return fortune;
+  if (!fortune) {
+    const rf = random_fortune();
+    const checkin = await do_checkin(ctx, user, rf.fortune, today);
+    return { fortune: rf.fortune, checkin };
+  }
+
+  // 查询已有的签到记录用于展示
+  const checkinRecords = await ctx.database.get("fortune_checkin", { user });
+  const checkinRecord = checkinRecords[0];
+  const stars = fortune.星级.split("★").length - 1;
+
+  return {
+    fortune,
+    checkin: {
+      shouldReward: false,
+      stars,
+      streak: checkinRecord?.streak ?? 0,
+      reward: 0,
+      baseReward: 0,
+      streakBonus: 0
+    }
+  };
 }
 
 /**
@@ -142,12 +223,13 @@ https://b23.tv/jUfN6Vk`;
     }
   }
 
-  const fortune = await get_user_fortune(ctx, config, user);
-  if (!fortune) {
+  const result = await get_user_fortune(ctx, config, user);
+  if (!result) {
     return null;
   }
+  const { fortune, checkin } = result;
 
-  return `📜 今日签文 📜
+  let display = `📜 今日签文 📜
 
 运势：${fortune.运势}
 星级：${fortune.星级}
@@ -157,4 +239,21 @@ ${fortune.签文}
 
 「解签」
 ${fortune.解签}`;
+
+  // 追加签到信息
+  if (checkin.streak > 0) {
+    const balance = await ctx.coin.getCoin(user);
+    display += `\n──────────────`;
+
+    if (checkin.shouldReward) {
+      display += `\n[签到奖励] +${checkin.reward} 次元币（运势 ${checkin.stars}★ ×15 + 连续 ${checkin.streak}天 ×5）`;
+    } else {
+      display += `\n今日已签到，运势保持不变`;
+    }
+
+    display += `\n连续签到：第 ${checkin.streak} 天`;
+    display += `\n余额：${balance} 次元币`;
+  }
+
+  return display;
 }

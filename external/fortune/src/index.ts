@@ -12,13 +12,9 @@ declare module "koishi" {
   }
 }
 
-/**
- * 运势服务类，提供运势相关的功能
- *
- * API 接口
- */
+// 运势服务类，提供运势相关的功能
 class Fortune extends Service {
-  static inject = ["database"];
+  static inject = ["database", "coin"];
   declare ctx: Context;
   declare config: Fortune.Config;
   constructor(ctx: Context, config: Fortune.Config) {
