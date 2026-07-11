@@ -144,7 +144,7 @@ async function distributeGroupsToBots(ctx: Context, bots: BotGroups[], groups: G
     const availableBots = groupToBotsMap[groupId];
     if (!availableBots || availableBots.length === 0) continue;
     const selectedBot = availableBots.reduce((prev, curr) =>
-      ((botWorkload[curr] ?? 0) < (botWorkload[prev] ?? 0) ? curr : prev)
+      (botWorkload[curr] ?? 0) < (botWorkload[prev] ?? 0) ? curr : prev
     );
     assignments.push({ groupId, assignee: selectedBot });
     botWorkload[selectedBot] = (botWorkload[selectedBot] ?? 0) + 1;

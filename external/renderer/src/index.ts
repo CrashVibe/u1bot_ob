@@ -186,9 +186,15 @@ export default class Renderer extends Service {
     const fontMimes: Record<string, string> = { woff2: "font/woff2", woff: "font/woff", ttf: "font/truetype" };
     await page.route(/\.(?:woff2|woff|ttf)(?:\?.*)?$/i, async (route) => {
       const segment = route.request().url().split("/").pop();
-      if (!segment) { route.continue(); return; }
+      if (!segment) {
+        route.continue();
+        return;
+      }
       const filename = segment.split("?")[0];
-      if (!filename) { route.continue(); return; }
+      if (!filename) {
+        route.continue();
+        return;
+      }
       try {
         const ext = path.extname(filename).slice(1).toLowerCase();
         await route.fulfill({
