@@ -20,15 +20,25 @@ export async function choice(ctx: Context, session: Session, config: Config) {
     throw new Error("无法获取用户ID");
   }
 
-  const { weight, adjustment_mode, luck_star_num, fishing_rod_level } = await get_weight(ctx, config, session.userId);
+  const { weight, adjustment_mode, luck_star_num, fishing_rod_level, items, consumeLuckyBait } = await get_weight(
+    ctx,
+    config,
+    session.userId
+  );
 
-  // 加权随机
-  const fish_quality = weighted_choice(Object.values(FishQuality), Object.values(weight));
+  // 超级鱼饵效果：排除腐烂/发霉品质
+  let consumeSuperBait = false;
+  let availableQualities = Object.values(FishQuality);
+  let availableWeights = Object.values(weight);
 
-  // 获取该品质对应的配置
+  if ((items["超级鱼饵"] || 0) > 0) {
+    consumeSuperBait = true;
+    availableQualities = availableQualities.filter((q) => q !== FishQuality.rotten && q !== FishQuality.moldy);
+    availableWeights = availableQualities.map((q) => weight[q]);
+  }
+
+  const fish_quality = weighted_choice(availableQualities, availableWeights);
   const selected_fish_config = FISH_CONFIG[fish_quality];
-
-  // 从鱼类信息中随机选择一条鱼
   const selected_fish_info = Random.pick(selected_fish_config.fishes);
   const random_length = Random.int(selected_fish_config.lengthRange[0], selected_fish_config.lengthRange[1]);
 
@@ -42,13 +52,13 @@ export async function choice(ctx: Context, session: Session, config: Config) {
     fishInfo: selected_fish_info, // 添加鱼类信息，用于获取prompt
     adjustment_mode,
     luck_star_num,
-    fishing_rod_level
+    fishing_rod_level,
+    consumeLuckyBait,
+    consumeSuperBait
   };
 }
 
-/**
- * 根据权重进行随机选择
- */
+// 根据权重进行随机选择
 function weighted_choice(items: FishQuality[], weights: number[]) {
   const total = weights.reduce((sum, w) => sum + (w ?? 0), 0);
   let random = Math.random() * total;
@@ -60,25 +70,13 @@ function weighted_choice(items: FishQuality[], weights: number[]) {
   return items.at(-1)!;
 }
 
-/**
- * 计算幸运星数量对权重的影响 (指数函数)
- * @param config 配置
- * @param luck_star_num 星数量
- * @returns 权重增加值
- */
+// 计算幸运星数量对权重的影响 (指数函数)
 function calculate_weight_increase(config: Config, luck_star_num: number): number {
   const base = config.base_weight_increase;
   return base * (Math.pow(1.1, luck_star_num) - 1);
 }
 
-/**
- * 根据用户运势和鱼竿调整鱼权重，返回对应权重值
- *
- * @param ctx 上下文
- * @param config 配置
- * @param userId 用户ID
- * @returns
- */
+// 根据用户运势和鱼竿调整鱼权重，返回对应权重值
 async function get_weight(ctx: Context, config: Config, userId: string) {
   let luck_star_num: number | null = null;
   if (ctx.fortune) {
@@ -90,6 +88,7 @@ async function get_weight(ctx: Context, config: Config, userId: string) {
   });
 
   const fishingRodLevel = userRecord?.fishing_rod_level ?? FishingRodLevel.normal;
+  const items = (userRecord?.items || {}) as Record<string, number>;
 
   const qualities = Object.values(FishQuality);
   const adjustment_mode = !!(luck_star_num && luck_star_num > 0);
@@ -128,6 +127,15 @@ async function get_weight(ctx: Context, config: Config, userId: string) {
     weight[quality] = w;
   }
 
+  // 幸运饵料效果：高品质鱼权重 ×1.5
+  let consumeLuckyBait = false;
+  if ((items["幸运饵料"] || 0) > 0) {
+    weight[FishQuality.golden] *= 1.5;
+    weight[FishQuality.void] *= 1.5;
+    weight[FishQuality.hidden_fire] *= 1.5;
+    consumeLuckyBait = true;
+  }
+
   const totalWeight = Object.values(weight).reduce((s, w) => s + w, 0);
 
   if (totalWeight > 0) {
@@ -140,7 +148,9 @@ async function get_weight(ctx: Context, config: Config, userId: string) {
     weight,
     adjustment_mode,
     luck_star_num,
-    fishing_rod_level: fishingRodLevel
+    fishing_rod_level: fishingRodLevel,
+    items,
+    consumeLuckyBait
   };
 }
 
@@ -148,12 +158,15 @@ export async function save_fish(
   ctx: Context,
   session: Session,
   fish: Fish,
-  config: Config
+  config: Config,
+  consumeLuckyBait = false,
+  consumeSuperBait = false
 ): Promise<{
   upgraded: boolean;
   downgraded: boolean;
   newLevel?: FishingRodLevel;
   downgradeReason?: string;
+  protectionUsed?: boolean;
 }> {
   if (!session.userId) {
     throw new Error("无法获取用户ID");
@@ -166,15 +179,16 @@ export async function save_fish(
     downgraded: boolean;
     newLevel?: FishingRodLevel;
     downgradeReason?: string;
+    protectionUsed?: boolean;
   } = {
     upgraded: false,
     downgraded: false,
     newLevel: undefined,
-    downgradeReason: undefined
+    downgradeReason: undefined,
+    protectionUsed: false
   };
 
   if (!record[0]) {
-    // 创建新记录
     const newRecord = await ctx.database.create("fishing_record", {
       user_id: userId,
       frequency: 1,
@@ -183,14 +197,14 @@ export async function save_fish(
       fishing_rod_experience: 1,
       total_fishing_count: 1,
       last_fishing_time: new Date(),
-      consecutive_bad_count: fish.quality === FishQuality.rotten || fish.quality === FishQuality.moldy ? 1 : 0
+      consecutive_bad_count: fish.quality === FishQuality.rotten || fish.quality === FishQuality.moldy ? 1 : 0,
+      items: {}
     });
 
     record = [newRecord];
   } else {
     const userRecord = record[0];
 
-    // 更新鱼记录
     const fish_record = userRecord.fishes;
     const existing = fish_record.find((f) => f.quality === fish.quality && f.name === fish.name);
     if (existing) {
@@ -199,16 +213,24 @@ export async function save_fish(
       fish_record.push(fish);
     }
 
-    // 更新倒霉计数
     updateConsecutiveBadCount(userRecord, fish.quality);
 
     const downgradeCheck = shouldDowngradeFishingRod(userRecord, config, fish.name);
     if (downgradeCheck.shouldDowngrade) {
-      const downgradedLevel = downgradeFishingRod(userRecord);
-      if (downgradedLevel) {
-        fishingResult.downgraded = true;
-        fishingResult.newLevel = downgradedLevel;
-        fishingResult.downgradeReason = downgradeCheck.reason === null ? undefined : downgradeCheck.reason;
+      // 保护绳效果：防止鱼竿降级一次
+      const items: Record<string, number> = (userRecord.items || {}) as Record<string, number>;
+      const ropeCount = items["保护绳"] || 0;
+      if (ropeCount > 0) {
+        items["保护绳"] = ropeCount - 1;
+        userRecord.items = items;
+        fishingResult.protectionUsed = true;
+      } else {
+        const downgradedLevel = downgradeFishingRod(userRecord);
+        if (downgradedLevel) {
+          fishingResult.downgraded = true;
+          fishingResult.newLevel = downgradedLevel;
+          fishingResult.downgradeReason = downgradeCheck.reason === null ? undefined : downgradeCheck.reason;
+        }
       }
     }
 
@@ -216,7 +238,6 @@ export async function save_fish(
     userRecord.last_fishing_time = new Date();
     userRecord.fishing_rod_experience += 1;
 
-    // 检查升级
     if (canUpgradeFishingRod(userRecord, config)) {
       const upgradedLevel = upgradeFishingRod(userRecord);
       if (upgradedLevel) {
@@ -224,8 +245,25 @@ export async function save_fish(
         fishingResult.newLevel = upgradedLevel;
       }
     }
+
+    // 消耗道具：幸运饵料、超级鱼饵
+    const items: Record<string, number> = (userRecord.items || {}) as Record<string, number>;
+    if (consumeLuckyBait) {
+      const luckyCount = items["幸运饵料"] || 0;
+      if (luckyCount > 0) {
+        items["幸运饵料"] = luckyCount - 1;
+      }
+    }
+    if (consumeSuperBait) {
+      const superCount = items["超级鱼饵"] || 0;
+      if (superCount > 0) {
+        items["超级鱼饵"] = superCount - 1;
+      }
+    }
+    userRecord.items = items;
+
     if (session.guildId) {
-      await updateRankings(ctx, session.guildId, userId, fish, userRecord); // 更新排行榜
+      await updateRankings(ctx, session.guildId, userId, fish, userRecord);
     }
     await ctx.database.set(
       "fishing_record",
@@ -237,7 +275,8 @@ export async function save_fish(
         fishing_rod_experience: userRecord.fishing_rod_experience,
         total_fishing_count: userRecord.total_fishing_count,
         last_fishing_time: userRecord.last_fishing_time,
-        consecutive_bad_count: userRecord.consecutive_bad_count
+        consecutive_bad_count: userRecord.consecutive_bad_count,
+        items: userRecord.items
       }
     );
   }
@@ -273,7 +312,6 @@ export function get_fish_info(fishName: string, quality: FishQuality): FishInfo 
 }
 
 export async function get_backpack(ctx: Context, userId: string) {
-  // 按照鱼的品质分组
   const record = await ctx.database.get("fishing_record", {
     user_id: userId
   });

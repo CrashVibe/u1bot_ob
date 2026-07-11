@@ -20,6 +20,12 @@ export interface Config {
     /** 不活跃天数导致降级 */
     inactivity_days: number;
   };
+  // 渔具店道具价格配置
+  shop_items: {
+    lucky_bait: number;
+    protection_rope: number;
+    super_bait: number;
+  };
 }
 
 export const Config: Schema<Config> = Schema.object({
@@ -122,7 +128,13 @@ export const Config: Schema<Config> = Schema.object({
       .description("可能导致鱼竿降级的倒霉鱼名称列表"),
     consecutive_bad_threshold: Schema.number().default(8).description("连续钓到低品质鱼的降级阈值"),
     inactivity_days: Schema.number().default(7).description("不活跃天数导致降级")
-  }).description("鱼竿降级事件配置")
+  }).description("鱼竿降级事件配置"),
+
+  shop_items: Schema.object({
+    lucky_bait: Schema.number().default(20).description("幸运饵料价格"),
+    protection_rope: Schema.number().default(50).description("保护绳价格"),
+    super_bait: Schema.number().default(80).description("超级鱼饵价格")
+  }).description("渔具店道具价格配置")
 });
 
 export const FISH_CONFIG: Record<FishQuality, QualityConfig> = {

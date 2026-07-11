@@ -28,6 +28,8 @@ export interface FishingRecordModel {
   last_fishing_time: Date;
   /** 连续倒霉次数 */
   consecutive_bad_count: number;
+  /** 拥有的道具 {"幸运饵料": 3, "保护绳": 1, "超级鱼饵": 0} */
+  items: Record<string, number>;
 }
 
 export function applyModel(ctx: Context) {
@@ -50,7 +52,8 @@ export function applyModel(ctx: Context) {
       fishing_rod_experience: { type: "unsigned", initial: 0 },
       total_fishing_count: { type: "unsigned", initial: 0 },
       last_fishing_time: { type: "timestamp", initial: new Date() },
-      consecutive_bad_count: { type: "unsigned", initial: 0 }
+      consecutive_bad_count: { type: "unsigned", initial: 0 },
+      items: { type: "json", initial: {} }
     },
     {
       primary: "user_id"

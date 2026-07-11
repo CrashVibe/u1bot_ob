@@ -2,7 +2,6 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 import type { Config } from "./config";
-import type { Fish } from "./types";
 import {} from "@koishijs/plugin-adapter-qq";
 import {} from "@u1bot/koishi-plugin-coin";
 import type { Context } from "koishi";
@@ -21,6 +20,7 @@ import {
   get_quality_display,
   save_fish
 } from "./services";
+import { FishingRodLevel, type Fish } from "./types";
 export { Config } from "./config";
 export const name = "fishing";
 export const inject = {
@@ -64,12 +64,10 @@ export async function apply(ctx: Context, config: Config) {
           const waitTime = Math.floor(Math.random() * 6 + 1) * 1000;
           await new Promise((resolve) => setTimeout(resolve, waitTime));
 
-          // 获取鱼类信息用于特殊描述
           const fishInfo = get_fish_info(fish.fish.name, fish.fish.quality);
 
           let result = "";
 
-          // 检查是否有特殊描述（prompt）
           if (fishInfo) {
             result = `你钓到了一条 [${get_quality_display(fish.fish.quality)}]${fish.fish.name}，长度为 ${
               fish.fish.length
@@ -79,9 +77,20 @@ export async function apply(ctx: Context, config: Config) {
             }
           }
 
-          const fishingResult = await save_fish(ctx, session, fish.fish, config);
+          const fishingResult = await save_fish(
+            ctx,
+            session,
+            fish.fish,
+            config,
+            fish.consumeLuckyBait,
+            fish.consumeSuperBait
+          );
 
           let fullResult = result;
+
+          if (fishingResult.protectionUsed) {
+            fullResult += `\n[保护绳] 保护绳生效！你的鱼竿免于降级。`;
+          }
 
           if (fishingResult.upgraded) {
             fullResult += `\n你的鱼竿升级到了 [${getFishingRodDisplay(fishingResult.newLevel!, config)}] 等级！`;
@@ -291,6 +300,105 @@ export async function apply(ctx: Context, config: Config) {
       `* 你卖掉了一条 [${get_quality_display(fish.quality)}]${fish.name}，长度为 ${
         fish.length
       }cm，获得了 ${price.toFixed(2)} 次元币`
+    );
+  });
+
+  ctx.command("渔具店", "查看渔具店道具列表").action(async ({ session }) => {
+    if (!session?.userId) {
+      throw new Error("无法获取用户信息");
+    }
+
+    const record = await ctx.database.get("fishing_record", { user_id: session.userId });
+    const items = (record[0]?.items || {}) as Record<string, number>;
+
+    const luckyBaitCount = items["幸运饵料"] || 0;
+    const protectionRopeCount = items["保护绳"] || 0;
+    const superBaitCount = items["超级鱼饵"] || 0;
+
+    const itemList = [];
+    if (luckyBaitCount > 0) itemList.push(`幸运饵料×${luckyBaitCount}`);
+    if (protectionRopeCount > 0) itemList.push(`保护绳×${protectionRopeCount}`);
+    if (superBaitCount > 0) itemList.push(`超级鱼饵×${superBaitCount}`);
+
+    const backpackText = itemList.length > 0 ? itemList.join(", ") : "空空如也";
+
+    return (
+      h.quote(session.messageId) +
+      `[渔具店]
+ ━━━━━━━━━━━━
+ 幸运饵料 — ${config.shop_items.lucky_bait} 次元币
+    效果：下次钓鱼稀有鱼概率 ×1.5
+ 
+ 保护绳 — ${config.shop_items.protection_rope} 次元币
+    效果：防止鱼竿降级一次（自动触发）
+ 
+ 超级鱼饵 — ${config.shop_items.super_bait} 次元币
+    效果：下次钓鱼必出普通及以上品质
+ 
+ ━━━━━━━━━━━━
+ 回复 \`/购买 道具名\` 来购买
+ 你的道具：${backpackText}`
+    );
+  });
+
+  ctx.command("购买 <itemName>", "购买渔具店道具").action(async ({ session }, itemName: string) => {
+    if (!session?.userId) {
+      throw new Error("无法获取用户信息");
+    }
+
+    const validItems: Record<string, { price: number; display: string }> = {
+      幸运饵料: { price: config.shop_items.lucky_bait, display: "幸运饵料" },
+      保护绳: { price: config.shop_items.protection_rope, display: "保护绳" },
+      超级鱼饵: { price: config.shop_items.super_bait, display: "超级鱼饵" }
+    };
+
+    const item = validItems[itemName];
+    if (!item) {
+      return h.quote(session.messageId) + `没有这个道具！可购买的道具：幸运饵料、保护绳、超级鱼饵`;
+    }
+
+    const balance = await ctx.coin.getCoin(session.userId);
+    if (balance < item.price) {
+      return (
+        h.quote(session.messageId) + `次元币不足！需要 ${item.price} 次元币，你当前只有 ${balance.toFixed(2)} 次元币`
+      );
+    }
+
+    await ctx.coin.adjustCoin(session.userId, -item.price, `购买${item.display}`);
+
+    const record = await ctx.database.get("fishing_record", { user_id: session.userId });
+    if (!record[0]) {
+      // 没有钓鱼记录，先创建一个空记录
+      await ctx.database.create("fishing_record", {
+        user_id: session.userId,
+        frequency: 0,
+        fishes: [],
+        fishing_rod_level: FishingRodLevel.normal,
+        fishing_rod_experience: 0,
+        total_fishing_count: 0,
+        last_fishing_time: new Date(),
+        consecutive_bad_count: 0,
+        items: { [itemName]: 1 }
+      });
+    } else {
+      const items = (record[0].items || {}) as Record<string, number>;
+      items[itemName] = (items[itemName] || 0) + 1;
+      await ctx.database.set("fishing_record", { user_id: session.userId }, { items });
+    }
+
+    const updatedRecord = await ctx.database.get("fishing_record", { user_id: session.userId });
+    const updatedItems = (updatedRecord[0]?.items || {}) as Record<string, number>;
+
+    const itemList = [];
+    if (updatedItems["幸运饵料"]) itemList.push(`幸运饵料×${updatedItems["幸运饵料"]}`);
+    if (updatedItems["保护绳"]) itemList.push(`保护绳×${updatedItems["保护绳"]}`);
+    if (updatedItems["超级鱼饵"]) itemList.push(`超级鱼饵×${updatedItems["超级鱼饵"]}`);
+
+    const newBalance = await ctx.coin.getCoin(session.userId);
+
+    return (
+      h.quote(session.messageId) +
+      `* 成功购买 ${item.display} ×1，消耗 ${item.price} 次元币\n余额：${newBalance.toFixed(2)} 次元币\n道具：${itemList.join(", ") || "空空如也"}`
     );
   });
 
