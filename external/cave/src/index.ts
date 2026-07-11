@@ -75,6 +75,67 @@ export async function apply(ctx: Context, config: Config) {
     });
 
   ctx
+    .command("tip_cave <id:number> <amount:number> [...message]", "打赏回声洞投稿")
+    .alias("打赏")
+    .action(async ({ session }, id, amount, ...message) => {
+      if (!session || !session.userId) {
+        throw new Error("会话信息缺失");
+      }
+      if (session.qq) {
+        return "此功能暂不支持该平台";
+      }
+
+      if (!Number.isInteger(amount) || amount <= 0) {
+        return "打赏金额必须为正整数哦~";
+      }
+
+      const caveItems = await ctx.database.get("cave", { id });
+      if (!caveItems[0]) {
+        return `没有找到编号为 #${id} 的回声洞投稿~`;
+      }
+      const cave = caveItems[0];
+
+      if (cave.user_id === session.userId) {
+        return "不能打赏自己的投稿哦~";
+      }
+
+      if (!(await ctx.coin.hasEnoughCoin(session.userId, amount))) {
+        return `余额不足！当前余额：${await ctx.coin.getCoin(session.userId)} 次元币，需要：${amount} 次元币`;
+      }
+
+      const tipMessage = message.join(" ").trim();
+
+      await ctx.coin.adjustCoin(session.userId, -amount, `打赏回声洞 #${id}`);
+      await ctx.coin.adjustCoin(cave.user_id, amount, `收到打赏回声洞 #${id}`);
+
+      // 通知投稿人
+      const plainContent = cave.content.replace(/<[^>]+>/g, "");
+      const contentPreview = plainContent.length > 50 ? plainContent.substring(0, 50) + "..." : plainContent;
+      const senderName = session.username || session.userId;
+
+      let authorNotifyMsg = `你的回声洞投稿 #${id} 收到了来自 @${senderName} 的 ${amount} 次元币打赏！`;
+      if (tipMessage) {
+        authorNotifyMsg += `\n留言：「${tipMessage}」`;
+      }
+      authorNotifyMsg += `\n被赞赏的投稿：${contentPreview}`;
+      authorNotifyMsg += `\n当前余额：${await ctx.coin.getCoin(cave.user_id)} 次元币`;
+
+      try {
+        await session.bot.sendPrivateMessage(cave.user_id, authorNotifyMsg);
+      } catch (e) {
+        // 私信通知失败不影响打赏结果
+      }
+
+      let replyMsg = `打赏成功！你向 #${id} 号投稿打赏了 ${amount} 次元币`;
+      if (tipMessage) {
+        replyMsg += `\n留言：「${tipMessage}」`;
+      }
+      replyMsg += `\n余额：${await ctx.coin.getCoin(session.userId)} 次元币`;
+
+      return replyMsg;
+    });
+
+  ctx
     .command("remove_cave <id> [...reason]", "删除指定的洞穴秘密")
     .alias("删除回声洞")
     .alias("删除")
