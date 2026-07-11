@@ -12,6 +12,10 @@
     "lib"
   ],
   "main": "src/index.ts",
+  "dependencies": {
+    "@u1bot/koishi-plugin-coin": "workspace:^",
+    "moment-timezone": "^0.6.2"
+  },
   "devDependencies": {
     "@koishijs/plugin-adapter-qq": "^4.13.0"
   },
