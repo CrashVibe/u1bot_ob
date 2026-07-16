@@ -51,16 +51,22 @@ export default class Coin extends Service {
     this.ctx.command("转账", "转账给其他用户").action(async ({ session }) => {
       if (!session?.userId) throw new Error("会话对象不存在");
 
-      const content = session.content || "";
-      const elements = h.parse(content);
+      const elements = session.elements || [];
       const ats = elements.filter((el) => el.type === "at");
-      if (ats.length !== 1) return "请@一个要转账的用户，格式：/转账 @用户 金额";
+      if (ats.length !== 1) return "请@一个要转账的用户，格式：转账 @用户 金额";
       const targetId = ats[0]!.attrs.id;
       if (targetId === session.userId) return "不能给自己转账哦～";
 
-      const plainText = content.replace(/<[^>]+>/g, "").trim();
-      const amount = parseInt(plainText);
-      if (isNaN(amount) || amount <= 0) return "请输入正确的转账金额（正整数）";
+      // 从解析后的元素中提取文本内容（排除 at 元素），避免原始 @mention 文本干扰金额解析
+      const atsIndex = elements.findIndex((el) => el.type === "at");
+      const amountText = elements
+        .slice(atsIndex + 1)
+        .filter((el) => el.type === "text")
+        .map((el) => (el.attrs as { content: string }).content)
+        .join("")
+        .trim();
+      const amount = parseInt(amountText);
+      if (isNaN(amount) || amount <= 0 || !Number.isInteger(amount)) return "请输入正确的转账金额（正整数）";
 
       const fee = Math.max(1, Math.ceil(amount * 0.01));
       const totalCost = amount + fee;
