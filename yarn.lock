@@ -3756,18 +3756,12 @@ __metadata:
     dayjs: "npm:^1.11.21"
     drizzle-orm: "npm:^1.0.0-rc.4-5d5b77c"
     echarts: "npm:^5.6.0"
-    fast-levenshtein: "npm:^3.0.0"
     file-type: "npm:^22.0.1"
-    graphology: "npm:^0.26.0"
-    graphology-metrics: "npm:^2.4.0"
-    graphology-types: "npm:^0.24.8"
     jsonrepair: "npm:^3.15.0"
     openai: "npm:^6.45.0"
     p-limit: "npm:^7.3.0"
-    p-timeout: "npm:^7.0.1"
     pg: "npm:^8.22.0"
     smol-toml: "npm:^1.7.0"
-    zod: "npm:^4.5.0-canary.20260504T180558"
   peerDependencies:
     "@koishijs/plugin-console": ^5.30.11
     koishi: ^4.18.11
@@ -4413,13 +4407,6 @@ __metadata:
   dependencies:
     vue-demi: "npm:*"
   checksum: 10c0/22c453dc3c9ccd389e32d4dcfb6e6facfbb29860376c0b1c4d40d2745edd733857d1a1f82835c1d698dedf0c9f697bd9d1265e4e70a6702c85b61cc295bd7352
-  languageName: node
-  linkType: hard
-
-"@yomguithereal/helpers@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@yomguithereal/helpers@npm:1.1.1"
-  checksum: 10c0/a521e8e02a3902f5a33b970397158d70520bf1b79bca67db3990cb90703adaa9fc67e45c6cabfa98021202534002530e97e617adc19afa62f9e282d996513934
   languageName: node
   linkType: hard
 
@@ -6291,16 +6278,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-levenshtein@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "fast-levenshtein@npm:3.0.0"
-  dependencies:
-    fastest-levenshtein: "npm:^1.0.7"
-  checksum: 10c0/9e147c682bd0ca54474f1cbf906f6c45262fd2e7c051d2caf2cc92729dcf66949dc809f2392de6adbe1c8716fdf012f91ce38c9422aef63b5732fc688eee4046
-  languageName: node
-  linkType: hard
-
-"fastest-levenshtein@npm:^1.0.16, fastest-levenshtein@npm:^1.0.7":
+"fastest-levenshtein@npm:^1.0.16":
   version: 1.0.16
   resolution: "fastest-levenshtein@npm:1.0.16"
   checksum: 10c0/7e3d8ae812a7f4fdf8cad18e9cde436a39addf266a5986f653ea0d81e0de0900f50c0f27c6d5aff3f686bcb48acbd45be115ae2216f36a6a13a7dbbf5cad878b
@@ -6630,74 +6608,6 @@ __metadata:
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: 10c0/386d011a553e02bc594ac2ca0bd6d9e4c22d7fa8cfbfc448a6d148c59ea881b092db9dbe3547ae4b88e55f1b01f7c4a2ecc53b310c042793e63aa44cf6c257f2
-  languageName: node
-  linkType: hard
-
-"graphology-indices@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "graphology-indices@npm:0.17.0"
-  dependencies:
-    graphology-utils: "npm:^2.4.2"
-    mnemonist: "npm:^0.39.0"
-  peerDependencies:
-    graphology-types: ">=0.20.0"
-  checksum: 10c0/e951b3c338539080567859b9e6cc0f9a35d3d0ed5597e3331fa84469d8a1ba629adf46a81f48d883a904804199f031a2abd1973b7e67fed59cc2f7987fd5e467
-  languageName: node
-  linkType: hard
-
-"graphology-metrics@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "graphology-metrics@npm:2.4.0"
-  dependencies:
-    graphology-indices: "npm:^0.17.0"
-    graphology-shortest-path: "npm:^2.0.0"
-    graphology-utils: "npm:^2.4.4"
-    mnemonist: "npm:^0.39.0"
-    pandemonium: "npm:2.4.1"
-  peerDependencies:
-    graphology-types: ">=0.20.0"
-  checksum: 10c0/87791e079e49a773f9ed57dd1b0eefe449494f579fee059549db4d3abe6830b7bd34d56d69851dd22c78de537271b479081cae26829e2bbbfccb8a234132e18b
-  languageName: node
-  linkType: hard
-
-"graphology-shortest-path@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "graphology-shortest-path@npm:2.1.0"
-  dependencies:
-    "@yomguithereal/helpers": "npm:^1.1.1"
-    graphology-indices: "npm:^0.17.0"
-    graphology-utils: "npm:^2.4.3"
-    mnemonist: "npm:^0.39.0"
-  peerDependencies:
-    graphology-types: ">=0.20.0"
-  checksum: 10c0/7ede7a89902c6bf84c854902b076ae90c6a1e8c2535ecf19fdeac17169795b3cf367f72ae721fdf360cee501bd9ee4684dc525ae467e77babc747c0a218e05d9
-  languageName: node
-  linkType: hard
-
-"graphology-types@npm:^0.24.8":
-  version: 0.24.8
-  resolution: "graphology-types@npm:0.24.8"
-  checksum: 10c0/2c829a739ed2554934489b994140130007ae5b2281cb818f90371cae5cbeb27d574b552597af462d22694044abfeddfe179c2b94c736c8cfb2a7a35e43a8f894
-  languageName: node
-  linkType: hard
-
-"graphology-utils@npm:^2.4.2, graphology-utils@npm:^2.4.3, graphology-utils@npm:^2.4.4":
-  version: 2.5.2
-  resolution: "graphology-utils@npm:2.5.2"
-  peerDependencies:
-    graphology-types: ">=0.23.0"
-  checksum: 10c0/5817142b3b1fa677e9dc8f2a4ff71e52c36dbb02ecd02a73cd2299b5958336da33835b2a729f087251c37d66aaa1ab4ff119e17f4959e88eeb551cc09e5880fc
-  languageName: node
-  linkType: hard
-
-"graphology@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "graphology@npm:0.26.0"
-  dependencies:
-    events: "npm:^3.3.0"
-  peerDependencies:
-    graphology-types: ">=0.24.0"
-  checksum: 10c0/9a480853c7075be21cbdd7dc0efb1677c9acb8d3d4d882e44d4e0944ce74a279cf666a70e8a777274a7800ed57d8b47fff5ff66689bfd37d318fc32aff7137a0
   languageName: node
   linkType: hard
 
@@ -7942,15 +7852,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mnemonist@npm:^0.39.0, mnemonist@npm:^0.39.2":
-  version: 0.39.8
-  resolution: "mnemonist@npm:0.39.8"
-  dependencies:
-    obliterator: "npm:^2.0.1"
-  checksum: 10c0/fa810768d290919c4ecd3f8ba5c8458bc45df08d1c72fac8f3897721cd90ab42ee1c642cc5208cfd649d40222998dc011127702117c0ca676f243cc80f42cc11
-  languageName: node
-  linkType: hard
-
 "moment-timezone@npm:^0.5.45":
   version: 0.5.48
   resolution: "moment-timezone@npm:0.5.48"
@@ -8117,13 +8018,6 @@ __metadata:
   version: 1.13.4
   resolution: "object-inspect@npm:1.13.4"
   checksum: 10c0/d7f8711e803b96ea3191c745d6f8056ce1f2496e530e6a19a0e92d89b0fa3c76d910c31f0aa270432db6bd3b2f85500a376a83aaba849a8d518c8845b3211692
-  languageName: node
-  linkType: hard
-
-"obliterator@npm:^2.0.1":
-  version: 2.0.5
-  resolution: "obliterator@npm:2.0.5"
-  checksum: 10c0/36e67d88271c51aa6412a7d449d6c60ae6387176f94dbc557eea67456bf6ccedbcbcecdb1e56438aa4f4694f68f531b3bf2be87b019e2f69961b144bec124e70
   languageName: node
   linkType: hard
 
@@ -8390,26 +8284,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-timeout@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "p-timeout@npm:7.0.1"
-  checksum: 10c0/87d96529d1096d506607218dba6f9ec077c6dbedd0c2e2788c748e33bcd05faae8a81009fd9d22ec0b3c95fc83f4717306baba223f6e464737d8b99294c3e863
-  languageName: node
-  linkType: hard
-
 "package-manager-detector@npm:^1.3.0":
   version: 1.6.0
   resolution: "package-manager-detector@npm:1.6.0"
   checksum: 10c0/6419d0b840be64fd45bcdcb7a19f09b81b65456d5e7f7a3daac305a4c90643052122f6ac0308afe548ffee75e36148532a2002ea9d292754f1e385aa2e1ea03b
-  languageName: node
-  linkType: hard
-
-"pandemonium@npm:2.4.1":
-  version: 2.4.1
-  resolution: "pandemonium@npm:2.4.1"
-  dependencies:
-    mnemonist: "npm:^0.39.2"
-  checksum: 10c0/af46e158e41ba1823884e4f0e224d35dc9bf38ece217ce73e29096b7aae466a865759bfd1ac82ad19dfe88b9c3cbf5334c5a4c23b90d675b58afd5093b6badca
   languageName: node
   linkType: hard
 
@@ -10395,13 +10273,6 @@ __metadata:
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
-  languageName: node
-  linkType: hard
-
-"zod@npm:^4.5.0-canary.20260504T180558":
-  version: 4.5.0-canary.20260504T180558
-  resolution: "zod@npm:4.5.0-canary.20260504T180558"
-  checksum: 10c0/f913031f54f52cfcf5621bccec0ddc6dcb81b70719956363f7877000a4b224e04866ae3c2a37875a0473afc080a42916dc428765edf735869631794f4ee1588f
   languageName: node
   linkType: hard
 
