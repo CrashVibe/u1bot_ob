@@ -9532,13 +9532,13 @@ __metadata:
   linkType: hard
 
 "tsconfig-utils@npm:^4.0.5, tsconfig-utils@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "tsconfig-utils@npm:4.1.1"
+  version: 4.2.0
+  resolution: "tsconfig-utils@npm:4.2.0"
   dependencies:
     json5: "npm:^2.2.3"
   peerDependencies:
     typescript: "*"
-  checksum: 10c0/e0a3374f0757ff7dfe6825768fda04e6356c7d057e44b22e60c9367a0ad386fa8562a27222d6b5961ead3eaae91f5471da9cfb362717b52bdbe892665960e73f
+  checksum: 10c0/b5c490ad0e047d05fab062321052a4f74da4f16653ed700a4a7e17e3e1ad571b44343edd2bab6aacb33b4bdc494b94c756883d9ddd1a0299745bd3d3681316c5
   languageName: node
   linkType: hard
 
