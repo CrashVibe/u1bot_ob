@@ -78,7 +78,7 @@ export async function add_cave(ctx: Context, session: Session, config: Config, c
     content: messages.map((message) => message.toString()).join(""),
     user_id: session.userId,
     createdAt: new Date(),
-    anonymous: false
+    anonymous
   });
   await ctx.coin.adjustCoin(
     session.userId,
