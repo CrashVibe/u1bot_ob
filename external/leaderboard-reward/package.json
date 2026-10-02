@@ -14,7 +14,7 @@
   "main": "src/index.ts",
   "dependencies": {
     "@u1bot/koishi-plugin-coin": "workspace:^",
-    "moment-timezone": "^0.5.45"
+    "moment-timezone": "^0.6.5"
   },
   "devDependencies": {
     "@u1bot/koishi-plugin-fishing": "workspace:^",
