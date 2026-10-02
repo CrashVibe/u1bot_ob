@@ -5,6 +5,7 @@
       build:
         - tsc
         - esbuild
+        - client
       clean:
         - tsc --clean
 - id: c7udoj
@@ -12,7 +13,7 @@
 - id: fs05xo
   name: yakumo-tsc
 - id: qkzvzo
-  name: '@koishijs/client/lib'
+  name: './yakumo-client.mjs'
 - id: botw9h
   name: yakumo/run
 - id: wwxva4
