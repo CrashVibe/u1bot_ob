@@ -1,0 +1,3 @@
+[install]
+# 与原来的 nodeLinker: node-modules 等价；bun 默认的隔离布局会让幽灵依赖和类型增强失效
+linker = "hoisted"

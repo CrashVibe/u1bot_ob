@@ -29,5 +29,5 @@
     ]
   },
   "singleAttributePerLine": false,
-  "ignorePatterns": ["yarn.lock", "koishi.yml", "yakumo.yml"]
+  "ignorePatterns": ["bun.lock", "koishi.yml", "yakumo.yml"]
 }

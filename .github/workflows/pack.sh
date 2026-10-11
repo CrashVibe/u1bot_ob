@@ -3,16 +3,10 @@ rm .gitignore
 echo "package.json" >> .gitignore
 echo "README*" >> .gitignore
 echo "LICENSE*" >> .gitignore
-echo "yarn.lock" >> .gitignore
+echo "bun.lock" >> .gitignore
+echo "bunfig.toml" >> .gitignore
 echo "node_modules" >> .gitignore
-echo ".yarnrc.yml" >> .gitignore
 echo "!.git" >> .gitignore
-echo "!.yarn" >> .gitignore
-echo ".yarn/patches" >> .gitignore
-echo ".yarn/plugins" >> .gitignore
-echo ".yarn/releases" >> .gitignore
-echo ".yarn/sdks" >> .gitignore
-echo ".yarn/versions" >> .gitignore
 
 for file in $(cat package.json | jq -r '.files' | sed '1d' | sed '$d'); do
   echo $file | cut -d \" -f 2 >> .gitignore

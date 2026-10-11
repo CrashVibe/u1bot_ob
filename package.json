@@ -20,7 +20,8 @@
   ],
   "files": [
     ".env",
-    "koishi.yml"
+    "koishi.yml",
+    "vue-ts-shim.cjs"
   ],
   "scripts": {
     "new": "koishi-scripts new",
@@ -31,8 +32,8 @@
     "bump": "yakumo version",
     "dep": "yakumo upgrade",
     "pub": "yakumo publish",
-    "dev": "cross-env NODE_ENV=development koishi start -r esbuild-register -r yml-register",
-    "start": "koishi start -r esbuild-register -r yml-register"
+    "dev": "cross-env NODE_ENV=development koishi start -r ./vue-ts-shim.cjs -r esbuild-register -r yml-register",
+    "start": "koishi start -r ./vue-ts-shim.cjs -r esbuild-register -r yml-register"
   },
   "dependencies": {
     "@koishijs/core": "^4.18.11",
@@ -78,7 +79,6 @@
   },
   "devDependencies": {
     "@koishijs/client": "^5.30.11",
-    "@koishijs/plugin-hmr": "^1.2.9",
     "@koishijs/scripts": "^4.6.2",
     "@types/node": "^26.6.4",
     "cross-env": "^10.1.0",
@@ -89,10 +89,17 @@
     "oxlint-tsgolint": "^7.0.2003",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
+    "typescript-js": "npm:typescript@5.9.3",
     "yakumo": "^3.2.1",
     "yakumo-esbuild": "^3.0.2",
     "yakumo-tsc": "^3.0.1",
     "yml-register": "^1.2.5"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "bun@1.4.2",
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@playwright/browser-chromium",
+    "esbuild",
+    "vue-demi"
+  ]
 }

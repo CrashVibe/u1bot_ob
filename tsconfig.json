@@ -14,7 +14,7 @@
       "@mrlingxd/koishi-plugin-*": ["./external/*/src"],
 
       // The `./external` directory is used to store created plugins.
-      // Try `npm run setup` or `yarn setup` to create a new plugin.
+      // Try `bun run setup` to create a new plugin.
       "koishi-plugin-*": ["./external/*/src", "./external/*/packages/core/src", "./packages/*/src", "./plugins/*/src"],
 
       // If you are developing a scoped plugin,

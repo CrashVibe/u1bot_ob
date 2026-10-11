@@ -65,9 +65,11 @@ jobs:
       - name: Prepare
         run: bash .github/workflows/prepare.sh
 
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Install dependencies
-        run: |
-          yarn --no-immutable
+        run: bun install
 
       - name: Pack file
         run: bash .github/workflows/pack.sh
