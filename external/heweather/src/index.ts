@@ -105,7 +105,8 @@ export async function apply(ctx: Context, config: Config) {
         return;
       }
       if (location) {
-        await session.send(h.quote(session.messageId) + `查询 ${location} 的天气信息...`);
+        // 不把用户输入拼进文案：QQ 会把机器人自己发出的内容当作机器人发言风控
+        await session.send(h.quote(session.messageId) + "正在查询天气信息...");
         if (!(config.qweather_apikey || config.qweather_use_jwt)) {
           throw new Error("请配置 API Key 或启用 JWT 模式");
         }
@@ -114,7 +115,7 @@ export async function apply(ctx: Context, config: Config) {
           await w_data.load();
         } catch (error) {
           if (error instanceof CityNotFoundError) {
-            await session.send(h.quote(session.messageId) + `未找到城市: ${location}`);
+            await session.send(h.quote(session.messageId) + "没找到这个城市，换个说法试试～");
             return;
           }
           throw error;

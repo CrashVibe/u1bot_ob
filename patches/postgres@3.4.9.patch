@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index c3b76a1a611bf014898c1c002981973bcae6a8cc..ddd94c38beb463923092c500290cad0a3ddb0ea0 100644
+--- a/package.json
++++ b/package.json
+@@ -7,7 +7,6 @@
+   "main": "cjs/src/index.js",
+   "exports": {
+     "types": "./types/index.d.ts",
+-    "bun": "./src/index.js",
+     "workerd": "./cf/src/index.js",
+     "import": "./src/index.js",
+     "default": "./cjs/src/index.js"

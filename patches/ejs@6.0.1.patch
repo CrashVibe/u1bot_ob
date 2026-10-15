@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index dad40a08235dbb4643a3eeb473065d60077f7afa..0aa2b3b7b1ddfecdbdc4cec5f35dcfcf72ccde94 100644
+--- a/package.json
++++ b/package.json
+@@ -17,6 +17,7 @@
+   "module": "./lib/esm/ejs.js",
+   "browser": "./ejs.min.js",
+   "exports": {
++    "bun": "./lib/cjs/ejs.js",
+     "import": "./lib/esm/ejs.js",
+     "require": "./lib/cjs/ejs.js"
+   },

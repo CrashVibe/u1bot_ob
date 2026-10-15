@@ -9,7 +9,8 @@
   ],
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "resource"
   ],
   "main": "src/index.ts",
   "peerDependencies": {

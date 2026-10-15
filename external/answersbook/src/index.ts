@@ -1,5 +1,5 @@
 import type { Context } from "koishi";
-import { h, Random, Schema } from "koishi";
+import { Random, Schema } from "koishi";
 
 import answers from "../resource/answers.json";
 export const name = "answersbook";
@@ -19,6 +19,7 @@ export function apply(ctx: Context) {
     if (question.trim() === "答案之书") {
       return "答案之书的答案，真是一个有趣的问题";
     }
-    return h.quote(session.messageId) + Random.pick(answers);
+    // 不引用/复述用户的问题：QQ 会把带敏感词的引用算成机器人的“违规发言”
+    return Random.pick(answers);
   });
 }
